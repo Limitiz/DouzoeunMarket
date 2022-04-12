@@ -3,21 +3,21 @@
 
 # 💡 Github-Flow
 
-## 👉 1. 조직 Repository 생성 및 로컬 연결
+## 👀 1. 조직 Repository 생성 및 로컬 연결
 >- 각 팀원의 깃허브 계정 이메일로 레파지토리에 초대 
 >- 각 팀원들은 레파지토리를 각 개인의 레파지토리에 포크
 1. 로컬레포지토리 생성</br>```git init```
 2. 포크한 레파지토리를 로컬과 연결</br>```git remote add 별칭 원격레포주소```</br>보통 별칭을 origin이라고 한다.
 3. 포크해온 레파지토리 브랜치명을 master 에서 main 으로 변경</br>- ```git branch -m main```
 4. 포크해온 레파지토리 내용을 pull</br>```git pull 별칭 main```
-## 👉 2. 조직 Repository 반영
+## 👀 2. 조직 Repository 반영
 >- 각 개인의 깃허브에 반영한 커밋&푸시 사항들을 PullRequest를 통해 조직 레파지토리에 반영
 1. 변경사항을 add로 담아주기</br>```git add 별칭 브랜치명```
 2. 커밋하기 </br> ```git commit -m "commit message"```
 3. 개인 레파지토리에 반영</br>```git push 별칭 브랜치명```
 4. 조직 레파지토리에 반영</br>```pull request```
 5. 이상이 없으면 merge, Confilct 발생시 해결하고 merge
-## 👉 3. 다른 팀원이 1,2 번을 수행했을 경우를 대비해 항상 변경사항을 로컬에 반영해줘야합니다.
+## 👀 3. 다른 팀원이 1,2 번을 수행했을 경우를 대비해 항상 변경사항을 로컬에 반영해줘야합니다.
 1. 포크해온 개인 레포에서 ```fetch upstream```을 수행
 2. 이후 pull 을 통해 로컬에 반영</br> ```git pull 별칭 main```
 
