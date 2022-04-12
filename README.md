@@ -11,11 +11,12 @@
 > - 각 팀원의 깃허브 계정 이메일로 레파지토리에 초대
 > - 각 팀원들은 레파지토리를 각 개인의 레파지토리에 포크
 
-1. 로컬레포지토리 생성 `git init`
-2. 포크한 레파지토리를 로컬과 연결 `git remote add 별칭 원격레포주소`
+1. 로컬레포지토리 생성 
+   > `git init`
+3. 포크한 레파지토리를 로컬과 연결 `git remote add 별칭 원격레포주소`
    > 보통 별칭을 origin이라고 한다.
-3. 포크해온 레파지토리 브랜치명을 master 에서 main 으로 변경 `git branch -m main`
-4. 포크해온 레파지토리 내용을 pull `git pull 별칭 main`
+4. 포크해온 레파지토리 브랜치명을 master 에서 main 으로 변경 `git branch -m main`
+5. 포크해온 레파지토리 내용을 pull `git pull 별칭 main`
 
 ### 2. 조직 Repository 반영 👀
 
