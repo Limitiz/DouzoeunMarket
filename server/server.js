@@ -2,6 +2,7 @@ import cors from 'cors';
 import express from 'express';
 import mysql from 'mysql';
 import fs from 'fs';
+import mybatisMapper from 'mybatis-mapper';
 const app = express();
 const port = process.env.PORT || 8000;
 
