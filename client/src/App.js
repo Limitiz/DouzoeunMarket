@@ -4,8 +4,8 @@ import { useEffect } from "react";
 import Footer from './components/Footer';
 
 function App() {
-  const callApi = async () =>{
-    axios.get("http://localhost:8000").then(res => console.log(res.data.name));
+  const callApi = () =>{
+    axios.get("http://localhost:8000").then(res => console.log(res.data));
   };
 
   useEffect(() => {
