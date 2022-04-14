@@ -1,6 +1,7 @@
 import './App.css';
 import axios from "axios";
 import { useEffect } from "react";
+import Footer from './components/Footer';
 
 function App() {
   const callApi = async () =>{
@@ -12,7 +13,11 @@ function App() {
   }, []);
 
   return (
-    <div>test</div>
+    <>
+      <div>test</div>
+      <Footer />
+    </>
+    
   );
 }
 
