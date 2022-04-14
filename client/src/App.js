@@ -1,6 +1,7 @@
 import './App.css';
 import axios from "axios";
 import { useEffect } from "react";
+import Header from './components/Header';
 import Footer from './components/Footer';
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
   return (
     <>
       <div>test</div>
+      <Header />
       <Footer />
     </>
     
