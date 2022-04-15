@@ -2,13 +2,11 @@ import cors from 'cors';
 import express from 'express';
 import mysql from 'mysql';
 import fs from 'fs';
-import mybatisMapper from 'mybatis-mapper';
 const app = express();
 const port = process.env.PORT || 8000;
 
 app.use(express.json());
 app.use(cors());
-
 
 const data = fs.readFileSync('./database.json');
 const conf = JSON.parse(data);
@@ -21,7 +19,6 @@ const conn = mysql.createConnection({
     port: conf.port,
     database: conf.database
 }, function(err, conn){
-
     if(err){
         console.log('접속실패 : ', err);
         return;
@@ -32,11 +29,12 @@ conn.connect();
 
 
 //홈화면에 user가 출력되는지 확인
-app.get("/", (req, res)=>{
+app.get("/main", (req, res)=>{
     conn.query(
-         "select * from user",
+         "select p.idx, p.title, p.price, i.imgUrl from product p, productImg i where p.idx=i.idx;",
          (err, rows, fields) => {
-             res.send(rows);
+             console.log(rows);
+             res.json(rows);
          }
     );
  });

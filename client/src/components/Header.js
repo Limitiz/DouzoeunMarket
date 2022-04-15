@@ -6,11 +6,11 @@ const Header = () => {
       <header>
           <div className="logo-container">
               <img src="logo.png" alt="douzoeunLogo" className='logo'></img>
-              <div className='theme'>더 좋은 마켓</div>
+              <div className='theme'>Dou-Zoeun 마켓</div>
           </div>
           <div className='search-container'>
               <input className='searchBox' type="text" />
-              <i class="fa-solid fa-magnifying-glass"></i>
+              <i className="fa-solid fa-magnifying-glass"></i>
           </div>
           <div className='menu-container'>
               <div>판매하기</div><span className='vertical-line2'></span>
