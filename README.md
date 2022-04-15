@@ -53,5 +53,4 @@ ex) feat/Login
 
 ex) feat/Login : 로그인 기능 추가
 ex) fix/Login : 소셜 연동 실패 원인 제거
-
 ❗❗**Master 브랜치로 merge하기전에 PR올려서 검토받기**❗❗
