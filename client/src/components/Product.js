@@ -6,13 +6,13 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
 const Product = () => {
-  const base_url = process.env.REACT_APP_BASE_URL;
+  const [page, setPage] = useState(1);
   const [cards, setCards] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${base_url}/main`);
+        const response = await axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/product?page=${page}`);
         setCards(response.data);
       } catch (e) {
         console.log(e);
@@ -25,7 +25,7 @@ const Product = () => {
     <div>
       <Row style={{ marginLeft: "5%" }}>
         {cards.map((deliver) => (
-          <Col sm={3}>
+          <Col sm={12} key={deliver.idx}>
             <Card style={{ width: "18rem", marginBottom: "2rem" }}>
               <Card.Body>
                 <Card.Title>
