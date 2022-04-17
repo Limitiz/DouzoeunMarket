@@ -14,7 +14,6 @@ app.use(cors());
 app.use("/login", MainRouter);
 app.use("/product", product);
 
-
 const data = fs.readFileSync("./database.json");
 
 const conf = JSON.parse(data);
