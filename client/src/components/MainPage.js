@@ -1,16 +1,15 @@
-import React from 'react';
-import ControlledCarousel from './ControlledCarousel';
-import Product from './Product';
+import React from "react";
+import ControlledCarousel from "./ControlledCarousel";
+import Product from "./Product";
 
 const MainPage = () => {
-    return(
-        <>
-            <ControlledCarousel />
-            <br />
-            <Product />
-        </>
-    )
-
-}
+  return (
+    <div>
+      <ControlledCarousel />
+      <br />
+      <Product />
+    </div>
+  );
+};
 
 export default MainPage;
