@@ -8,28 +8,29 @@
 
   img {
     margin-left: 15px;
-    width: 69px;
+    width: 30px;
     border-radius: 44px;
     float: left;
     margin-right: 35px;
   }
   p {
+    font-size: 12px;
     font-style: italic;
     color: rgb(148, 148, 148);
   }
   label {
-    font-size: small;
+    font-size: 10px;
     color: rgb(184, 184, 184);
   }
   hr {
     color: rgb(184, 184, 184);
   }
   Button {
-    font-size: large;
-    padding: 20px;
+    font-size: 12px;
+    padding: 0px;
     width: 300px;
     float: left;
-    height: 74px;
+    height: 30px;
     border-radius: 10px;
     background: none;
     color: black;
@@ -63,7 +64,8 @@
     padding-left: 187px;
     margin-bottom: 23px;
     img {
-      width: 90px;
+      margin-top: -20px;
+      width: 50px;
     }
   }
 }

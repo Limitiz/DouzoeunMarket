@@ -20,7 +20,9 @@ function App() {
       {/* <a href={`${base_url}/login`}>로그인하러가기</a> */}
       <Header />
       <br />
-      <MainPage />
+      <div className="main">
+        <MainPage />
+      </div>
       <Footer />
     </div>
   );

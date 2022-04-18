@@ -18,9 +18,9 @@ const Login = (props) => {
               <div className="logo">
                 <img src="logo.png" />
               </div>
-              <h3>
+              <h5>
                 더 조은 마켓으로 1:1 거래 시작하기 <br />
-              </h3>
+              </h5>
               <p>간편하게 가입하고 상품을 확인하세요</p>
             </Row>
             <hr />
