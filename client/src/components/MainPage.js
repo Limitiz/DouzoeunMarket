@@ -3,10 +3,9 @@ import ControlledCarousel from "./ControlledCarousel";
 import Product from "./Product";
 import "./Main.scss";
 
-
 const MainPage = () => {
   return (
-    <div>
+    <div className="main">
       <ControlledCarousel />
       <br />
       <Product />
