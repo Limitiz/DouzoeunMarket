@@ -1,0 +1,72 @@
+.ModalHead {
+  border-bottom: none !important;
+  background-color: rgb(227, 247, 254);
+}
+.ModalBody {
+  text-align: center;
+  background-color: rgb(227, 247, 254);
+
+  img {
+    margin-left: 15px;
+    width: 69px;
+    border-radius: 44px;
+    float: left;
+    margin-right: 35px;
+  }
+  p {
+    font-style: italic;
+    color: rgb(148, 148, 148);
+  }
+  label {
+    font-size: small;
+    color: rgb(184, 184, 184);
+  }
+  hr {
+    color: rgb(184, 184, 184);
+  }
+  Button {
+    font-size: large;
+    padding: 20px;
+    width: 300px;
+    float: left;
+    height: 74px;
+    border-radius: 10px;
+    background: none;
+    color: black;
+  }
+  .kakao {
+    border-color: #fae100;
+    border-width: 2px;
+    &:hover {
+      background: #fae100;
+      border-color: #fae100;
+    }
+  }
+  .naver {
+    border-color: #19ce60;
+    border-width: 2px;
+    &:hover {
+      background: #19ce60;
+      border-color: #19ce60;
+      color: black;
+    }
+  }
+  .google {
+    border-color: #bfbfbf;
+    border-width: 2px;
+    &:hover {
+      background: #eeeeee;
+      border-color: #eeeeee;
+    }
+  }
+  .logo {
+    padding-left: 187px;
+    margin-bottom: 23px;
+    img {
+      width: 90px;
+    }
+  }
+}
+.ModalFoot {
+  background-color: rgb(227, 247, 254);
+}
