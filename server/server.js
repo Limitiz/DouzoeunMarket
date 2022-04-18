@@ -5,6 +5,7 @@ import fs from "fs";
 import MainRouter from "./Routers/MainRouter.js";
 import product from "./Routers/product.js";
 import env from "dotenv";
+// import conn from "./db.js";
 env.config();
 const app = express();
 const port = process.env.PORT || 8000;

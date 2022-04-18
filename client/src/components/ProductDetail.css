@@ -1,0 +1,43 @@
+.Container {
+  margin-bottom: 20px;
+}
+
+.categoryBox {
+  display: flex;
+  margin-left: 25px;
+  margin-top: 30px;
+  font-size: 15px;
+}
+
+.home {
+  margin-left: 10px;
+}
+
+.productContainer {
+  display: flex;
+  justify-content: space-around;
+}
+
+.productImage {
+  width: 350px;
+  height: 350px;
+}
+
+.pTitle {
+  font-size: 40px;
+  font-weight: 800;
+}
+
+.pPrice {
+  font-size: 25px;
+}
+
+.productState {
+  color: gray;
+  margin-bottom: 5px;
+}
+
+.state {
+  margin-left: 20px;
+  color: black;
+}

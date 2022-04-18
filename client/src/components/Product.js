@@ -12,7 +12,9 @@ const Product = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/product?page=${page}`);
+        const response = await axios.get(
+          `${process.env.REACT_APP_SERVER_BASE_URL}/product?page=${page}`
+        );
         setCards(response.data);
       } catch (e) {
         console.log(e);
