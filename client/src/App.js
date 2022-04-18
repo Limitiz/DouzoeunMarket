@@ -1,4 +1,3 @@
-import "./App.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Header from "./components/Header";
@@ -6,15 +5,10 @@ import Footer from "./components/Footer";
 import MainPage from "./components/MainPage";
 import { Route, Routes } from "react-router-dom";
 import ProductDetail from "./components/ProductDetail";
+import MyPage from './components/MyPage';
+
 function App() {
   const base_url = process.env.REACT_APP_BASE_URL;
-  // const callApi = () => {
-  //   axios.get(`${base_url}/main`).then((res) => console.log(res.data));
-  // };
-
-  // useEffect(() => {
-  //   callApi();
-  // }, []);
 
   return (
 
@@ -25,6 +19,7 @@ function App() {
         <br /> */}
         <Route path="/" element={<MainPage />} />
         <Route path="/:id" element={<ProductDetail />} />
+          <Route path="/shop" element={<MyPage/>}/>
       </Routes>
       <Footer />
     </>
