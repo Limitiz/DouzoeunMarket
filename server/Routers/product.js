@@ -51,10 +51,8 @@ product.get("/", (req, res) => {
 // get("id") -> localhost:8000/product/id로만 접근
 product.get("/:id", (req, res) => {
   const { id } = req.params;
-  console.log(id);
-
   conn.query(
-    `select p.idx, p.title, p.price, p.content, c.name, i.imgUrl from product p, productImg i, category c where p.idx=i.idx AND p.categoryID=c.idx AND p.idx = ${id}  `,
+    `select p.idx, p.title, p.price, p.content, c.name, i.imgUrl from product p, productImg i, category c where p.idx=i.idx AND p.categoryID=c.idx AND p.idx = ${id}`,
     (err, rows, fields) => {
       res.json(rows);
     }

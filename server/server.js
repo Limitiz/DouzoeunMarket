@@ -15,13 +15,11 @@ const port = process.env.PORT;
 app.use("/auth", LoginRouter);
 app.use("/main", MainRouter);
 
-
 app.use(express.json());
 app.use(cors());
 
 app.use("/login", MainRouter);
 app.use("/product", product);
-
 
 app.get("/category", (req, res) => {
   conn.query(
@@ -32,7 +30,5 @@ app.get("/category", (req, res) => {
     }
   );
 });
-
-
 
 app.listen(port, () => console.log(`server is running on ${port}`));
