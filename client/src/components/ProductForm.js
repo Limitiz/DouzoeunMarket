@@ -99,10 +99,6 @@ function ProductForm(){
           />
         </FloatingLabel>
       </Form.Group>
-      <Form.Group className="mb-3" controlId="form9">
-        <Form.Label>수량</Form.Label>
-        <Form.Control type="text" placeholder="Enter email" value='1' />
-      </Form.Group>
       <Button variant="primary" type="submit">
         등록
       </Button>
