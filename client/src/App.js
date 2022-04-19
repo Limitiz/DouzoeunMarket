@@ -14,13 +14,15 @@ function App() {
 
     <>
       <Header />
-      <Routes>
-        {/* <a href={`${base_url}/login`}>로그인하러가기</a>
-        <br /> */}
-        <Route path="/" element={<MainPage />} />
-        <Route path="/:id" element={<ProductDetail />} />
+
+        <Routes>
+          {/* <a href={`${base_url}/login`}>로그인하러가기</a>
+          <br /> */}
+          <Route path="/" element={<MainPage />} />
+          <Route path="/:id" element={<ProductDetail />} />
           <Route path="/shop" element={<MyPage/>}/>
-      </Routes>
+        </Routes>
+
       <Footer />
     </>
   );

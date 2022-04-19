@@ -1,26 +1,28 @@
 import cors from "cors";
 import express from "express";
-import mysql from "mysql";
-import fs from "fs";
 import MainRouter from "./Routers/MainRouter.js";
 import product from "./Routers/product.js";
 import LoginRouter from "./Routers/LoginRouter.js";
 import env from "dotenv";
+import db from './models/db.js';
+
 env.config();
+
 const app = express();
-const port = process.env.PORT;
+
+app.use(express.json());
+app.use(cors());
+
+const port = process.env.PORT || 8000;
+
 
 //라우팅
 app.use("/auth", LoginRouter);
 app.use("/main", MainRouter);
 
 
-app.use(express.json());
-app.use(cors());
-
 app.use("/login", MainRouter);
 app.use("/product", product);
-
 
 app.get("/category", (req, res) => {
   conn.query(
@@ -32,6 +34,8 @@ app.get("/category", (req, res) => {
   );
 });
 
-
-
-app.listen(port, () => console.log(`server is running on ${port}`));
+//db 자동 연결
+db.sequelize.sync({force:false}) //true이면 매번 테이블 새로 생성
+.then(() => {
+  app.listen(port, () => console.log(`server is running on ${port}`));
+});
