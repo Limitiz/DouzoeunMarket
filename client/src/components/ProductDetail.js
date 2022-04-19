@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { Tabs, Tab } from "react-bootstrap";
-import Button from "./Button";
+import { Button } from "react-bootstrap";
+import Location from "./Location";
 import "./ProductDetail.css";
 
 function ProductDetail() {
@@ -15,6 +16,7 @@ function ProductDetail() {
         const data = await axios.get(
           `${process.env.REACT_APP_SERVER_BASE_URL}/product/${id}`
         );
+        console.log(data.data);
         setProduct(data.data[0]);
       } catch (e) {
         console.log(e);
@@ -22,6 +24,17 @@ function ProductDetail() {
     };
     fetchProduct();
   }, [id]);
+
+  const postProduct = async () => {
+    try {
+      await axios.post(
+        `${process.env.REACT_APP_SERVER_BASE_URL}/product/postid`,
+        { idx: id }
+      );
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   return (
     <div className="productDetail">
@@ -34,7 +47,7 @@ function ProductDetail() {
           <i className="fa-solid fa-arrow-right"></i>
           <p className="categoryItem">{product.name}</p>
         </div>
-        <hr style={{ border: 0, height: "2px" }} />
+        <hr style={{ marginTop: "-5px", border: 0, height: "1px" }} />
         <div className="productContainer">
           <img src={product.imgUrl} alt="thumbnail" className="productImage" />
           <div>
@@ -54,13 +67,21 @@ function ProductDetail() {
                 <span className="state">전국</span>
               </li>
             </ul>
-            <Button>찜하기</Button>
+            &nbsp;&nbsp;
+            <Button
+              onClick={() => {
+                postProduct();
+              }}
+              variant="secondary"
+            >
+              찜하기
+            </Button>{" "}
           </div>
         </div>
       </div>
       <Tabs defaultActiveKey="MyProduct" className="mb-5">
-        <Tab eventKey="MyProduct" title={`상품 정보`}>
-          <span>상품 정보</span>
+        <Tab eventKey="MyProduct" title={`거래 지역`}>
+          <Location />
         </Tab>
         <Tab eventKey="MyFavorite" title={`상품 문의`}>
           <span>상품 문의</span>

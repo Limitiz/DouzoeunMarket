@@ -46,3 +46,8 @@
   margin-left: 20px;
   color: black;
 }
+
+.productImage {
+  width: 200px;
+  height: 250px;
+}

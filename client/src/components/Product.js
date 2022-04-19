@@ -1,39 +1,36 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { useInView } from "react-intersection-observer";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import Card from "react-bootstrap/Card";
 import axios from "axios";
 import ProductItem from "./ProductItem";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import useFetch from "../hooks/useFetch";
 
 const Product = () => {
-  const [cards, setCards] = useState([]);
   const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(false);
+  const { loading, error, list } = useFetch(page);
+  const loader = useRef(null);
 
-  const [ref, inView] = useInView();
-
-  const fetchData = useCallback(async () => {
-    setLoading(true);
-    await axios
-      .get(`${process.env.REACT_APP_SERVER_BASE_URL}/product?page=${page}`)
-      .then((res) => {
-        //console.log(res.data);
-        setCards((prevState) => [...prevState, ...res.data]);
-      });
-    setLoading(false);
-  }, [page]);
+  const handleObserver = useCallback((entries) => {
+    const target = entries[0];
+    console.log(target);
+    if (target.isIntersecting) {
+      setPage((prev) => prev + 1);
+    }
+  }, []);
 
   useEffect(() => {
-    fetchData();
-  }, [fetchData]);
+    const option = {
+      root: null,
+      rootMargin: "20px",
+      threshold: 0,
+    };
+
+    const observer = new IntersectionObserver(handleObserver, option);
+    if (loader.current) observer.observe(loader.current);
+  }, [handleObserver]);
 
   // 마지막 페이지를 보고 있고 로딩중이 아니라면
-  useEffect(() => {
-    if (inView && !loading) {
-      setPage((prevState) => prevState + 1);
-    }
-  }, [inView, loading]);
 
   // useEffect(() => {
   //   const fetchData = async () => {
@@ -51,27 +48,24 @@ const Product = () => {
 
   return (
     <div>
-      <Row style={{ marginLeft: "5%" }}>
-        {cards.map((deliver) => (
-          <Col sm={12} key={deliver.idx}>
-            <Card style={{ width: "18rem", marginBottom: "2rem" }}>
+      <Row>
+        {list.map((deliver) => (
+          <Col sm={3} key={deliver.idx}>
+            <Card
+              style={{ width: "10rem", height: "15rem", marginBottom: "2rem" }}
+            >
               <Card.Body>
                 <Card.Title>
-                  {cards.length === deliver.idx ? (
-                    <ProductItem
-                      key={deliver.idx}
-                      deliver={deliver}
-                      ref={ref}
-                    />
-                  ) : (
-                    <ProductItem key={deliver.idx} deliver={deliver} />
-                  )}
+                  <ProductItem deliver={deliver} />
                 </Card.Title>
               </Card.Body>
             </Card>
           </Col>
         ))}
       </Row>
+      {loading && <p>Loading...</p>}
+      {error && <p>Error!</p>}
+      <div ref={loader} />
     </div>
   );
 };

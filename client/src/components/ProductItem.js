@@ -5,18 +5,18 @@ import { Link } from "react-router-dom";
 const Container = styled.div`
   .thumbnail {
     img {
-      width: 15rem;
-      height: 15rem;
+      width: 8rem;
+      height: 8rem;
       margin: 0;
       margin-bottom: 1rem;
     }
   }
   .title {
-    font-size: 18px;
+    font-size: 16px;
   }
   .price_origin {
     color: gray;
-    font-size: 15px;
+    font-size: 13px;
   }
 `;
 
