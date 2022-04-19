@@ -1,9 +1,13 @@
-module.exports = (sequelize, DataTypes) => {
+import DataTypes from 'sequelize';
+import sequelize from './sq.js';
+import User from './User.js';
+import Product from './Product.js';
+import ChatMessage from './ChatMessage.js';
 
-    const ChatRoom = sequelize.define("ChatRoom", {
+const ChatRoom = sequelize.define("ChatRoom", {
         idx: {
-            type: DataTypes.UUID,
-            defaultValue: DataTypes.UUIDV4,
+            type: DataTypes.INTEGER,
+            autoIncrement: true,
             primaryKey: true,
         }
     }, 
@@ -12,17 +16,16 @@ module.exports = (sequelize, DataTypes) => {
     {
         charset: "utf8", 
         collate: "utf8_general_ci", 
-        tableName: "Users", 
+        tableName: "ChatRoom", 
         timestamps: true, 
         paranoid: true, 
     });
 
-    ChatRoom.associate = models => {
-        ChatRoom.hasOne(models.User, {foreignKey: "seller", sourceKey:"idx"});
-        ChatRoom.hasOne(models.User, {foreignKey:"buyer", sourceKey:"idx"});
-        ChatRoom.hasOne(models.Product, {foreignKey:"prodcutId", sourceKey:"idx"});
-        ChatRoom.belongsTo(models.ChatMessage, {foreignKey:"roomId", sourceKey:"idx"});
+    ChatRoom.associate = () => {
+        ChatRoom.belongsTo(User, {foreignKey: "seller", sourceKey:"idx"});
+        ChatRoom.belongsTo(User, {foreignKey:"buyer", sourceKey:"idx"});
+        ChatRoom.belongsTo(Product, {foreignKey:"prodcutId", sourceKey:"idx"});
+        ChatRoom.hasMany(ChatMessage, {foreignKey:"roomId", sourceKey:"idx"});
     }
 
-    return ChatRoom;
-};
+export default ChatRoom;

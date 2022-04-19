@@ -1,26 +1,21 @@
-module.exports = (sequelize, DataTypes) => {
+import sequelize from './sq.js';
+import Product from './Product.js';
+import User from './User.js';
 
-    const Favorite = sequelize.define("Favorite", {
-        idx: {
-            type: DataTypes.UUID,
-            defaultValue: DataTypes.UUIDV4,
-            primaryKey: true,
-        }
-    }, 
-    
+    const Favorite = sequelize.define("Favorite", {},
     //Model 옵션 정의
     {
         charset: "utf8", 
         collate: "utf8_general_ci", 
-        tableName: "Users", 
+        tableName: "Favorite", 
         timestamps: false, 
         paranoid: true, 
     });
 
-    Favorite.associate = models => {
-        Favorite.hasOne(models.Product, {foreignKey: "productId", sourceKey:"idx"});
-        Favorite.hasOne(models.User, {foreignKey:"userId", sourceKey:"idx"});
+    Favorite.associate = () => {
+        Favorite.belongsTo(Product, {foreignKey: "productId", sourceKey:"idx", primaryKey:true});
+        Favorite.belongsTo(User, {foreignKey:"userId", sourceKey:"idx"});
    }
 
-    return Favorite;
-};
+
+export default Favorite;

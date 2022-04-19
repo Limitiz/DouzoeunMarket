@@ -1,9 +1,16 @@
-module.exports = (sequelize, DataTypes) => {
+import DataTypes from 'sequelize';
+import sequelize from './sq.js';
+import User from './User.js';
+import ProductImg from './ProductImg.js';
+import ChatRoom from './ChatRoom.js';
+import Category from './Category.js';
+import Favorite from './Favorite.js';
 
-    const Product = sequelize.define("Product", {
+
+const Product = sequelize.define("Product", {
         idx: {
-            type: DataTypes.UUID,
-            defaultValue: DataTypes.UUIDV4,
+            type: DataTypes.INTEGER,
+            autoIncrement: true,
             primaryKey: true,
         },
         status: {
@@ -14,10 +21,16 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING(20)
         },
         price: {
-            type: DataTypes.INT,
+            type: DataTypes.INTEGER,
         },
         content: {
-            type: DataTypes.TEXT
+            type: DataTypes.STRING(2000)
+        },
+        locationX:{
+            type: DataTypes.STRING
+        },
+        locationY:{
+            type:DataTypes.STRING
         }
     }, 
     
@@ -25,18 +38,17 @@ module.exports = (sequelize, DataTypes) => {
     {
         charset: "utf8", 
         collate: "utf8_general_ci", 
-        tableName: "Users", 
+        tableName: "Product", 
         timestamps: true, 
         paranoid: true, 
     });
 
-    Product.associate = models => {
-        Product.hasOne(models.User, {foreignKey: "seller", sourceKey:"idx"});
-        Product.belongsTo(models.ProductImg, {foreignKey:"productId", sourceKey:"idx"});
-        Product.hasOne(models.Category, {foreignKey:"categoryId", sourceKey:"idx"});
-        Product.belongsTo(models.Favorite, {foreignKey:"productId", sourceKey:"idx"});
-        Product.belongsTo(models.ChatRoom, {foreignKey:"productId", sourceKey:"idx"});
+    Product.associate = () => {
+        Product.belongsTo(User, {foreignKey: "seller", sourceKey:"idx"});
+        Product.hasMany(ProductImg, {foreignKey:"productId", sourceKey:"idx"});
+        Product.belongsTo(Category, {foreignKey:"categoryId", sourceKey:"idx"});
+        Product.hasOne(Favorite, {foreignKey:"productId", sourceKey:"idx"});
+        Product.hasOne(ChatRoom, {foreignKey:"productId", sourceKey:"idx"});
     }
 
-    return Product;
-};
+export default Product;

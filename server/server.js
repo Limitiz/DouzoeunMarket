@@ -4,10 +4,15 @@ import MainRouter from "./Routers/MainRouter.js";
 import product from "./Routers/product.js";
 import LoginRouter from "./Routers/LoginRouter.js";
 import env from "dotenv";
+import db from './models/db.js';
 
 env.config();
 
 const app = express();
+
+app.use(express.json());
+app.use(cors());
+
 const port = process.env.PORT || 8000;
 
 
@@ -16,17 +21,8 @@ app.use("/auth", LoginRouter);
 app.use("/main", MainRouter);
 
 
-app.use(express.json());
-app.use(cors());
-
 app.use("/login", MainRouter);
 app.use("/product", product);
-
-
-//db 연결
-var sequelize = require('./models').sequelize; //mysql 시퀄라이저 모델
-sequelize.sync(); //서버가 실행될때 시퀄라이저의 스키마를 DB에 적용
-
 
 app.get("/category", (req, res) => {
   conn.query(
@@ -38,4 +34,8 @@ app.get("/category", (req, res) => {
   );
 });
 
-app.listen(port, () => console.log(`server is running on ${port}`));
+//db 자동 연결
+db.sequelize.sync({force:false}) //true이면 매번 테이블 새로 생성
+.then(() => {
+  app.listen(port, () => console.log(`server is running on ${port}`));
+});

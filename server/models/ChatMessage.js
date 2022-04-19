@@ -1,16 +1,19 @@
-module.exports = (sequelize, DataTypes) => {
+import DataTypes from 'sequelize';
+import sequelize from './sq.js';
+import ChatRoom from './ChatRoom.js';
+import User from './User.js';
 
-    const ChatMessage = sequelize.define("ChatMessage", {
+const ChatMessage = sequelize.define("ChatMessage", {
         idx: {
-            type: DataTypes.UUID,
-            defaultValue: DataTypes.UUIDV4,
+            type: DataTypes.INTEGER,
+            autoIncrement: true,
             primaryKey: true,
         },
         message:{
             type: DataTypes.TEXT
         },
         status:{
-            typs: DataTypes.STRING(1),
+            type: DataTypes.STRING(1),
             defaultValue: "N"
         }
 
@@ -27,10 +30,9 @@ module.exports = (sequelize, DataTypes) => {
         paranoid: true, 
     });
 
-    ChatMessage.associate = models => {
-        ChatMessage.hasMany(models.ChatRoom, {foreignKey: "roomId", sourceKey:"idx"});
-        ChatMessage.belongsTo(models.User, {foreignKey:"sender", sourceKey:"idx"});
+    ChatMessage.associate = () => {
+        ChatMessage.belongsTo(ChatRoom, {foreignKey: "roomId", sourceKey:"idx"});
+        ChatMessage.belongsTo(User, {foreignKey:"sender", sourceKey:"idx"});
     }
 
-    return ChatRoom;
-};
+export default ChatMessage;

@@ -1,9 +1,12 @@
-module.exports = (sequelize, DataTypes) => {
+import DataTypes from 'sequelize';
+import sequelize from './sq.js';
+import User from './User.js';
+import Product from './Product.js';
 
-    const Comment = sequelize.define("Comment", {
+const Comment = sequelize.define("Comment", {
         idx: {
-            type: DataTypes.UUID,
-            defaultValue: DataTypes.UUIDV4,
+            type: DataTypes.INTEGER,
+            autoIncrement: true,
             primaryKey: true,
         },
         content:{
@@ -15,16 +18,15 @@ module.exports = (sequelize, DataTypes) => {
     {
         charset: "utf8", 
         collate: "utf8_general_ci", 
-        tableName: "Users", 
+        tableName: "Comment", 
         timestamps: false, 
         paranoid: true, 
     });
 
-    Comment.associate = models => {
-        Comment.hasOne(models.User, {foreignKey: "reciever", sourceKey:"idx"});
-        Comment.hasOne(models.User, {foreignKey: "writer", sourceKey:"idx"});
-        Comment.hasOne(models.Product, {foreignKey: "productId", sourceKey:"idx"});
+    Comment.associate = () => {
+        Comment.belongsTo(User, {foreignKey: "reciever", sourceKey:"idx"});
+        Comment.belongsTo(User, {foreignKey: "writer", sourceKey:"idx"});
+        Comment.belongsTo(Product, {foreignKey: "productId", sourceKey:"idx"});
     }
 
-    return Comment;
-};
+export default Comment;

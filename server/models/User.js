@@ -1,9 +1,15 @@
-module.exports = (sequelize, DataTypes) => {
+import DataTypes from 'sequelize';
+import sequelize from './sq.js';
+import Product from './Product.js';
+import Comment from './Comment.js';
+import Favorite from './Favorite.js';
+import ChatRoom from './ChatRoom.js';
+import ChatMessage from './ChatMessage.js';
 
-    const ProductImg = sequelize.define("Users", {
+const User = sequelize.define("User", {
         idx: {
-            type: DataTypes.UUID,
-            defaultValue: DataTypes.UUIDV4,
+            type: DataTypes.INTEGER,
+            autoIncrement: true,
             primaryKey: true,
         },
         nickName: {
@@ -13,14 +19,14 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING(13),
         },
         img : {
-            type: DataTypes.img
+            type: DataTypes.STRING(2000)
         },
         rate : {
-            type: DataTypes.DEMICAL(2,1),
+            type: DataTypes.FLOAT(2,1),
             defaultValue: 0.0
         },
         point : {
-            type: DataTypes.INT
+            type: DataTypes.INTEGER
         },
         zipCode: {
             type: DataTypes.CHAR(5)
@@ -33,20 +39,20 @@ module.exports = (sequelize, DataTypes) => {
     {
         charset: "utf8", 
         collate: "utf8_general_ci", 
-        tableName: "Users", 
+        tableName: "User", 
         timestamps: false, 
         paranoid: true, 
+        freezeTableName : true
     });
 
-    User.associate = models => {
-        User.belongsTo(models.Product, {foreignKey:"seller", sourceKey:"idx"});
-        User.belongsTo(models.Comment, {foreignKey:"reciever", sourceKey:"idx"});
-        User.belongsTo(models.Commnet, {foreignKey:"writer", sourceKey:"idx"});
-        User.belongsTo(models.Favorite, {foreignKey:"userId", sourceKey:"idx"});
-        User.belongsTo(models.ChatRoom, {foreignKey:"seller", sourceKey:"idx"});
-        User.belongsTo(models.ChatRoom, {foreignKey:"buyer", sourceKey:"idx"});
-        User.belongsTo(models.ChatMessage, {foreignKey:"sender", sourceKey:"idx"});
+    User.associate = () => {
+        User.hasOne(Product, {foreignKey:"seller", sourceKey:"idx"});
+        User.hasOne(Comment, {foreignKey:"reciever", sourceKey:"idx"});
+        User.hasOne(Comment, {foreignKey:"writer", sourceKey:"idx"});
+        User.hasOne(Favorite, {foreignKey:"userId", sourceKey:"idx"});
+        User.hasOne(ChatRoom, {foreignKey:"seller", sourceKey:"idx"});
+        User.hasOne(ChatRoom, {foreignKey:"buyer", sourceKey:"idx"});
+        User.hasOne(ChatMessage, {foreignKey:"sender", sourceKey:"idx"});
     }
 
-    return Users;
-};
+export default User;

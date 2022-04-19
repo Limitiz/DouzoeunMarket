@@ -1,13 +1,16 @@
-module.exports = (sequelize, DataTypes) => {
+import DataTypes from 'sequelize';
+import sequelize from './sq.js';
+import Product from './Product.js';
 
-    const Category = sequelize.define("Category", {
+const Category = sequelize.define("Category", {
         idx: {
-            type: DataTypes.UUID,
-            defaultValue: DataTypes.UUIDV4,
+            type: DataTypes.INTEGER,
+            autoIncrement: true,
             primaryKey: true,
         },
         name:{
             type: DataTypes.STRING(16),
+            allowNull : false
         }
     }, 
     
@@ -15,15 +18,14 @@ module.exports = (sequelize, DataTypes) => {
     {
         charset: "utf8", 
         collate: "utf8_general_ci", 
-        tableName: "Users", 
+        tableName: "Category", 
         timestamps: false, 
         paranoid: true, 
-    });
+    }
+);
 
-    category.associate = models => {
-        Category.belongsTo(models.Product, {foreignKey: "categoryId", sourceKey:"idx"});
-
+    Category.associate = () => {
+        Category.hasOne(Product, {foreignKey: "categoryId", sourceKey:"idx"});
     }
 
-    return Category;
-};
+export default Category;

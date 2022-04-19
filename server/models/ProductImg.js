@@ -1,6 +1,8 @@
-module.exports = (sequelize, DataTypes) => {
+import DataTypes from 'sequelize';
+import sequelize from './sq.js';
+import Product from './Product.js';
 
-    const ProductImg = sequelize.define("ProductImg", {
+const ProductImg = sequelize.define("ProductImg", {
         idx: {
             type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4,
@@ -15,16 +17,13 @@ module.exports = (sequelize, DataTypes) => {
     {
         charset: "utf8", 
         collate: "utf8_general_ci", 
-        tableName: "Users", 
+        tableName: "ProductImg", 
         timestamps: false, 
         paranoid: true, 
     });
 
-    Product.associate = models => {
-        ProductImg.hasMany(models.Product, {foreignKey: "productId", sourceKey:"idx"});
-
-        
+    ProductImg.associate = () => {
+        ProductImg.belongsTo(Product, {foreignKey: "productId", sourceKey:"idx"});
     }
 
-    return ProductImg;
-};
+export default ProductImg;
