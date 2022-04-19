@@ -7,6 +7,7 @@ import { Route, Routes } from "react-router-dom";
 import ProductDetail from "./components/ProductDetail";
 import MyPage from './components/MyPage';
 import ProductForm from './components/ProductForm';
+import ChangeProductForm from './components/ChangeProductForm';
 
 function App() {
   const base_url = process.env.REACT_APP_BASE_URL;
@@ -22,6 +23,7 @@ function App() {
         <Route path="/:id" element={<ProductDetail />} />
         <Route path="/shop" element={<MyPage/>}/>
         <Route path="/ProductForm" element={<ProductForm/>}/>
+        <Route path="/ChangeProductForm" element={<ChangeProductForm/>}/>
       </Routes>
       <Footer />
     </>
