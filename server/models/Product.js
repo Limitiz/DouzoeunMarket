@@ -39,7 +39,7 @@ const Product = sequelize.define("Product", {
         charset: "utf8", 
         collate: "utf8_general_ci", 
         tableName: "Product", 
-        timestamps: true, 
+        timestamp:true,
         paranoid: true, 
     });
 
