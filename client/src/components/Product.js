@@ -46,6 +46,33 @@ const Product = () => {
   //   fetchData();
   // }, []);
 
+  useEffect(() => {
+    const option = {
+      root: null,
+      rootMargin: "20px",
+      threshold: 0,
+    };
+
+    const observer = new IntersectionObserver(handleObserver, option);
+    if (loader.current) observer.observe(loader.current);
+  }, [handleObserver]);
+
+  // 마지막 페이지를 보고 있고 로딩중이 아니라면
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await axios.get(
+  //         `${process.env.REACT_APP_SERVER_BASE_URL}/product?page=${page}`
+  //       );
+  //       setCards(response.data);
+  //     } catch (e) {
+  //       console.log(e);
+  //     }
+  //   };
+  //   fetchData();
+  // }, []);
+
   return (
     <div>
       <Row>
