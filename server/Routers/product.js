@@ -3,6 +3,7 @@ import mysql from "mysql";
 import Category from "../models/Category.js";
 import Product from "../models/Product.js";
 import ProductImg from "../models/ProductImg.js";
+import Favorite from "../models/Favorite.js";
 
 const product = express.Router();
 
@@ -64,14 +65,11 @@ product.get("/:id", async (req, res) => {
 product.post("/postid", (req, res) => {
   console.log(req.body.idx);
   const id = req.body.idx;
-  conn.query(
-    `insert into favorite(productId, userId) values(${id},1)`,
-    function (err, rows, fields) {
-      if (err) {
-        console.log(err);
-      }
-    }
-  );
+
+  Favorite.create({
+    product: id,
+    userId: 1,
+  });
 });
 
 export default product;
