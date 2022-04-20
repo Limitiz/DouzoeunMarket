@@ -67,7 +67,7 @@ product.post("/postid", (req, res) => {
   const id = req.body.idx;
 
   Favorite.create({
-    product: id,
+    productId: id,
     userId: 1,
   });
 });

@@ -45,8 +45,18 @@ function ProductDetail() {
         <div className="categoryBox">
           <i className="fa-solid fa-house"></i>
           <p className="home">홈</p>
+          &nbsp;
           <i className="fa-solid fa-arrow-right"></i>
-          <p className="categoryItem">카테고리 이름</p>
+          &nbsp;
+          <p className="categoryItem">
+            {product.categoryId === 1
+              ? "남성의류"
+              : product.categoryID === 2
+              ? "여성의류"
+              : product.categoryID === 3
+              ? "남성잡화"
+              : "여성잡화"}
+          </p>
         </div>
         <hr style={{ marginTop: "-5px", border: 0, height: "1px" }} />
         <div className="productContainer">
@@ -82,7 +92,7 @@ function ProductDetail() {
       </div>
       <Tabs defaultActiveKey="MyProduct" className="mb-5">
         <Tab eventKey="MyProduct" title={`거래 지역`}>
-          <Location />
+          <Location deliver={product} />
         </Tab>
         <Tab eventKey="MyFavorite" title={`상품 문의`}>
           <span>상품 문의</span>
