@@ -13,6 +13,7 @@ function useFetch(page) {
       const res = await axios.get(
         `${process.env.REACT_APP_SERVER_BASE_URL}/product?page=${page}`
       );
+      console.log(res.data);
       setList((prev) => [...prev, ...res.data]);
       setLoading(false);
     } catch (err) {

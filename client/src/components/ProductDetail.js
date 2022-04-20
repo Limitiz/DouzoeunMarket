@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { Tabs, Tab } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import Location from "./Location";
+import DetailCarousel from "./DetailCarousel";
 import "./ProductDetail.css";
 
 function ProductDetail() {
@@ -12,12 +13,12 @@ function ProductDetail() {
 
   useEffect(() => {
     const fetchProduct = async () => {
+      console.log("something...");
       try {
-        const data = await axios.get(
+        const res = await axios.get(
           `${process.env.REACT_APP_SERVER_BASE_URL}/product/${id}`
         );
-        console.log(data.data);
-        setProduct(data.data[0]);
+        setProduct(res.data);
       } catch (e) {
         console.log(e);
       }
@@ -45,11 +46,11 @@ function ProductDetail() {
           <i className="fa-solid fa-house"></i>
           <p className="home">홈</p>
           <i className="fa-solid fa-arrow-right"></i>
-          <p className="categoryItem">{product.name}</p>
+          <p className="categoryItem">카테고리 이름</p>
         </div>
         <hr style={{ marginTop: "-5px", border: 0, height: "1px" }} />
         <div className="productContainer">
-          <img src={product.imgUrl} alt="thumbnail" className="productImage" />
+          <DetailCarousel deliver={product} />
           <div>
             <p className="pTitle">{product.title}</p>
             <p className="pPrice">{product.price}원</p>

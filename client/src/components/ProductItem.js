@@ -23,13 +23,13 @@ const Container = styled.div`
 // eslint-disable-next-line react/prop-types
 const ProductItem = ({ deliver }) => {
   // eslint-disable-next-line react/prop-types
-  const { idx, productImgs, title, price } = deliver;
+  const { idx, ProductImgs, title, price } = deliver;
   return (
     <Container>
       <span>
         <div className="thumbnail">
           <Link to={`/${idx}`}>
-            <img src={imgUrl} alt="thumbnail" />
+            <img src={ProductImgs[0].imgUrl} alt="thumbnail" />
           </Link>
         </div>
         <span className="title">{title}</span>
