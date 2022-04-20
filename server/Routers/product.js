@@ -30,10 +30,10 @@ conn.connect();
 
 product.get("/", (req, res) => {
   console.log(req.query.page);
-  const page = (req.query.page - 1) * 5;
+  const page = (req.query.page - 1) * 4;
 
   conn.query(
-    `select p.idx, p.title, p.price, p.categoryID, i.imgUrl from product p, productImg i where p.idx=i.idx limit ${page}, 5`,
+    `select p.idx, p.title, p.price, p.categoryID, i.imgUrl from product p, productImg i where p.idx=i.idx limit ${page}, 4`,
     (err, rows, fields) => {
       res.json(rows);
     }
@@ -51,12 +51,23 @@ product.get("/", (req, res) => {
 // get("id") -> localhost:8000/product/id로만 접근
 product.get("/:id", (req, res) => {
   const { id } = req.params;
-  console.log(id);
-
   conn.query(
-    `select p.idx, p.title, p.price, p.categoryID, i.imgUrl from product p, productImg i where p.idx=i.idx AND p.idx = ${id}  `,
+    `select p.idx, p.title, p.price, p.content, c.name, i.imgUrl from product p, productImg i, category c where p.idx=i.idx AND p.categoryID=c.idx AND p.idx = ${id}`,
     (err, rows, fields) => {
       res.json(rows);
+    }
+  );
+});
+
+product.post("/postid", (req, res) => {
+  console.log(req.body.idx);
+  const id = req.body.idx;
+  conn.query(
+    `insert into favorite(productId, userId) values(${id},1)`,
+    function (err, rows, fields) {
+      if (err) {
+        console.log(err);
+      }
     }
   );
 });

@@ -2,7 +2,6 @@ import React from "react";
 import "./Header.css";
 import Login from "./Login";
 import { useState } from "react";
-import { Button } from "react-bootstrap";
 
 const Header = () => {
   const [modalShow, setModalShow] = useState(false);
