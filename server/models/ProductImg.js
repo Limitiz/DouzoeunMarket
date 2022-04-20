@@ -4,8 +4,8 @@ import Product from './Product.js';
 
 const ProductImg = sequelize.define("ProductImg", {
         idx: {
-            type: DataTypes.UUID,
-            defaultValue: DataTypes.UUIDV4,
+            type: DataTypes.INTEGER,
+            autoIncrement:true,
             primaryKey: true,
         },
         imgUrl:{
