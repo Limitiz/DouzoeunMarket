@@ -1,12 +1,12 @@
 import React from "react";
-import ControlledCarousel from "./ControlledCarousel";
+import MainCarousel from "./MainCarousel";
 import Product from "./Product";
 import "./Main.scss";
 
 const MainPage = () => {
   return (
     <div className="main">
-      <ControlledCarousel />
+      <MainCarousel />
       <br />
       <Product />
     </div>
