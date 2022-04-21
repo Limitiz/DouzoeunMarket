@@ -2,13 +2,12 @@ import cors from "cors";
 import express from "express";
 import session from "express-session";
 import passport from "passport";
-import MainRouter from "./Routers/MainRouter.js";
-import LoginRouter from "./Routers/LoginRouter.js";
-import LogoutRouter from "./Routers/LogoutRouter.js";
 import cookieParser from "cookie-parser";
 import env from "dotenv";
 import ProductRouter from "./Routers/ProductRouter.js";
 import MyPageRouter from "./Routers/MyPageRouter.js";
+import LoginRouter from "./Routers/LoginRouter.js";
+import LogoutRouter from "./Routers/LogoutRouter.js";
 import db from "./models/db.js";
 
 env.config();
@@ -42,7 +41,6 @@ passport.deserializeUser(function (id, done) {
 
 //라우팅
 app.use("/auth", LoginRouter);
-app.use("/main", MainRouter);
 app.use("/logout", LogoutRouter);
 app.use("/product", ProductRouter);
 app.use("/mypage", MyPageRouter);
