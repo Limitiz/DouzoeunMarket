@@ -1,6 +1,7 @@
 import DataTypes from 'sequelize';
 import sequelize from './sq.js';
 import Product from './Product.js';
+import Favorite from "./Favorite.js";
 
 const ProductImg = sequelize.define("ProductImg", {
         idx: {

@@ -1,14 +1,13 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import Card from "react-bootstrap/Card";
-import axios from "axios";
 import ProductItem from "./ProductItem";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import useFetch from "../hooks/useFetch";
 
-const Product = () => {
+const Product = (props) => {
   const [page, setPage] = useState(1);
-  const { loading, error, list } = useFetch(page);
+  const { loading, error, list } = useFetch(page, props.url);
   const loader = useRef(null);
 
   const handleObserver = useCallback((entries) => {
@@ -36,7 +35,7 @@ const Product = () => {
   //   const fetchData = async () => {
   //     try {
   //       const response = await axios.get(
-  //         `${process.env.REACT_APP_SERVER_BASE_URL}/product?page=${page}`
+  //         `${process.env.REACT_APP_SERVER_BASE_URL}/productRouter?page=${page}`
   //       );
   //       setCards(response.data);
   //     } catch (e) {
@@ -63,7 +62,7 @@ const Product = () => {
   //   const fetchData = async () => {
   //     try {
   //       const response = await axios.get(
-  //         `${process.env.REACT_APP_SERVER_BASE_URL}/product?page=${page}`
+  //         `${process.env.REACT_APP_SERVER_BASE_URL}/productRouter?page=${page}`
   //       );
   //       setCards(response.data);
   //     } catch (e) {

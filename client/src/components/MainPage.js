@@ -8,7 +8,7 @@ const MainPage = () => {
     <div className="main">
       <MainCarousel />
       <br />
-      <Product />
+      <Product url="product"/>
     </div>
   );
 };
