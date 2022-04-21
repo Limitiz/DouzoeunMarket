@@ -3,24 +3,24 @@ import "./Location.css";
 
 const { kakao } = window;
 
-const Location = () => {
+const Location = ({ deliver }) => {
+  const { locationX, locationY } = deliver;
+  console.log(locationX);
+
   useEffect(() => {
-    var container = document.getElementById("map");
-    var options = {
-      center: new kakao.maps.LatLng(34.365264512305174, 127.10676860117488),
+    const container = document.getElementById("map");
+    const options = {
+      center: new kakao.maps.LatLng(locationX, locationY),
       level: 3,
     };
 
-    var map = new kakao.maps.Map(container, options);
-    var markerPosition = new kakao.maps.LatLng(
-      37.365264512305174,
-      127.10676860117488
-    );
-    var marker = new kakao.maps.Marker({
+    const map = new kakao.maps.Map(container, options);
+    const markerPosition = new kakao.maps.LatLng(locationX, locationY);
+    const marker = new kakao.maps.Marker({
       position: markerPosition,
     });
     marker.setMap(map);
-  }, []);
+  });
 
   return (
     <div>

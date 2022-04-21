@@ -29,14 +29,41 @@ product.get("/pay", (req, res, next) => {
  */
 
 // get("id") -> localhost:8000/product/id로만 접근
-product.get("/:id", (req, res) => {
-  if (req.user) {
-    const { id } = req.params;
-    const sql = `select p.idx, p.title, p.price, p.categoryID, i.imgUrl from product p, productImg i where p.idx=i.idx AND p.idx = ${id}  `;
-    DBConnect(sql, res);
-  } else {
-    res.redirect("http://localhost:3000/pay");
-  }
+product.get("/:id", async (req, res) => {
+  const { id } = req.params;
+  const data = await Product.findOne({
+    include: [
+      {
+        model: ProductImg,
+        attributes: ["imgUrl"],
+        required: true,
+      },
+      {
+        model: Category,
+        attributes: ["name"],
+        required: true,
+      },
+    ],
+    where: { idx: id },
+  });
+  res.json(data);
+  // conn.query(
+  //   `select p.idx, p.title, p.price, p.content, c.name, i.imgUrl from product p, productImg i, category c where p.idx=i.idx AND p.categoryID=c.idx AND p.idx = ${id}`,
+  //   (err, rows, fields) => {
+  //     res.json(rows);
+  //   }
+  // );
+});
+
+product.post("/postid", (req, res) => {
+  console.log(req.body.idx);
+  const id = req.body.idx;
+
+  Favorite.create({
+    productId: id,
+    userId: 1,
+  });
+
 });
 
 export default product;
