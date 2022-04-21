@@ -1,14 +1,13 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import Card from "react-bootstrap/Card";
-import axios from "axios";
 import ProductItem from "./ProductItem";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import useFetch from "../hooks/useFetch";
 
-const Product = () => {
+const Product = (props) => {
   const [page, setPage] = useState(1);
-  const { loading, error, list } = useFetch(page);
+  const { loading, error, list } = useFetch(page, props.url);
   const loader = useRef(null);
 
   const handleObserver = useCallback((entries) => {
@@ -30,22 +29,6 @@ const Product = () => {
     if (loader.current) observer.observe(loader.current);
   }, [handleObserver]);
 
-  // 마지막 페이지를 보고 있고 로딩중이 아니라면
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await axios.get(
-  //         `${process.env.REACT_APP_SERVER_BASE_URL}/product?page=${page}`
-  //       );
-  //       setCards(response.data);
-  //     } catch (e) {
-  //       console.log(e);
-  //     }
-  //   };
-  //   fetchData();
-  // }, []);
-
   useEffect(() => {
     const option = {
       root: null,
@@ -56,22 +39,6 @@ const Product = () => {
     const observer = new IntersectionObserver(handleObserver, option);
     if (loader.current) observer.observe(loader.current);
   }, [handleObserver]);
-
-  // 마지막 페이지를 보고 있고 로딩중이 아니라면
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await axios.get(
-  //         `${process.env.REACT_APP_SERVER_BASE_URL}/product?page=${page}`
-  //       );
-  //       setCards(response.data);
-  //     } catch (e) {
-  //       console.log(e);
-  //     }
-  //   };
-  //   fetchData();
-  // }, []);
 
   return (
     <div>
