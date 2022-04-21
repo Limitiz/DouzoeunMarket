@@ -1,38 +1,28 @@
 import express from "express";
-import mysql from "mysql";
-import Category from "../models/Category.js";
-import Product from "../models/Product.js";
-import ProductImg from "../models/ProductImg.js";
-import Favorite from "../models/Favorite.js";
 
 const product = express.Router();
 
-product.get("/", async (req, res) => {
-  const page = (req.query.page - 1) * 4;
-  console.log(page);
-  const data = await Product.findAll({
-    include: [
-      {
-        model: ProductImg,
-        attributes: ["imgUrl"],
-        required: true,
-      },
-    ],
-
-    limit: 4,
-    offset: page,
-  });
-
+product.get("/", (req, res) => {
   console.log(req.query.page);
-  res.json(data);
+  const page = (req.query.page - 1) * 5;
+
+  const sql = `select p.idx, p.title, p.price, p.categoryID, i.imgUrl from product p, productImg i where p.idx=i.idx limit ${page}, 5`;
+  DBConnect(sql, res);
+});
+
+product.get("/pay", (req, res, next) => {
+  const isTrue = req.isAuthenticated();
+  console.log(isTrue); //undefined  //true
+  const sql = "select * from common where paysort <= 5 order by 3";
+  DBConnect(sql, res);
 });
 
 // localhost:8000/product/3/man
 /**
  * product.get("/:id/:gender", (req, res) => {
     const { id, gender } = req.params;
- *
- *
+ * 
+ * 
  */
 
 // get("id") -> localhost:8000/product/id로만 접근

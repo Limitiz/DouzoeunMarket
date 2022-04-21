@@ -16,7 +16,7 @@ function ProductDetail() {
     const fetchProduct = async () => {
       try {
         const res = await axios.get(
-          `${process.env.REACT_APP_SERVER_BASE_URL}/product/${id}`
+          `${process.env.REACT_APP_BASE_URL}/product/${id}`
         );
         setProduct(res.data);
         //console.log(res.data.Favorite);
