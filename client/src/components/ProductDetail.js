@@ -9,7 +9,7 @@ function ProductDetail() {
     const fetchProduct = async () => {
       try {
         const data = await axios.get(
-          `${process.env.REACT_APP_SERVER_BASE_URL}/product/${id}`
+          `${process.env.REACT_APP_BASE_URL}/product/${id}`
         );
         setProduct(data.data[0]);
       } catch (e) {

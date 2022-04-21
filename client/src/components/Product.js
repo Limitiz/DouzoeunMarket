@@ -8,11 +8,13 @@ import Col from "react-bootstrap/Col";
 const Product = () => {
   const [page, setPage] = useState(1);
   const [cards, setCards] = useState([]);
-
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/product?page=${page}`);
+        const response = await axios.get(
+          `${process.env.REACT_APP_BASE_URL}/product?page=${page}`
+        );
+        // console.log(response.data);
         setCards(response.data);
       } catch (e) {
         console.log(e);
