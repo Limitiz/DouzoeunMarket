@@ -1,24 +1,52 @@
 import cors from "cors";
 import express from "express";
-import ProductRouter from "./Routers/ProductRouter.js";
+import session from "express-session";
+import passport from "passport";
+import MainRouter from "./Routers/MainRouter.js";
 import LoginRouter from "./Routers/LoginRouter.js";
-import MyPageRouter from "./Routers/MyPageRouter.js";
+import LogoutRouter from "./Routers/LogoutRouter.js";
+import cookieParser from "cookie-parser";
 import env from "dotenv";
+import ProductRouter from "./Routers/ProductRouter.js";
+import MyPageRouter from "./Routers/MyPageRouter.js";
 import db from "./models/db.js";
 
 env.config();
 
 const app = express();
+const port = process.env.PORT;
 
 app.use(express.json());
 app.use(cors());
+app.use(cookieParser());
 
-const port = process.env.PORT || 8000;
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+  })
+);
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.serializeUser(function (user, done) {
+  console.log("passport session save: ", user);
+  done(null, user);
+});
+
+passport.deserializeUser(function (id, done) {
+  console.log("passport session get id: ", id);
+  done(null, id);
+});
 
 //라우팅
 app.use("/auth", LoginRouter);
+app.use("/main", MainRouter);
+app.use("/logout", LogoutRouter);
 app.use("/product", ProductRouter);
 app.use("/mypage", MyPageRouter);
+
 
 app.get("/category", (req, res) => {
   conn.query(

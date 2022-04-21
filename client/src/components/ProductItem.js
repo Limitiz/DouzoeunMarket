@@ -18,6 +18,9 @@ const Container = styled.div`
     color: gray;
     font-size: 13px;
   }
+  .hot {
+    width: 28px;
+  }
 `;
 
 // eslint-disable-next-line react/prop-types
@@ -34,6 +37,10 @@ const ProductItem = ({ deliver }) => {
           </Link>
         </div>
         <span className="title">{title}</span>
+        <img
+          className="hot"
+          src="https://static.wixstatic.com/media/a44461_00e151045404454199cdedcad7c72541~mv2.gif"
+        />
         <br />
         <span className="price_origin">{price}원</span>
       </span>

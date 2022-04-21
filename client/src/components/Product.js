@@ -29,22 +29,6 @@ const Product = (props) => {
     if (loader.current) observer.observe(loader.current);
   }, [handleObserver]);
 
-  // 마지막 페이지를 보고 있고 로딩중이 아니라면
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await axios.get(
-  //         `${process.env.REACT_APP_SERVER_BASE_URL}/productRouter?page=${page}`
-  //       );
-  //       setCards(response.data);
-  //     } catch (e) {
-  //       console.log(e);
-  //     }
-  //   };
-  //   fetchData();
-  // }, []);
-
   useEffect(() => {
     const option = {
       root: null,
@@ -55,22 +39,6 @@ const Product = (props) => {
     const observer = new IntersectionObserver(handleObserver, option);
     if (loader.current) observer.observe(loader.current);
   }, [handleObserver]);
-
-  // 마지막 페이지를 보고 있고 로딩중이 아니라면
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await axios.get(
-  //         `${process.env.REACT_APP_SERVER_BASE_URL}/productRouter?page=${page}`
-  //       );
-  //       setCards(response.data);
-  //     } catch (e) {
-  //       console.log(e);
-  //     }
-  //   };
-  //   fetchData();
-  // }, []);
 
   return (
     <div>
