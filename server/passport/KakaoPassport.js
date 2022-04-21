@@ -16,6 +16,7 @@ const KakaoPassport = () => {
         //console.log(profile);
         console.log(accessToken);
         console.log(profile);
+        //NEEDS DB INSERT 
         const newUser = {
           email: profile._json.kakao_account.email,
           displayName: profile.displayName,

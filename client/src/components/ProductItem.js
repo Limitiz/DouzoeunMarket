@@ -5,18 +5,18 @@ import { Link } from "react-router-dom";
 const Container = styled.div`
   .thumbnail {
     img {
-      width: 15rem;
-      height: 15rem;
+      width: 8rem;
+      height: 8rem;
       margin: 0;
       margin-bottom: 1rem;
     }
   }
   .title {
-    font-size: 18px;
+    font-size: 16px;
   }
   .price_origin {
     color: gray;
-    font-size: 15px;
+    font-size: 13px;
   }
   .hot {
     width: 28px;
@@ -26,13 +26,14 @@ const Container = styled.div`
 // eslint-disable-next-line react/prop-types
 const ProductItem = ({ deliver }) => {
   // eslint-disable-next-line react/prop-types
-  const { idx, imgUrl, title, price } = deliver;
+  const { idx, ProductImgs, title, price } = deliver;
+  console.log(deliver);
   return (
     <Container>
       <span>
         <div className="thumbnail">
           <Link to={`/${idx}`}>
-            <img src={imgUrl} alt="thumbnail" />
+            <img src={ProductImgs[0].imgUrl} alt="thumbnail" />
           </Link>
         </div>
         <span className="title">{title}</span>
