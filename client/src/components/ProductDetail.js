@@ -8,30 +8,38 @@ import DetailCarousel from "./DetailCarousel";
 import "./ProductDetail.css";
 
 function ProductDetail() {
+  const [color, setColor] = useState("secondary");
   const [product, setProduct] = useState({});
   const { id } = useParams();
 
   useEffect(() => {
     const fetchProduct = async () => {
-      console.log("something...");
       try {
         const res = await axios.get(
           `${process.env.REACT_APP_SERVER_BASE_URL}/product/${id}`
         );
         setProduct(res.data);
+        //console.log(res.data.Favorite);
+        // eslint-disable-next-line no-lone-blocks
+        // console.log(product.Favorite.imgId);
+        product.Favorite.imgId !== undefined
+          ? setColor("danger")
+          : setColor("secondary");
       } catch (e) {
         console.log(e);
       }
     };
     fetchProduct();
-  }, [id]);
+  }, []);
 
   const postProduct = async () => {
     try {
-      await axios.post(
+      const res = await axios.post(
         `${process.env.REACT_APP_SERVER_BASE_URL}/product/postid`,
         { idx: id }
       );
+      setColor(res.data);
+      console.log(res.data);
     } catch (e) {
       console.log(e);
     }
@@ -60,12 +68,12 @@ function ProductDetail() {
         </div>
         <hr style={{ marginTop: "-5px", border: 0, height: "1px" }} />
         <div className="productContainer">
-          <DetailCarousel deliver={product} />
+          <div className="carouselwidth">
+            <DetailCarousel deliver={product} />
+          </div>
           <div>
             <p className="pTitle">{product.title}</p>
             <p className="pPrice">{product.price}원</p>
-            <hr />
-            <p className="content">{product.content}</p>
             <hr />
             <ul>
               <li className="productState">
@@ -83,7 +91,7 @@ function ProductDetail() {
               onClick={() => {
                 postProduct();
               }}
-              variant="secondary"
+              variant={color}
             >
               찜하기
             </Button>{" "}
@@ -91,8 +99,16 @@ function ProductDetail() {
         </div>
       </div>
       <Tabs defaultActiveKey="MyProduct" className="mb-5">
-        <Tab eventKey="MyProduct" title={`거래 지역`}>
-          <Location deliver={product} />
+        <Tab eventKey="MyProduct" title={`상품 정보`}>
+          <div className="productContent">
+            <div>
+              <div>{product.content}</div>
+            </div>
+            <span className="vertical-line3" />
+            <div className="productmap">
+              <Location deliver={product} />
+            </div>
+          </div>
         </Tab>
         <Tab eventKey="MyFavorite" title={`상품 문의`}>
           <span>상품 문의</span>

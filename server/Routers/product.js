@@ -39,6 +39,7 @@ product.get("/", async (req, res) => {
 product.get("/:id", async (req, res) => {
   const { id } = req.params;
   const data = await Product.findOne({
+    attributes: ["title", "price", "locationX", "locationY", "content"],
     include: [
       {
         model: ProductImg,
@@ -50,26 +51,35 @@ product.get("/:id", async (req, res) => {
         attributes: ["name"],
         required: true,
       },
+      {
+        model: Favorite,
+        required: false,
+      },
     ],
     where: { idx: id },
   });
-  res.json(data);
-  // conn.query(
-  //   `select p.idx, p.title, p.price, p.content, c.name, i.imgUrl from product p, productImg i, category c where p.idx=i.idx AND p.categoryID=c.idx AND p.idx = ${id}`,
-  //   (err, rows, fields) => {
-  //     res.json(rows);
-  //   }
-  // );
+  res.send(data);
 });
 
-product.post("/postid", (req, res) => {
+product.post("/postid", async (req, res) => {
   console.log(req.body.idx);
   const id = req.body.idx;
-
-  Favorite.create({
-    productId: id,
-    userId: 1,
-  });
+  res.send(await createOrDelete(id, 1));
 });
+
+async function createOrDelete(pid, uid) {
+  const isExist = await Favorite.findOne({ where: { productId: pid } });
+  if (!isExist) {
+    Favorite.create({
+      productId: pid,
+      userId: uid,
+      imgId: pid,
+    });
+    return "danger";
+  } else {
+    Favorite.destroy({ where: { productId: pid } });
+    return "secondary";
+  }
+}
 
 export default product;

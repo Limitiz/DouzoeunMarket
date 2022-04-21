@@ -50,3 +50,23 @@
   width: 200px;
   height: 250px;
 }
+
+.productmap {
+  display: flex;
+  justify-content: center;
+}
+
+.carouselwidth {
+  width: 250px;
+}
+
+.productContent {
+  display: flex;
+  justify-content: space-between;
+}
+
+.vertical-line3 {
+  height: 430px;
+  margin: -47px 6px 0 3px;
+  border-left: 1px solid #d3d3d3;
+}
