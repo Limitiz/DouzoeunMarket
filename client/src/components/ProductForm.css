@@ -6,22 +6,16 @@ Form {
 .category {
     display: inline-block;
     width: 30%;
-<<<<<<< HEAD
-=======
     height: 50px;
     border: 1px solid silver;
->>>>>>> 996f04578503469e60ad4cae24cf1ca7c2b04f59
 }
 
 .text_area{
     width: 30%;
     height: 100px;
-<<<<<<< HEAD
 }
 
 .label{
     font-size: 1.3em;
     font-weight: bold;
-=======
->>>>>>> 996f04578503469e60ad4cae24cf1ca7c2b04f59
 }
