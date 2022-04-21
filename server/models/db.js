@@ -5,6 +5,7 @@ import Favorite from './Favorite.js';
 import ChatRoom from './ChatRoom.js';
 import Product from './Product.js';
 import ProductImg from './ProductImg.js';
+import Common from "./Common.js";
 import sequelize from './sq.js';
 
 const db = {};
@@ -15,6 +16,7 @@ db.ChatMessage = ChatMessage;
 db.ChatRoom = ChatRoom;
 db.Product = Product;
 db.ProductImg = ProductImg;
+db.Common = Common;
 db.sequelize = sequelize;
 
 Object.keys(db).forEach(modelName => {
