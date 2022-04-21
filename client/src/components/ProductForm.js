@@ -113,8 +113,8 @@ function ProductForm(){
         <Form.Text className="text-muted">
           한글자 이상 40글자 이내로 작성해주세요
         </Form.Text>
-      </Form.Group>
 
+      </Form.Group>
       <Form.Group className="mb-3" controlId="form3">
         <Form.Label className="label">카테고리</Form.Label><br/>
             <select size="4" className='category' name='category1' onChange={onChange}>
@@ -247,3 +247,4 @@ function ProductForm(){
 }
 
 export default React.memo(ProductForm);
+

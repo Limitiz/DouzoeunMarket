@@ -24,6 +24,7 @@ function App() {
         <Route path="/:id" element={<ProductDetail />} />
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/ProductForm" element={<ProductForm />} />
+
       </Routes>
 
       <Footer />
