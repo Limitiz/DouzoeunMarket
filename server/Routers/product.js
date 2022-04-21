@@ -14,8 +14,6 @@ product.get("/", (req, res) => {
 });
 
 product.get("/pay", (req, res, next) => {
-  const isTrue = req.isAuthenticated();
-  console.log(isTrue); //undefined  //true
   const sql = "select * from common where paysort <= 5 order by 3";
   DBConnect(sql, res);
 });
