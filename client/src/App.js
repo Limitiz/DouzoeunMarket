@@ -19,7 +19,7 @@ function App() {
           <br /> */}
         <Route path="/" element={<MainPage />} />
         <Route path="/:id" element={<ProductDetail />} />
-        <Route path="/shop" element={<MyPage />} />
+        <Route path="/mypage" element={<MyPage />} />
       </Routes>
 
       <Footer />

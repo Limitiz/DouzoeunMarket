@@ -24,6 +24,7 @@ const Container = styled.div`
 const ProductItem = ({ deliver }) => {
   // eslint-disable-next-line react/prop-types
   const { idx, ProductImgs, title, price } = deliver;
+  console.log(deliver);
   return (
     <Container>
       <span>

@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 
-function useFetch(page) {
+function useFetch(page, url) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [list, setList] = useState([]);
@@ -11,7 +11,7 @@ function useFetch(page) {
       setLoading(true);
       setError(false);
       const res = await axios.get(
-        `${process.env.REACT_APP_SERVER_BASE_URL}/product?page=${page}`
+        `http://localhost:8000/${url}?page=${page}`
       );
       console.log(res.data);
       setList((prev) => [...prev, ...res.data]);

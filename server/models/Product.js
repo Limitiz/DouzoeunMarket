@@ -5,7 +5,7 @@ import ProductImg from './ProductImg.js';
 import ChatRoom from './ChatRoom.js';
 import Category from './Category.js';
 import Favorite from './Favorite.js';
-
+import Comment from './Comment.js';
 
 const Product = sequelize.define("Product", {
         idx: {
@@ -45,10 +45,11 @@ const Product = sequelize.define("Product", {
 
     Product.associate = () => {
         Product.belongsTo(User, {foreignKey: "seller", sourceKey:"idx"});
-        Product.hasMany(ProductImg, {foreignKey:"productId", sourceKey:"idx"});
         Product.belongsTo(Category, {foreignKey:"categoryId", sourceKey:"idx"});
+        Product.hasMany(ProductImg, {foreignKey:"productId", sourceKey:"idx"});
         Product.hasOne(Favorite, {foreignKey:"productId", sourceKey:"idx"});
         Product.hasOne(ChatRoom, {foreignKey:"productId", sourceKey:"idx"});
+        Product.hasOne(Comment, {foreignKey:"productId", sourceKey:"idx"});
     }
 
 export default Product;

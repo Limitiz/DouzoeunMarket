@@ -1,8 +1,8 @@
 import cors from "cors";
 import express from "express";
-import MainRouter from "./Routers/MainRouter.js";
-import product from "./Routers/product.js";
+import ProductRouter from "./Routers/ProductRouter.js";
 import LoginRouter from "./Routers/LoginRouter.js";
+import MyPageRouter from "./Routers/MyPageRouter.js";
 import env from "dotenv";
 import db from "./models/db.js";
 
@@ -17,17 +17,12 @@ const port = process.env.PORT || 8000;
 
 //라우팅
 app.use("/auth", LoginRouter);
-app.use("/main", MainRouter);
-
-app.use(express.json());
-app.use(cors());
-
-app.use("/login", MainRouter);
-app.use("/product", product);
+app.use("/product", ProductRouter);
+app.use("/mypage", MyPageRouter);
 
 app.get("/category", (req, res) => {
   conn.query(
-    "select p.categoryID, c.name from product p, category c where p.idx=c.idx;",
+    "select p.categoryID, c.name from productRouter p, category c where p.idx=c.idx;",
     (err, rows, fields) => {
       console.log(rows);
       res.json(rows);
