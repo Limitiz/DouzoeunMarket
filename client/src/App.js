@@ -8,6 +8,8 @@ import ProductDetail from "./components/Product/ProductDetail";
 import Transaction from "./components/Payment/Transaction";
 import { useSelector } from "react-redux";
 import MyPage from "./components/Mypage/MyPage";
+import ProductForm from "./components/ProductForm";
+import ChangeProductForm from "./components/ChangeProductForm";
 
 function App() {
   //불러올떄 이줄 추가 하시면돼요~!
@@ -22,6 +24,7 @@ function App() {
         <Route path="/" element={<MainPage />} />
         <Route path="/:id" element={<ProductDetail />} />
         <Route path="/mypage" element={<MyPage />} />
+        <Route path="/new-product" element={<ProductForm />} />
       </Routes>
 
       <Footer />
