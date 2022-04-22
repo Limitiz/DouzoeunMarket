@@ -5,7 +5,7 @@ const { kakao } = window;
 
 const Location = ({ deliver }) => {
   const { locationX, locationY } = deliver;
-  console.log(locationX);
+  //console.log(locationX);
 
   useEffect(() => {
     const container = document.getElementById("map");

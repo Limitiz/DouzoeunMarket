@@ -4,12 +4,17 @@ import { useParams } from "react-router-dom";
 import { Tabs, Tab } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import Location from "./Location";
+
 import DetailCarousel from "./DetailCarousel";
 import "./ProductDetail.css";
 
 function ProductDetail() {
+  //const [product, setProduct] = useState({ a: null });
   const [color, setColor] = useState("secondary");
   const [product, setProduct] = useState({});
+  const [cName, setCName] = useState("");
+  let userId = "";
+  let category = "";
   const { id } = useParams();
 
   useEffect(() => {
@@ -20,13 +25,11 @@ function ProductDetail() {
         );
 
         setProduct(res.data);
-
-        //console.log(res.data.Favorite);
-        // eslint-disable-next-line no-lone-blocks
-        // console.log(product.Favorite.imgId);
-        //product.Favorite.imgId !== undefined
-        //? setColor("danger")
-        //: setColor("secondary");
+        userId = res.data.Favorite.userId;
+        category = res.data.Category.name;
+        userId !== null ? setColor("danger") : setColor("secondary");
+        category !== null ? setCName(category) : setCName("");
+        // renderingValue(res.data); //이친구도 비동기처리
       } catch (e) {
         console.log(e);
       }
@@ -58,15 +61,7 @@ function ProductDetail() {
           &nbsp;
           <i className="fa-solid fa-arrow-right"></i>
           &nbsp;
-          <p className="categoryItem">
-            {product.categoryId === 1
-              ? "남성의류"
-              : product.categoryID === 2
-              ? "여성의류"
-              : product.categoryID === 3
-              ? "남성잡화"
-              : "여성잡화"}
-          </p>
+          <p className="categoryItem">{cName}</p>
         </div>
         <hr style={{ marginTop: "-5px", border: 0, height: "1px" }} />
         <div className="productContainer">

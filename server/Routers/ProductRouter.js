@@ -63,7 +63,7 @@ productRouter.get(
     res.send((data, detailValue));
   }
 );
-//produceRouter.get("/:id", detail, list);
+
 productRouter.post("/detail/postid", async (req, res) => {
   console.log(req.body.idx);
   const id = req.body.idx;

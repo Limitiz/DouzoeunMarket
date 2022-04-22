@@ -1,0 +1,19 @@
+Form {
+    width: 60%;
+    margin: 0 auto;
+}
+
+.category {
+    display: inline-block;
+    width: 30%;
+}
+
+.text_area{
+    width: 30%;
+    height: 100px;
+}
+
+.label{
+    font-size: 1.3em;
+    font-weight: bold;
+}
