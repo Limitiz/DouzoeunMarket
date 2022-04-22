@@ -34,17 +34,17 @@ const Product = sequelize.define(
     locationY: {
       type: DataTypes.STRING,
     },
+    productStatus: {
+      type: DataTypes.STRING(4),
+    },
+    shippingIncluded: {
+      type: DataTypes.STRING(4),
+    },
     exchange: {
-      type: DataTypes.STRING(32),
+      type: DataTypes.STRING(4),
     },
     address: {
       type: DataTypes.STRING(64),
-    },
-    shippingIncluded: {
-      type: DataTypes.STRING(32),
-    },
-    productStatus: {
-      type: DataTypes.STRING(32),
     },
   },
 

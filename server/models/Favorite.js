@@ -2,7 +2,7 @@ import sequelize from "./sq.js";
 import Product from "./Product.js";
 import User from "./User.js";
 import ProductImg from "./ProductImg.js";
-import DataTypes from "sequelize";
+import { DataTypes } from "sequelize";
 
 const Favorite = sequelize.define(
   "Favorite",

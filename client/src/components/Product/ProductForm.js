@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect, useCallback } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
-import "../css/ProductForm.scss";
+import "../../css/ProductForm.scss";
 import ImgList from "../Payment/ImgList";
 import DaumPost from "../Payment/DaumPost";
 

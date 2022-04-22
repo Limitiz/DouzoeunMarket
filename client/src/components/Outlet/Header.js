@@ -10,6 +10,7 @@ const Header = () => {
   const getAuthInfo = useSelector((state) => state);
   const [modalShow, setModalShow] = useState(false);
   const [loginTitle, setLoginTitle] = useState("로그인/회원가입");
+
   useEffect(() => {
     getAuthInfo.isTrue
       ? setLoginTitle("로그아웃")
