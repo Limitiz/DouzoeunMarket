@@ -1,20 +1,25 @@
 import React from "react";
 import "../../css/Header.scss";
+import { Link } from "react-router-dom";
 import Login from "../Payment/Login";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Button } from "react-bootstrap";
-import axios from "axios";
+import MyPage from "../Mypage/MyPage";
 
 const Header = () => {
   const getAuthInfo = useSelector((state) => state);
   const [modalShow, setModalShow] = useState(false);
   const [loginTitle, setLoginTitle] = useState("로그인/회원가입");
-
+  const [myPageUrl, setMyPageUrl] = useState("/");
+  const [sellingUrl, setSellingUrl] = useState("/");
   useEffect(() => {
-    getAuthInfo.isTrue
-      ? setLoginTitle("로그아웃")
-      : setLoginTitle("로그인/회원가입");
+    if (getAuthInfo.isTrue) {
+      setLoginTitle("로그아웃");
+      setMyPageUrl("/mypage");
+      setSellingUrl("/new-product");
+    } else {
+      setLoginTitle("로그인/회원가입");
+    }
   }, []);
   const logout = () => {
     window.location.href = `${process.env.REACT_APP_BASE_URL}/logout`;
@@ -31,11 +36,13 @@ const Header = () => {
         <i className="fa-solid fa-magnifying-glass"></i>
       </div>
       <div className="menu-container">
-        <div>판매하기</div>
+        <div>
+          <Link to={sellingUrl}>판매하기</Link>
+        </div>
         <span className="vertical-line2"></span>
-        <div>내상점</div>
+        <Link to={myPageUrl}>내상점</Link>
         <span className="vertical-line2"></span>
-        <div>좋은톡</div>
+        <Link to="/">좋은톡</Link>
         <span className="vertical-line2"></span>
         <div
           onClick={() => {
