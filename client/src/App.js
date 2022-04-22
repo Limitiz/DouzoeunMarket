@@ -9,6 +9,8 @@ import Transaction from "./components/Transaction";
 import { useSelector } from "react-redux";
 import MyPage from "./components/MyPage";
 import ProductForm from "./components/ProductForm";
+import ChangeProductForm from './components/ChangeProductForm';
+
 
 function App() {
   const getsomething = useSelector((state) => state);
@@ -24,7 +26,7 @@ function App() {
         <Route path="/:id" element={<ProductDetail />} />
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/ProductForm" element={<ProductForm />} />
-
+        <Route path="/ChangeProductForm" element={<ChangeProductForm/>}/>
       </Routes>
 
       <Footer />
