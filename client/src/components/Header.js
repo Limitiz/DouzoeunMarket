@@ -9,19 +9,19 @@ const Header = () => {
   const [modalShow, setModalShow] = useState(false);
   const [loginTitle, setLoginTitle] = useState("로그인/회원가입");
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          `${process.env.REACT_APP_BASE_URL}/auth/service`
-        );
-        setLoginTitle(response.data);
-      } catch (e) {
-        console.log(e);
-      }
-    };
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await axios.get(
+  //         `${process.env.REACT_APP_BASE_URL}/auth/service`
+  //       );
+  //       setLoginTitle(response.data);
+  //     } catch (e) {
+  //       console.log(e);
+  //     }
+  //   };
+  //   fetchData();
+  // }, []);
 
   return (
     <header>

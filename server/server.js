@@ -2,12 +2,12 @@ import cors from "cors";
 import express from "express";
 import session from "express-session";
 import passport from "passport";
-import LoginRouter from "./Routers/LoginRouter.js";
-import LogoutRouter from "./Routers/LogoutRouter.js";
 import cookieParser from "cookie-parser";
 import env from "dotenv";
 import ProductRouter from "./Routers/ProductRouter.js";
 import MyPageRouter from "./Routers/MyPageRouter.js";
+import LoginRouter from "./Routers/LoginRouter.js";
+import LogoutRouter from "./Routers/LogoutRouter.js";
 import db from "./models/db.js";
 
 env.config();

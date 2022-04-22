@@ -1,9 +1,12 @@
+import axios from "axios";
 import React from "react";
+// import { useHis from "react-router-dom";
 import { Modal, Container, Col, Row, Button } from "react-bootstrap";
 import "../css/Login.scss";
 
 const Login = (props) => {
   const base_url = process.env.REACT_APP_BASE_URL;
+
   return (
     <>
       <Modal
@@ -31,10 +34,7 @@ const Login = (props) => {
                   className="kakao"
                   variant="warning"
                   onClick={() =>
-                    window.open(
-                      `${process.env.REACT_APP_BASE_URL}/auth/kakao`,
-                      "_blank"
-                    )
+                    (window.location.href = `${process.env.REACT_APP_BASE_URL}/auth/kakao`)
                   }
                 >
                   카카오톡으로 로그인 하기
