@@ -8,19 +8,19 @@ import ProductDetail from "./components/Product/ProductDetail";
 import Transaction from "./components/Payment/Transaction";
 import { useSelector } from "react-redux";
 import MyPage from "./components/Mypage/MyPage";
-import ProductForm from "./components/ProductForm";
-import ChangeProductForm from "./components/ChangeProductForm";
+import ProductForm from "./components/Product/ProductForm";
+import ChangeProductForm from "./components/Product/ChangeProductForm";
 
 function App() {
   //불러올떄 이줄 추가 하시면돼요~!
   const getAuthInfo = useSelector((state) => state);
-
+  console.log(getAuthInfo);
   return (
     <>
       <Header />
 
       <Routes>
-        <Route path="/pay" element={<Transaction />} />
+        <Route path="/pay" element={<Transaction />}></Route>
         <Route path="/" element={<MainPage />} />
         <Route path="/:id" element={<ProductDetail />} />
         <Route path="/mypage" element={<MyPage />} />
