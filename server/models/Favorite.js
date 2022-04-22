@@ -2,10 +2,17 @@ import sequelize from "./sq.js";
 import Product from "./Product.js";
 import User from "./User.js";
 import ProductImg from "./ProductImg.js";
+import { DataTypes } from "sequelize";
 
 const Favorite = sequelize.define(
   "Favorite",
-  {},
+  {
+    idx: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
+    },
+  },
   //Model 옵션 정의
   {
     charset: "utf8",
@@ -20,11 +27,9 @@ Favorite.associate = () => {
   Favorite.belongsTo(Product, {
     foreignKey: "productId",
     sourceKey: "idx",
-    primaryKey: true,
   });
   Favorite.belongsTo(User, { foreignKey: "userId", sourceKey: "idx" });
-  Favorite.belongsTo(ProductImg, { foreignKey: "imgId", sourceKey: "idx" });
+  Favorite.hasMany(ProductImg, { foreignKey: "favoriteId", sourceKey: "idx" });
 };
 
-Favorite.removeAttribute("id");
 export default Favorite;

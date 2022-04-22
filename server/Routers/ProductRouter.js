@@ -60,7 +60,7 @@ productRouter.get(
       order: [["prod_sort", "ASC"]],
     });
     console.log(data);
-    res.send((data, detailValue));
+    res.send([data, detailValue]);
   }
 );
 
@@ -76,7 +76,6 @@ async function createOrDelete(pid, uid) {
     Favorite.create({
       productId: pid,
       userId: uid,
-      imgId: pid,
     });
     return "danger";
   } else {

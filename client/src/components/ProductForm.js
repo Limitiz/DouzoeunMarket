@@ -5,23 +5,21 @@ import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import './ProductForm.css';
 import ImgList from './ImgList';
 import DaumPost from './DaumPost';
+import axios from 'axios';
 
 function ProductForm(){
   const count = useRef(0);
-  const infoRef = useRef(null);
 
   //이미지외 입력 객체
   const [ texts, setTexts ] = useState({
     title : '', // 제목
-    category1 : '', //카테고리 1
-    category2 : '', // 카테고리 2
-    category3 : '', // 카테고리 3
+    category : '', //카테고리
     address : '', // 주소
-    productStatus : '', // 상품상태 : 중고(1), 새상품(2)
-    exchangEable : '', // 교환 : 불가(0), 가능(1) 
+    productStatus : '', // 상품상태 : 중고, 새상품
+    exchange : '', // 교환 : 교환불가, 교환가능
     price : '', // 가격
-    shippingIncluded : '0', // 비송비 : 미포함(0), 포함(1)
-    description : '', // 설명
+    shippingIncluded : '', // 배송비 : 미포함, 포함
+    content : '', // 설명
     imgs : [] // 이미지 배열
   });
 
@@ -30,6 +28,7 @@ function ProductForm(){
   const [ previewImgs, setPreviewImgs ] = useState([])
   const [ modalIsOpen, setModalIsOpen ] = useState(false);
   const [ address, setAddress ] = useState('');
+  const [status, setStatus] = useState('');
 
   useEffect(() => {
     setTexts({
@@ -38,6 +37,12 @@ function ProductForm(){
     });
   }, [address]);
 
+  useEffect(() => {
+    setTexts({
+      ...texts,
+      'imgs': [...previewImgs]
+    });
+  }, [previewImgs]);
   //
   const insertImg = (e) => {
     let reader = new FileReader()
@@ -56,6 +61,8 @@ function ProductForm(){
       }
       count.current+=1;
     }
+
+    console.log(previewImgs);
   }
 
   //
@@ -79,16 +86,40 @@ function ProductForm(){
 
   //
   function final(e){
+    /*
     const name = 'imgs';
     const value = [...previewImgs];
     setTexts({
       ...texts,
       [name]:value
     });
+    */
+
+    //setStatus(postForm());
+    postForm()
+    fimgs();
+    window.open(
+      `http://localhost:3000/`,
+      "_blank"
+    )
   }
-  
+  function fimgs(){
+    console.log(texts);
+  }
+  async function postForm(){
+    try {
+      const res = await axios.post(
+        `${process.env.REACT_APP_BASE_URL}/new`,
+        texts
+      );
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+
   return(
-    <Form encType="multipart/form-data" action='#' method='#'>
+    <Form encType="multipart/form-data" method="post">
       
       <Form.Group className="mb-3" controlId="form1">
         <Form.Label className="label">상품이미지</Form.Label><br/>
@@ -113,27 +144,15 @@ function ProductForm(){
         <Form.Text className="text-muted">
           한글자 이상 40글자 이내로 작성해주세요
         </Form.Text>
-      </Form.Group>
 
+      </Form.Group>
       <Form.Group className="mb-3" controlId="form3">
         <Form.Label className="label">카테고리</Form.Label><br/>
-            <select size="4" className='category' name='category1' onChange={onChange}>
-              <option value="1">아메리카노</option>
-              <option value="2">카페라테</option>
-              <option value="3">카페오레</option>
-              <option value="4">에스프레소</option>
-            </select>
-            <select size="4" className='category' name='category2' onChange={onChange}>
-              <option value="11">아메리카노</option>
-              <option value="22">카페라테</option>
-              <option value="33">카페오레</option>
-              <option value="44">에스프레소</option>
-            </select>
-            <select size="4" className='category' name='category3' onChange={onChange}>
-              <option value="111">아메리카노</option>
-              <option value="222">카페라테</option>
-              <option value="333">카페오레</option>
-              <option value="444">에스프레소</option>
+            <select size="4" className='category' name='category' onChange={onChange}>
+              <option value="1">남성의류</option>
+              <option value="2">여성의류</option>
+              <option value="3">남성잡화</option>
+              <option value="4">여성잡화</option>
             </select>
       </Form.Group>
 
@@ -155,8 +174,6 @@ function ProductForm(){
             placeholder="주소가 여기에 표시됩니다"
             name='address'
             value={address}
-            //onChange={onChange}
-            ref={infoRef}
             readOnly
             />
       </Form.Group>
@@ -169,14 +186,16 @@ function ProductForm(){
             inline
             label="중고상품"
             name="productStatus"
-            value="1"
+            value="중고"
+            //value="1"
             type={type}
             id={`form5-1`}/>
           <Form.Check
             inline
             label="새상품"
             name="productStatus"
-            value="2"
+            value="새상품"
+            //value="2"
             type={type}
             id={`form5-2`}/>
         </div>
@@ -190,15 +209,15 @@ function ProductForm(){
           <Form.Check
             inline
             label="교환불가"
-            name="exchangEable"
-            value="0"
+            name="exchange"
+            value="교환불가"
             type={type}
             id={`form6-1`}/>
           <Form.Check
             inline
             label="교환가능"
-            name="exchangEable"
-            value="1"
+            name="exchange"
+            value="교환가능"
             type={type}
             id={`form6-2`}/>
         </div>
@@ -220,7 +239,7 @@ function ProductForm(){
             type={type}
             id={`form7`}
             name='shippingIncluded'
-            value={texts.shippingIncluded==='0' ? 1 : 0}
+            value={texts.shippingIncluded==='미포함' ? '미포함' : '포함'}
             label={`배송비 포함`}/>
           </div>
         ))}
@@ -234,16 +253,20 @@ function ProductForm(){
             as="textarea"
             placeholder="상품 설명을 입력해주세요"
             style={{ height: '100px' }}
-            name='description'
+            name='content'
             onChange={onChange}/>
         </FloatingLabel>
       </Form.Group>
 
-      <Button variant="primary" onClick={final} type="submit">
+      <Button variant="primary" onClick={final}>
         등록
       </Button>
+      {/*<Button variant="primary" onClick={final} type="submit">
+        등록
+      </Button>*/}
     </Form>
   )
 }
 
 export default React.memo(ProductForm);
+

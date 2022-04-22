@@ -6,12 +6,13 @@ import { Button } from "react-bootstrap";
 import Location from "./Location";
 
 import DetailCarousel from "./DetailCarousel";
-import "./ProductDetail.css";
+import "../../css/ProductDetail.scss";
 
 function ProductDetail() {
   //const [product, setProduct] = useState({ a: null });
   const [color, setColor] = useState("secondary");
   const [product, setProduct] = useState({});
+  const [commonList, setCommonList] = useState({});
   const [cName, setCName] = useState("");
   let userId = "";
   let category = "";
@@ -22,11 +23,16 @@ function ProductDetail() {
       try {
         const res = await axios.get(
           `${process.env.REACT_APP_BASE_URL}/product/detail/${id}`
-        );
-
-        setProduct(res.data);
-        userId = res.data.Favorite.userId;
-        category = res.data.Category.name;
+        ); //비동기 처리
+        //이거하는데 시간이 좀걸림...
+        console.log(res.data);
+        let commonInfo = res.data[0];
+        let productInfo = res.data[1];
+        console.log(productInfo);
+        setProduct(productInfo);
+        setCommonList(commonInfo);
+        userId = res.data[1].Favorite.userId;
+        category = res.data[1].Category.name;
         userId !== null ? setColor("danger") : setColor("secondary");
         category !== null ? setCName(category) : setCName("");
         // renderingValue(res.data); //이친구도 비동기처리
@@ -35,7 +41,7 @@ function ProductDetail() {
       }
     };
     fetchProduct();
-  }, [id]);
+  }, []);
 
   const postProduct = async () => {
     try {
@@ -49,13 +55,13 @@ function ProductDetail() {
       console.log(e);
     }
   };
-  console.log(product);
+  console.log(commonList);
   return (
     <div className="productDetail">
       <div className="Container">
         <br />
         <hr />
-        <div className="cate goryBox">
+        <div className="categoryBox">
           <i className="fa-solid fa-house"></i>
           <p className="home">홈</p>
           &nbsp;

@@ -1,13 +1,24 @@
 import React from "react";
-import "../css/Header.scss";
-import Login from "./Login";
+import "../../css/Header.scss";
+import Login from "../Payment/Login";
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { Button } from "react-bootstrap";
 import axios from "axios";
 
 const Header = () => {
+  const getAuthInfo = useSelector((state) => state);
   const [modalShow, setModalShow] = useState(false);
   const [loginTitle, setLoginTitle] = useState("로그인/회원가입");
+
+  useEffect(() => {
+    getAuthInfo.isTrue
+      ? setLoginTitle("로그아웃")
+      : setLoginTitle("로그인/회원가입");
+  }, []);
+  const logout = () => {
+    window.location.href = `${process.env.REACT_APP_BASE_URL}/logout`;
+  };
 
   return (
     <header>
@@ -26,7 +37,14 @@ const Header = () => {
         <span className="vertical-line2"></span>
         <div>좋은톡</div>
         <span className="vertical-line2"></span>
-        <div onClick={() => setModalShow(true)}>{loginTitle}</div>
+        <div
+          onClick={() => {
+            setModalShow(!getAuthInfo.isTrue);
+            getAuthInfo.isTrue ? logout() : setModalShow(true);
+          }}
+        >
+          {loginTitle}
+        </div>
         <Login show={modalShow} onHide={() => setModalShow(false)} />
       </div>
     </header>
