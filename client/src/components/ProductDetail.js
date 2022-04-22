@@ -35,7 +35,7 @@ function ProductDetail() {
   const postProduct = async () => {
     try {
       const res = await axios.post(
-        `${process.env.REACT_APP_SERVER_BASE_URL}/product/postid`,
+        `${process.env.REACT_APP_BASE_URL}/product/postid`,
         { idx: id }
       );
       setColor(res.data);

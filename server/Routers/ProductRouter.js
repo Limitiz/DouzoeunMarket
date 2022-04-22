@@ -22,6 +22,7 @@ productRouter.get("/", async (req, res) => {
         offset: page,
     });
   res.json(data);
+  
 });
 
 productRouter.get("/:id", async (req, res) => {
@@ -61,7 +62,6 @@ async function createOrDelete(pid, uid) {
         Favorite.create({
             productId: pid,
             userId: uid,
-            imgId: pid,
         });
         return "danger";
     } else {

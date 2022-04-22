@@ -31,7 +31,20 @@ const Product = sequelize.define("Product", {
         },
         locationY:{
             type:DataTypes.STRING
+        },
+        productStatus:{
+            type:DataTypes.STRING(4)
+        },
+        shippingIncluded:{
+            type:DataTypes.STRING(4)
+        },
+        exchange:{
+            type:DataTypes.STRING(4)
+        },
+        address:{
+            type:DataTypes.STRING(64)
         }
+
     }, 
     
     //Model 옵션 정의
