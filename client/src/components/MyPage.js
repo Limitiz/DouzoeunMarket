@@ -17,7 +17,7 @@ export default function MyPage() {
           <Product url="mypage/product" />
         </Tab>
         <Tab eventKey="MyFavorite" title={`찜 목록 (${favoriteNum})`}>
-          {/* <Product url="mypage/favorite"/> */}
+          {/*<Product url="mypage/favorite"/>*/}
         </Tab>
         <Tab eventKey="MyReview" title={`거래 후기 (${commentNum})`}>
           Comments

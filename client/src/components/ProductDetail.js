@@ -22,8 +22,8 @@ function ProductDetail() {
       try {
         const res = await axios.get(
           `${process.env.REACT_APP_BASE_URL}/product/detail/${id}`
-        ); //비동기 처리
-        //이거하는데 시간이 좀걸림...
+        );
+
         setProduct(res.data);
         userId = res.data.Favorite.userId;
         category = res.data.Category.name;
@@ -35,7 +35,7 @@ function ProductDetail() {
       }
     };
     fetchProduct();
-  }, []);
+  }, [id]);
 
   const postProduct = async () => {
     try {
@@ -49,13 +49,13 @@ function ProductDetail() {
       console.log(e);
     }
   };
-
+  console.log(product);
   return (
     <div className="productDetail">
       <div className="Container">
         <br />
         <hr />
-        <div className="categoryBox">
+        <div className="cate goryBox">
           <i className="fa-solid fa-house"></i>
           <p className="home">홈</p>
           &nbsp;
