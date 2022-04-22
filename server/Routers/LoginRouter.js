@@ -1,10 +1,12 @@
 import express from "express";
 import passport from "passport";
 import KakaoPassport from "../passport/KakaoPassport.js";
+import GooglePassport from "../passport/GooglePassport.js";
 
 const LoginRouter = express.Router();
 
 KakaoPassport();
+GooglePassport();
 
 LoginRouter.get("/kakao", passport.authenticate("kakao"));
 
@@ -18,6 +20,26 @@ LoginRouter.get(
       const isTrue = req.isAuthenticated(); //true, false
       const user = req.user; //user 정보를 세션에 띄워줘야 사람이름 이메일 나이 등등을 받아올 수 있다.
 
+      res.cookie("authCookie", { user, isTrue });
+      res.redirect(process.env.CLIENT_URL_PORT);
+    } else {
+      console.log("fail");
+    }
+  }
+);
+LoginRouter.get(
+  "/google",
+  passport.authenticate("google", { scope: ["profile", "email"] })
+);
+LoginRouter.get(
+  "/google/callback",
+  passport.authenticate("google", {
+    failureRedirect: process.env.CLIENT_URL_PORT,
+  }),
+  (req, res) => {
+    if (req.isAuthenticated()) {
+      const isTrue = req.isAuthenticated(); //true, false
+      const user = req.user; //user 정보를 세션에 띄워줘야 사람이름 이메일 나이 등등을 받아올 수 있다.
       res.cookie("authCookie", { user, isTrue });
       res.redirect(process.env.CLIENT_URL_PORT);
     } else {

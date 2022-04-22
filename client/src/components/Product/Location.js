@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import "./Location.css";
+import "../../css/Location.scss";
 
 const { kakao } = window;
 

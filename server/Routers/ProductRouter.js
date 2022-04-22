@@ -60,7 +60,7 @@ productRouter.get(
       order: [["prod_sort", "ASC"]],
     });
     console.log(data);
-    res.send((data, detailValue));
+    res.send([data, detailValue]);
   }
 );
 

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Tabs, Tab } from "react-bootstrap";
 import Profile from "./Profile";
-import Product from "./Product";
+import Product from "../Product/Product";
 
 export default function MyPage() {
   const [productNum, setPNum] = useState(10);
