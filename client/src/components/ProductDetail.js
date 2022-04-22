@@ -16,26 +16,28 @@ function ProductDetail() {
     const fetchProduct = async () => {
       try {
         const res = await axios.get(
-          `${process.env.REACT_APP_BASE_URL}/product/${id}`
+          `${process.env.REACT_APP_BASE_URL}/product/detail/${id}`
         );
+
         setProduct(res.data);
+
         //console.log(res.data.Favorite);
         // eslint-disable-next-line no-lone-blocks
         // console.log(product.Favorite.imgId);
-        product.Favorite.imgId !== undefined
-          ? setColor("danger")
-          : setColor("secondary");
+        //product.Favorite.imgId !== undefined
+        //? setColor("danger")
+        //: setColor("secondary");
       } catch (e) {
         console.log(e);
       }
     };
     fetchProduct();
-  }, []);
+  }, [id]);
 
   const postProduct = async () => {
     try {
       const res = await axios.post(
-        `${process.env.REACT_APP_SERVER_BASE_URL}/product/postid`,
+        `${process.env.REACT_APP_BASE_URL}/product/detail/postid`,
         { idx: id }
       );
       setColor(res.data);
@@ -44,13 +46,13 @@ function ProductDetail() {
       console.log(e);
     }
   };
-
+  console.log(product);
   return (
     <div className="productDetail">
       <div className="Container">
         <br />
         <hr />
-        <div className="categoryBox">
+        <div className="cate goryBox">
           <i className="fa-solid fa-house"></i>
           <p className="home">홈</p>
           &nbsp;

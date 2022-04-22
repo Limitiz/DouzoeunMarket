@@ -45,7 +45,6 @@ app.use("/logout", LogoutRouter);
 app.use("/product", ProductRouter);
 app.use("/mypage", MyPageRouter);
 
-
 app.get("/category", (req, res) => {
   conn.query(
     "select p.categoryID, c.name from productRouter p, category c where p.idx=c.idx;",
