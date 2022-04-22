@@ -1,5 +1,3 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import MainPage from "./components/MainPage";
@@ -8,6 +6,7 @@ import ProductDetail from "./components/ProductDetail";
 import Transaction from "./components/Transaction";
 import { useSelector } from "react-redux";
 import MyPage from "./components/MyPage";
+import ProductForm from "./components/ProductForm";
 
 function App() {
   const getsomething = useSelector((state) => state);
@@ -22,6 +21,7 @@ function App() {
         <Route path="/" element={<MainPage />} />
         <Route path="/:id" element={<ProductDetail />} />
         <Route path="/mypage" element={<MyPage />} />
+          <Route path="/newProduct" element={<ProductForm/>}/>
       </Routes>
 
       <Footer />
