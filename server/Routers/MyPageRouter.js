@@ -46,4 +46,11 @@ MyPageRouter.get("/favorite", async (req, res) => {
     res.json(data);
 });
 
+MyPageRouter.post("/img", async (rea, res) => {
+    User.update(
+        {img:req.body.img},
+        {where:{idx:1}}
+        )
+})
+
 export default MyPageRouter;
