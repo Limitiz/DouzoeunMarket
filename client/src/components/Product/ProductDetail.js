@@ -6,7 +6,7 @@ import { Tabs, Tab } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import Location from "./Location";
 import DetailCarousel from "./DetailCarousel";
-import "./ProductDetail.css";
+import "../../css/ProductDetail.scss";
 
 function ProductDetail() {
   //const [product, setProduct] = useState({ a: null });
@@ -28,10 +28,9 @@ function ProductDetail() {
         console.log(res.data);
         let commonInfo = res.data[0];
         let productInfo = res.data[1];
-        console.log(commonInfo);
         console.log(productInfo);
-        setCommonList(commonInfo);
         setProduct(productInfo);
+        setCommonList(commonInfo);
 
         userId = res.data[1].Favorite.userId;
         category = res.data[1].Category.name;
@@ -43,7 +42,7 @@ function ProductDetail() {
       }
     };
     fetchProduct();
-  }, [id]);
+  }, []);
 
   const postProduct = async () => {
     try {
@@ -57,6 +56,7 @@ function ProductDetail() {
     }
   };
 
+  console.log(commonList);
   return (
     <div className="productDetail">
       <div className="Container">

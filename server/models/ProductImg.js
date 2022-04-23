@@ -1,7 +1,6 @@
 import DataTypes from "sequelize";
 import sequelize from "./sq.js";
 import Product from "./Product.js";
-
 import Favorite from "./Favorite.js";
 
 const ProductImg = sequelize.define(
@@ -13,7 +12,7 @@ const ProductImg = sequelize.define(
       primaryKey: true,
     },
     imgUrl: {
-      type: DataTypes.STRING(255),
+      type: DataTypes.STRING(10000),
     },
   },
 
@@ -29,10 +28,7 @@ const ProductImg = sequelize.define(
 
 ProductImg.associate = () => {
   ProductImg.belongsTo(Product, { foreignKey: "productId", sourceKey: "idx" });
-  ProductImg.belongsTo(Favorite, {
-    foreignKey: "favoriteId",
-    sourceKey: "idx",
-  });
+  ProductImg.belongsTo(Favorite, { foreignKey: "favorieId", sourceKey: "idx" });
 };
 
 export default ProductImg;
