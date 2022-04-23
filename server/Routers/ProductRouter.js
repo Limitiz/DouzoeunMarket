@@ -21,7 +21,9 @@ productRouter.get("/", async (req, res) => {
     ],
     limit: 4,
     offset: page,
+    order: [["updatedAt", "ASC"]],
   });
+
   res.json(data);
 });
 
@@ -30,7 +32,17 @@ productRouter.get(
   async (req, res, next) => {
     const { id } = req.params;
     const data = await Product.findOne({
-      attributes: ["title", "price", "locationX", "locationY", "content"],
+      attributes: [
+        "title",
+        "price",
+        "locationX",
+        "locationY",
+        "content",
+        "productStatus",
+        "exchange",
+        "shippingincluded",
+        "address",
+      ],
       include: [
         {
           model: ProductImg,
@@ -60,7 +72,7 @@ productRouter.get(
       order: [["prod_sort", "ASC"]],
     });
     console.log(data);
-    res.send((data, detailValue));
+    res.send([data, detailValue]);
   }
 );
 
@@ -76,7 +88,6 @@ async function createOrDelete(pid, uid) {
     Favorite.create({
       productId: pid,
       userId: uid,
-      imgId: pid,
     });
     return "danger";
   } else {

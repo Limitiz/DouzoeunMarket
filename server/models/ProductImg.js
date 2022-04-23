@@ -29,7 +29,10 @@ const ProductImg = sequelize.define(
 
 ProductImg.associate = () => {
   ProductImg.belongsTo(Product, { foreignKey: "productId", sourceKey: "idx" });
-  ProductImg.hasMany(Favorite, { foreignKey: "imgId", sourceKey: "idx" });
+  ProductImg.belongsTo(Favorite, {
+    foreignKey: "favoriteId",
+    sourceKey: "idx",
+  });
 };
 
 export default ProductImg;

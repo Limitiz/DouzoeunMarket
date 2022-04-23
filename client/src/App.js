@@ -8,6 +8,7 @@ import ProductDetail from "./components/ProductDetail";
 import Transaction from "./components/Transaction";
 import { useSelector } from "react-redux";
 import MyPage from "./components/MyPage";
+import "./App.css";
 
 function App() {
   const getsomething = useSelector((state) => state);
