@@ -10,9 +10,7 @@ function useFetch(page, url) {
     try {
       setLoading(true);
       setError(false);
-      const res = await axios.get(
-        `http://localhost:8000/${url}?page=${page}`
-      );
+      const res = await axios.get(`http://localhost:8000/${url}?page=${page}`);
       console.log(res.data);
       setList((prev) => [...prev, ...res.data]);
       setLoading(false);

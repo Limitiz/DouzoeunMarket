@@ -1,14 +1,14 @@
 import React from "react";
 import MainCarousel from "./MainCarousel";
-import Product from "./Product";
-import "../css/Main.scss";
+import Product from "../Product/Product";
+import "../../css/Main.scss";
 
 const MainPage = () => {
   return (
     <div className="main">
       <MainCarousel />
       <br />
-      <Product url="product"/>
+      <Product url="product" />
     </div>
   );
 };

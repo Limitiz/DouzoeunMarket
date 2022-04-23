@@ -8,7 +8,6 @@ import axios from "axios";
 const Header = () => {
   const [modalShow, setModalShow] = useState(false);
   const [loginTitle, setLoginTitle] = useState("로그인/회원가입");
-
   return (
     <header>
       <div className="logo-container">

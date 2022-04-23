@@ -13,6 +13,7 @@ const Favorite = sequelize.define(
       primaryKey: true,
     },
   },
+
   //Model 옵션 정의
   {
     charset: "utf8",
@@ -24,15 +25,8 @@ const Favorite = sequelize.define(
 );
 
 Favorite.associate = () => {
-  Favorite.belongsTo(Product, {
-    foreignKey: "productId",
-    sourceKey: "idx",
-  });
-  Favorite.belongsTo(User, { foreignKey: "userId", sourceKey: "idx" });
-  Favorite.hasMany(ProductImg, {
-    foreignKey: "favoriteId",
-    sourceKey: "idx",
-  });
+  Favorite.belongsTo(Product, { foreignKey: "productId", sourceKey: "idx" });
+  Favorite.hasMany(ProductImg, { foreignKey: "favoriteId", sourceKey: "idx" });
 };
 
 export default Favorite;
