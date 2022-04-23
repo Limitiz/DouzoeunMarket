@@ -4,27 +4,38 @@ import { useParams } from "react-router-dom";
 import { Tabs, Tab } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import Location from "./Location";
+
 import DetailCarousel from "./DetailCarousel";
-import "../css/ProductDetail.css";
+import "../../css/ProductDetail.scss";
 
 function ProductDetail() {
+  //const [product, setProduct] = useState({ a: null });
   const [color, setColor] = useState("secondary");
   const [product, setProduct] = useState({});
+  const [commonList, setCommonList] = useState({});
+  const [cName, setCName] = useState("");
+  let userId = "";
+  let category = "";
   const { id } = useParams();
 
   useEffect(() => {
     const fetchProduct = async () => {
       try {
         const res = await axios.get(
-          `${process.env.REACT_APP_BASE_URL}/product/${id}`
-        );
-        setProduct(res.data);
-        //console.log(res.data.Favorite);
-        // eslint-disable-next-line no-lone-blocks
-        // console.log(product.Favorite.imgId);
-        product.Favorite.imgId !== undefined
-          ? setColor("danger")
-          : setColor("secondary");
+          `${process.env.REACT_APP_BASE_URL}/product/detail/${id}`
+        ); //비동기 처리
+        //이거하는데 시간이 좀걸림...
+        console.log(res.data);
+        let commonInfo = res.data[0];
+        let productInfo = res.data[1];
+        console.log(productInfo);
+        setProduct(productInfo);
+        setCommonList(commonInfo);
+        userId = res.data[1].Favorite.userId;
+        category = res.data[1].Category.name;
+        userId !== null ? setColor("danger") : setColor("secondary");
+        category !== null ? setCName(category) : setCName("");
+        // renderingValue(res.data); //이친구도 비동기처리
       } catch (e) {
         console.log(e);
       }
@@ -35,7 +46,7 @@ function ProductDetail() {
   const postProduct = async () => {
     try {
       const res = await axios.post(
-        `${process.env.REACT_APP_BASE_URL}/product/postid`,
+        `${process.env.REACT_APP_BASE_URL}/product/detail/postid`,
         { idx: id }
       );
       setColor(res.data);
@@ -44,7 +55,7 @@ function ProductDetail() {
       console.log(e);
     }
   };
-
+  console.log(commonList);
   return (
     <div className="productDetail">
       <div className="Container">
@@ -56,15 +67,7 @@ function ProductDetail() {
           &nbsp;
           <i className="fa-solid fa-arrow-right"></i>
           &nbsp;
-          <p className="categoryItem">
-            {product.categoryId === 1
-              ? "남성의류"
-              : product.categoryID === 2
-              ? "여성의류"
-              : product.categoryID === 3
-              ? "남성잡화"
-              : "여성잡화"}
-          </p>
+          <p className="categoryItem">{cName}</p>
         </div>
         <hr style={{ marginTop: "-5px", border: 0, height: "1px" }} />
         <div className="productContainer">

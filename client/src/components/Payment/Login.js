@@ -1,9 +1,11 @@
 import React from "react";
+
 import { Modal, Container, Col, Row, Button } from "react-bootstrap";
-import "../css/Login.scss";
+import "../../css/Login.scss";
 
 const Login = (props) => {
   const base_url = process.env.REACT_APP_BASE_URL;
+
   return (
     <>
       <Modal
@@ -31,10 +33,7 @@ const Login = (props) => {
                   className="kakao"
                   variant="warning"
                   onClick={() =>
-                    window.open(
-                      `${process.env.REACT_APP_BASE_URL}/auth/kakao`,
-                      "_blank"
-                    )
+                    (window.location.href = `${process.env.REACT_APP_BASE_URL}/auth/kakao`)
                   }
                 >
                   카카오톡으로 로그인 하기
@@ -54,7 +53,13 @@ const Login = (props) => {
             <Row>
               <Col>
                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_BxIFDiqRSADS_dryOjRxIdflIGgt8vianZy7fPOHmGz8HsBUi-lggRTn5-raiCOnF0Q&usqp=CAU" />
-                <Button className="google" variant="light">
+                <Button
+                  className="google"
+                  variant="light"
+                  onClick={() =>
+                    (window.location.href = `${process.env.REACT_APP_BASE_URL}/auth/google`)
+                  }
+                >
                   구글로 로그인 하기
                 </Button>
               </Col>

@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
-import "./Location.css";
+import "../../css/Location.scss";
 
 const { kakao } = window;
 
 const Location = ({ deliver }) => {
   const { locationX, locationY } = deliver;
-  console.log(locationX);
+  //console.log(locationX);
 
   useEffect(() => {
     const container = document.getElementById("map");

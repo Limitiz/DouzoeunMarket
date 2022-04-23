@@ -13,6 +13,8 @@ const cookie = cookies.get("authCookie");
 
 if (cookies.get("authCookie") != null) {
   getAuthInfo = cookies.get("authCookie");
+} else {
+  getAuthInfo = { isTrue: false };
 }
 //const auth = window.location.search;
 

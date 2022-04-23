@@ -2,8 +2,8 @@ import React from "react";
 import { Button, Form } from "react-bootstrap";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import "../css/Transaction.scss";
-import "../css/Main.scss";
+import "../../css/Transaction.scss";
+import "../../css/Main.scss";
 
 export default function Transaction() {
   const [list, setList] = useState([]);

@@ -3,7 +3,7 @@ import Card from "react-bootstrap/Card";
 import ProductItem from "./ProductItem";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import useFetch from "../hooks/useFetch";
+import useFetch from "../../hooks/useFetch";
 
 const Product = (props) => {
   const [page, setPage] = useState(1);
