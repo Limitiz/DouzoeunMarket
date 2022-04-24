@@ -45,6 +45,7 @@ productRouter.get(
         "exchange",
         "shippingincluded",
         "address",
+          "seller"
       ],
       include: [
         {
