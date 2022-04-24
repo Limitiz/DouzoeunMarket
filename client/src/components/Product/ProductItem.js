@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import {useSelector} from "react-redux";
 
 const Container = styled.div`
   .thumbnail {
@@ -27,22 +28,38 @@ const Container = styled.div`
 const ProductItem = ({ deliver, urlName }) => {
   // eslint-disable-next-line react/prop-types
   const [product, setProduct] = useState({});
-  const { ProductImgs } = deliver;
+  const [ProductImgs, setProductImg] = useState(deliver.ProductImgs);
+  // const ProductImgs = deliver.ProductImgs;
+  // const [ProductImgs, setProductImg] = useState(deliver.ProductImgs);
+
+    const getAuthInfo = useSelector((state) => state);
+    console.log("????", deliver);
+    console.log("IMG!!!!!!!!!!", ProductImgs);
 
   console.log("urlName : ", urlName);
   useEffect(() => {
-    urlName === "mypage/favorite"
-      ? setProduct({
+    urlName === `mypage/favorite/${getAuthInfo.user.idx}`
+      ? isFav()
+      : notFav()
+  }, []);
+
+  async function isFav(){
+      setProduct({
           idx: deliver.Product.idx,
           title: deliver.Product.title,
           price: deliver.Product.price,
-        })
-      : setProduct({
+      });
+      setProductImg(deliver.ProductImgs);
+  }
+
+  async function notFav(){
+      setProduct({
           idx: deliver.idx,
           title: deliver.title,
           price: deliver.price,
-        });
-  }, []);
+      });
+      setProductImg(deliver.ProductImgs);
+  }
 
   return (
     <Container>

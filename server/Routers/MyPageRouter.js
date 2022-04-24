@@ -49,6 +49,8 @@ MyPageRouter.get("/favorite/:userId", async (req, res) => {
         limit:4,
         offset:page
     });
+    console.log("FAVORITE!!!!!");
+    console.log(data);
     res.json(data);
 });
 
