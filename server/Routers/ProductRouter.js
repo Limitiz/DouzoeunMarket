@@ -80,18 +80,26 @@ productRouter.get(
 );
 
 productRouter.post("/detail/postid", async (req, res) => {
-  console.log(req.body.idx);
+  const userId = req.body.userId;
   const id = req.body.idx;
-  res.send(await createOrDelete(id, 1));
+  res.send(await createOrDelete(id, userId));
 });
 
 async function createOrDelete(pid, uid) {
   const isExist = await Favorite.findOne({ where: { productId: pid } });
   if (!isExist) {
-    Favorite.create({
+    const data = await Favorite.create({
       productId: pid,
       userId: uid,
     });
+    console.log(">>>>>>>>>>>>>>>>>>>>>");
+    console.log(data.dataValues.idx);
+    console.log(pid);
+    await ProductImg.update({
+          favoriteId: data.dataValues.idx
+        }, {
+          where : {productId :pid}
+        });
     return "danger";
   } else {
     Favorite.destroy({ where: { productId: pid } });
@@ -120,8 +128,6 @@ productRouter.get("/detail/qna/:id", async (req, res) => {
 
 productRouter.delete("/detail/qna/:idx", async (req, res) => {
   const { idx } = req.params;
-  console.log("HERE!!!!!!!!");
-  console.log(idx);
   await QnA.destroy({
     where: { idx: idx },
   });

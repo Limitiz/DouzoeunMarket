@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 import { Tabs, Tab } from "react-bootstrap";
@@ -56,7 +55,7 @@ function ProductDetail() {
     try {
       const res = await axios.post(
         `${process.env.REACT_APP_BASE_URL}/product/detail/postid`,
-        { idx: id }
+        { idx: id, userId : getAuthInfo.user.idx }
       );
       setColor(res.data);
     } catch (e) {

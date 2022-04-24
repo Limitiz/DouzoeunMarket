@@ -29,7 +29,7 @@ const Header = () => {
     <header>
       <div className="logo-container">
         <img src="../logo.png" alt="douzoeunLogo" className="logo"></img>
-        <div className="theme">Dou-Zoeun 마켓</div>
+        <div className="theme"><Link to="/">Dou-Zoeun 마켓</Link> </div>
       </div>
       <div className="search-container">
         <input className="searchBox" type="text" />

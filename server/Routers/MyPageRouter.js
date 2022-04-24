@@ -63,8 +63,6 @@ MyPageRouter.post("/img/:userId", async (req, res) => {
 
 MyPageRouter.get("/profile/:userId", async (req, res) => {
     const {userId} = req.params;
-    console.log("USER ID>>>>>>>>>>>");
-    console.log(userId);
     const data = await User.findOne({
         attributes:["img", "nickName", "rate"],
         where:{idx : userId}
@@ -102,16 +100,31 @@ MyPageRouter.get("/num/:userId",
     },
     async (req, res, next) => {
         const tmp = req.data;
+        const {userId} = req.params;
         const cNum = await Comment.findAndCountAll({
-            include : [{
-                model:User,
-                required: true,
-                where : {idx : 1}
-            }]
+            where : {receiver: 18}
         });
         res.json([tmp[0], tmp[1], cNum.count]);
     }
 );
 
+MyPageRouter.get("/comments/:userId", async (req, res) => {
+   const {userId} = req.params;
+   const data = await Comment.findAll({
+       include : [{
+           model : Product,
+           required : true,
+       }],
+    where : {receiver : userId}
+   });
+   res.json(data);
+});
+
+MyPageRouter.delete("/withdraw/:userId", async (req, res) => {
+    const {userId} = req.params;
+    await User.destroy({
+        where : {idx : userId}
+    });
+});
 
 export default MyPageRouter;
