@@ -6,6 +6,7 @@ import { Tabs, Tab } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import Location from "./Location";
 import DetailCarousel from "./DetailCarousel";
+import QnA from "./QnA";
 import "../../css/ProductDetail.scss";
 
 function ProductDetail() {
@@ -48,18 +49,6 @@ function ProductDetail() {
     try {
       const res = await axios.post(
         `${process.env.REACT_APP_BASE_URL}/product/detail/postid`,
-        { idx: id }
-      );
-      setColor(res.data);
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  const postQna = async () => {
-    try {
-      const res = await axios.post(
-        `${process.env.REACT_APP_BASE_URL}/product/detail/qna/id`,
         { idx: id }
       );
       setColor(res.data);
@@ -136,15 +125,7 @@ function ProductDetail() {
           </div>
         </Tab>
         <Tab eventKey="MyFavorite" title={`상품 문의`}>
-          <div className="qnaform">
-            <input
-              type="text"
-              placeholder="상품 문의 입력..."
-              className="qnainput"
-            ></input>
-            &nbsp;&nbsp;
-            <button className="qnabutton">등록</button>
-          </div>
+          <QnA id={id} />
         </Tab>
       </Tabs>
     </div>

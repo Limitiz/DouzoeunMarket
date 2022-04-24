@@ -7,6 +7,7 @@ import Transaction from "./components/Payment/Transaction";
 import { useSelector } from "react-redux";
 import MyPage from "./components/Mypage/MyPage";
 import ProductForm from "./components/Product/ProductForm";
+import "./App.css";
 
 function App() {
   //불러올떄 이줄 추가 하시면돼요~!

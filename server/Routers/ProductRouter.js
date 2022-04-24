@@ -4,6 +4,7 @@ import ProductImg from "../models/ProductImg.js";
 import Favorite from "../models/Favorite.js";
 import Category from "../models/Category.js";
 import Common from "../models/Common.js";
+import QnA from "../models/Qna.js";
 import { Op } from "sequelize";
 
 const productRouter = express.Router();
@@ -72,7 +73,6 @@ productRouter.get(
       where: { prod_sort: { [Op.lte]: 4 } },
       order: [["prod_sort", "ASC"]],
     });
-    console.log(data);
     res.send([data, detailValue]);
   }
 );
@@ -97,9 +97,22 @@ async function createOrDelete(pid, uid) {
   }
 }
 
-/*productRouter.post("/detail/qna/id", async(req, res) => {
-  const 
-})*/
+productRouter.post("/detail/qna/:id", async (req, res) => {
+  console.log(req.body);
+  await QnA.create({
+    productId: req.body.idx,
+    content: req.body.qnacontent,
+    writer: 1,
+  });
+});
+
+productRouter.get("/detail/qna/:id", async (req, res) => {
+  const { id } = req.params;
+  const data = await QnA.findAll({
+    where: { productId: id },
+  });
+  res.json(data);
+});
 
 productRouter.get("/pay", async (req, res, next) => {
   const isTrue = req.isAuthenticated();

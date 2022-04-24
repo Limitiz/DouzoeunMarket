@@ -6,6 +6,7 @@ import ChatRoom from "./ChatRoom.js";
 import Category from "./Category.js";
 import Favorite from "./Favorite.js";
 import Comment from "./Comment.js";
+import QnA from "./Qna.js";
 
 const Product = sequelize.define(
   "Product",
@@ -65,6 +66,7 @@ Product.associate = () => {
   Product.hasOne(Favorite, { foreignKey: "productId", sourceKey: "idx" });
   Product.hasOne(ChatRoom, { foreignKey: "productId", sourceKey: "idx" });
   Product.hasOne(Comment, { foreignKey: "productId", sourceKey: "idx" });
+  Product.hasMany(QnA, { foreignKey: "productId", sourceKey: "idx" });
 };
 
 export default Product;
