@@ -11,14 +11,16 @@ import Error403 from "./components/ErrorPage/Error403";
 
 function App() {
   //불러올떄 이줄 추가 하시면돼요~!
+  //컴포넌트 어디서든 로그인한 유저의 정보를 갖고올 수 있어요..App.js
   const getAuthInfo = useSelector((state) => state);
+
   console.log(getAuthInfo);
   return (
     <>
       <Header />
 
       <Routes>
-        <Route path="/pay" element={<Transaction />}></Route>
+        <Route path="/:id/:email" element={<Transaction />}></Route>
         <Route path="/" element={<MainPage />} />
         <Route path="/403Error" element={<Error403 />} />
         <Route path="/:id" element={<ProductDetail />} />

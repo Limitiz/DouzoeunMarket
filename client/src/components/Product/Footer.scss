@@ -5,24 +5,21 @@ footer {
   align-items: center;
   justify-content: space-around;
 }
-.main {
-  width: 50% !important;
-}
 .rightc {
-  padding-right: 25%;
+  padding-right: 10%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 .fa-brands {
-  font-size: 10px;
+  font-size: 20px;
   margin-left: 10px;
   margin-top: 10px;
 }
 
 .company {
-  font-size: 15px;
+  font-size: 20px;
   font-weight: bold;
 }
 
@@ -40,7 +37,7 @@ footer {
 .info {
   display: flex;
   align-items: center;
-  font-size: 10px;
+  font-size: 12px;
 }
 
 .underline {
@@ -55,15 +52,6 @@ footer {
   border-left: 1px solid black;
 }
 
-.left {
-  font-size: 11px;
-  margin-right: 0 !important;
-  margin-left: 15% !important;
-
-  div {
-    line-height: 1.6;
-  }
-  hr {
-    width: 80%;
-  }
+.left > div {
+  line-height: 1.6;
 }

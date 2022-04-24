@@ -5,6 +5,7 @@ import Favorite from "../models/Favorite.js";
 import Category from "../models/Category.js";
 import Common from "../models/Common.js";
 import { Op } from "sequelize";
+import User from "../models/User.js";
 
 const productRouter = express.Router();
 
@@ -84,17 +85,49 @@ async function createOrDelete(pid, uid) {
   }
 }
 
-productRouter.get("/pay", async (req, res, next) => {
-  const isTrue = req.isAuthenticated();
-  console.log(isTrue); //undefined  //true
-  res.json(
-    await Common.findAll({
+productRouter.get(
+  "/pay/:id/:email",
+  async (req, res, next) => {
+    //항목 리스트 부르기
+    //회원정보 부르기
+    //상품정보 부르기
+    const { id } = req.params;
+    const { email } = req.params;
+    console.log(id);
+    console.log(email);
+    const list = await Common.findAll({
       where: {
         paysort: { [Op.lte]: 5 },
       },
       order: [["paysort", "ASC"]],
-    })
-  );
-});
+    });
+    req.list = list;
+    req.id = id;
+    req.email = email;
+    next();
+  },
+  async (req, res, next) => {
+    const user = await User.findOne({
+      where: { email: req.email },
+    });
+    req.user = user;
+    next();
+  },
+  async (req, res) => {
+    const prod = await Product.findOne({
+      include: [
+        {
+          model: ProductImg,
+          attributes: ["imgUrl"],
+          required: true,
+        },
+      ],
+      where: { idx: req.id },
+    });
+    const user = req.user;
+    const list = req.list;
+    res.send([list, user, prod]);
+  }
+);
 
 export default productRouter;
