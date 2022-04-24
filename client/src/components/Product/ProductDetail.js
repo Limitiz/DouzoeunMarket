@@ -16,6 +16,7 @@ function ProductDetail() {
   const [product, setProduct] = useState({});
   const [commonList, setCommonList] = useState();
   const [cName, setCName] = useState("");
+  const [isMe, setIsMe] = useState("");
 
   let userId = "";
   let category = "";
@@ -44,6 +45,8 @@ function ProductDetail() {
         category = res.data[1].Category.name;
         userId !== null ? setColor("danger") : setColor("secondary");
         category !== null ? setCName(category) : setCName("");
+
+        res.data[1].seller === getAuthInfo.user.idx ? setIsMe("user") : setIsMe("not user");
       } catch (e) {
         console.log(e);
       }
@@ -111,10 +114,16 @@ function ProductDetail() {
               찜하기
             </Button>
 
-            &nbsp;&nbsp;
-            <Link to={payUrl}>
-              <Button>결제하기</Button>{" "}
-            </Link>
+
+            {isMe && isMe === "not user" ?
+                <Link to={payUrl}>
+                  <Button variant="danger" style={{marginLeft : '1rem'}}>결제하기</Button>
+               </Link>
+                : <Link to="/change">
+                  <Button variant="primary" style={{marginLeft : '1rem'}}>수정하기</Button>
+                </Link>
+            }
+
           </div>
         </div>
       </div>
