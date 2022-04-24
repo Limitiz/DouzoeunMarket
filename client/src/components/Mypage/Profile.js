@@ -30,7 +30,6 @@ export default function Profile() {
 
     const data = await axios.post(`${process.env.REACT_APP_BASE_URL}/mypage/img/${userId}`,
         {img : profileImg});
-    console.log(data.data);
   };
 
   useEffect(async ()=>{

@@ -5,7 +5,7 @@
     "database": "douzoeun2",
     "host": "kosa2.iptime.org",
     "dialect": "mysql",
-    "port" : "50320"
+    "port": "50320"
   },
   "test": {
     "username": "user01",
@@ -13,7 +13,7 @@
     "database": "douzoeun2",
     "host": "kosa2.iptime.org",
     "dialect": "mysql",
-    "port" : "50320"
+    "port": "50320"
   },
   "production": {
     "username": "user01",
@@ -21,6 +21,6 @@
     "database": "douzoeun2",
     "host": "kosa2.iptime.org",
     "dialect": "mysql",
-    "port" : "50320"
+    "port": "50320"
   }
 }

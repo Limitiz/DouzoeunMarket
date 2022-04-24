@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 import { Tabs, Tab } from "react-bootstrap";
@@ -6,6 +7,7 @@ import { Button } from "react-bootstrap";
 import Location from "./Location";
 import { useSelector } from "react-redux";
 import DetailCarousel from "./DetailCarousel";
+import QnA from "./QnA";
 import "../../css/ProductDetail.scss";
 
 function ProductDetail() {
@@ -13,7 +15,7 @@ function ProductDetail() {
   //const [product, setProduct] = useState({ a: null });
   const [color, setColor] = useState("secondary");
   const [product, setProduct] = useState({});
-  const [commonList, setCommonList] = useState({});
+  const [commonList, setCommonList] = useState();
   const [cName, setCName] = useState("");
 
   let userId = "";
@@ -31,8 +33,7 @@ function ProductDetail() {
       try {
         const res = await axios.get(
           `${process.env.REACT_APP_BASE_URL}/product/detail/${id}`
-        ); //비동기 처리
-        //이거하는데 시간이 좀걸림...
+        ); 
         console.log(res.data);
         let commonInfo = res.data[0];
         let productInfo = res.data[1];
@@ -44,7 +45,6 @@ function ProductDetail() {
         category = res.data[1].Category.name;
         userId !== null ? setColor("danger") : setColor("secondary");
         category !== null ? setCName(category) : setCName("");
-        // renderingValue(res.data); //이친구도 비동기처리
       } catch (e) {
         console.log(e);
       }
@@ -59,12 +59,10 @@ function ProductDetail() {
         { idx: id }
       );
       setColor(res.data);
-      console.log(res.data);
     } catch (e) {
       console.log(e);
     }
   };
-  // console.log(commonList);
 
   return (
     <div className="productDetail">
@@ -88,18 +86,23 @@ function ProductDetail() {
             <p className="pTitle">{product.title}</p>
             <p className="pPrice">{product.price}원</p>
             <hr />
-            <ul>
-              <li className="productState">
-                상품상태
-                <span className="state">중고</span>
-              </li>
-              <li className="productState">
-                거래지역
-                <i className="fa-solid fa-location-dot"></i>
-                <span className="state">전국</span>
-              </li>
-            </ul>
-            &nbsp;&nbsp;
+            <div className="common">
+              <ul className="commonkey">
+                {commonList ? (
+                  commonList.map((item, id) => {
+                    return <li key={id}>{item.Column}</li>;
+                  })
+                ) : (
+                  <></>
+                )}
+              </ul>
+              <ul className="commonvalue">
+                <li>{product.productStatus}</li>
+                <li>{product.exchange}</li>
+                <li>{product.address}</li>
+                <li>{product.shippingincluded}</li>
+              </ul>
+            </div>
             <Button
               onClick={() => {
                 postProduct();
@@ -107,7 +110,8 @@ function ProductDetail() {
               variant={color}
             >
               찜하기
-            </Button>{" "}
+            </Button>
+
             &nbsp;&nbsp;
             <Link to={payUrl}>
               <Button>결제하기</Button>{" "}
@@ -122,13 +126,16 @@ function ProductDetail() {
               <div>{product.content}</div>
             </div>
             <span className="vertical-line3" />
-            <div className="productmap">
-              <Location deliver={product} />
+            <div>
+              <div className="preferplace">판매자가 선호하는 거래 장소. </div>
+              <div className="productmap">
+                <Location deliver={product} />
+              </div>
             </div>
           </div>
         </Tab>
         <Tab eventKey="MyFavorite" title={`상품 문의`}>
-          <span>상품 문의</span>
+          <QnA id={id} />
         </Tab>
       </Tabs>
     </div>

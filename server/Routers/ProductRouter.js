@@ -4,7 +4,9 @@ import ProductImg from "../models/ProductImg.js";
 import Favorite from "../models/Favorite.js";
 import Category from "../models/Category.js";
 import Common from "../models/Common.js";
+import QnA from "../models/Qna.js";
 import { Op } from "sequelize";
+import sequelize from "../models/sq.js";
 import User from "../models/User.js";
 
 const productRouter = express.Router();
@@ -22,7 +24,9 @@ productRouter.get("/", async (req, res) => {
     ],
     limit: 4,
     offset: page,
+    order: [["updatedAt", "ASC"]],
   });
+
   res.json(data);
 });
 
@@ -31,7 +35,17 @@ productRouter.get(
   async (req, res, next) => {
     const { id } = req.params;
     const data = await Product.findOne({
-      attributes: ["title", "price", "locationX", "locationY", "content"],
+      attributes: [
+        "title",
+        "price",
+        "locationX",
+        "locationY",
+        "content",
+        "productStatus",
+        "exchange",
+        "shippingincluded",
+        "address",
+      ],
       include: [
         {
           model: ProductImg,
@@ -50,6 +64,7 @@ productRouter.get(
       ],
       where: { idx: id },
     });
+    console.log(data);
     req.data = data;
     next();
   },
@@ -60,7 +75,6 @@ productRouter.get(
       where: { prod_sort: { [Op.lte]: 4 } },
       order: [["prod_sort", "ASC"]],
     });
-    console.log(data);
     res.send([data, detailValue]);
   }
 );
@@ -84,6 +98,36 @@ async function createOrDelete(pid, uid) {
     return "secondary";
   }
 }
+
+productRouter.post("/detail/qna/:id", async (req, res) => {
+  const data = await QnA.create({
+    productId: req.body.idx,
+    content: req.body.qnacontent,
+    writer: req.body.writer,
+  });
+  console.log(data);
+  res.json(data);
+});
+
+productRouter.get("/detail/qna/:id", async (req, res) => {
+  const { id } = req.params;
+  const data = await QnA.findAll({
+    attributes: ["writer", "productId", "idx", "content"],
+    where: { productId: id },
+  });
+  res.json(data);
+});
+
+productRouter.delete("/detail/qna/:idx", async (req, res) => {
+  const { idx } = req.params;
+  console.log("HERE!!!!!!!!");
+  console.log(idx);
+  await QnA.destroy({
+    where: { idx: idx },
+  });
+  res.send(idx);
+});
+
 
 productRouter.get(
   "/pay/:id/:email",

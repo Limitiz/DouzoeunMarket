@@ -7,11 +7,11 @@ import Transaction from "./components/Payment/Transaction";
 import { useSelector } from "react-redux";
 import MyPage from "./components/Mypage/MyPage";
 import ProductForm from "./components/Product/ProductForm";
+import "./App.css";
 import Error403 from "./components/ErrorPage/Error403";
 
+
 function App() {
-  //불러올떄 이줄 추가 하시면돼요~!
-  //컴포넌트 어디서든 로그인한 유저의 정보를 갖고올 수 있어요..App.js
   const getAuthInfo = useSelector((state) => state);
 
   console.log(getAuthInfo);
