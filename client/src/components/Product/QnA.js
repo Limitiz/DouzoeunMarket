@@ -1,9 +1,23 @@
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { Button } from "react-bootstrap";
 import axios from "axios";
+import "../../css/QnA.scss";
 
 function QnA({ id }) {
+  const getAuthInfo = useSelector((state) => state);
+
+  const [text, setText] = useState("");
   const [qnacontent, setQnacontent] = useState("");
   const [contentlist, setContentlist] = useState([]);
+
+  const onReset = () => {
+    setText("");
+  };
+
+  const onChange = (e) => {
+    setText(e.target.value);
+  };
 
   const postQna = async () => {
     try {
@@ -13,11 +27,29 @@ function QnA({ id }) {
       );
       setQnacontent(res.data);
       setContentlist([...contentlist, res.data]);
-      console.log(contentlist);
     } catch (e) {
       console.log(e);
     }
   };
+
+  const deleteQna = async (idx) => {
+    try {
+      if (idx !== undefined) {
+        const res = await axios.delete(
+          `${process.env.REACT_APP_BASE_URL}/product/detail/qna/${idx}`
+        );
+
+        const result = contentlist.filter((content) => content.idx !== idx);
+        setContentlist(result);
+      }
+      //setContentlist([...contentlist, res.data]);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  useEffect(() => {
+    deleteQna();
+  });
 
   useEffect(() => {
     const getQna = async () => {
@@ -26,13 +58,14 @@ function QnA({ id }) {
           `${process.env.REACT_APP_BASE_URL}/product/detail/qna/${id}`
         );
         setContentlist(res.data);
-        console.log(res.data);
       } catch (e) {
         console.log(e);
       }
     };
     getQna();
   }, [id]);
+
+  console.log(getAuthInfo);
 
   return (
     <div>
@@ -41,12 +74,23 @@ function QnA({ id }) {
           type="text"
           placeholder="상품 문의 입력..."
           className="qnainput"
-          onChange={(e) => setQnacontent(e.target.value)}
+          onChange={(e) => {
+            onChange(e);
+            setQnacontent(e.target.value);
+          }}
+          value={text}
         ></input>
         &nbsp;&nbsp;
-        <button onClick={postQna} className="qnabutton">
+        <Button
+          variant="primary"
+          onClick={() => {
+            postQna();
+            onReset();
+          }}
+          className="qnabutton"
+        >
           등록
-        </button>
+        </Button>
       </div>
       <hr />
       <div>
@@ -54,7 +98,19 @@ function QnA({ id }) {
           contentlist.map((item, id) => {
             return (
               <div key={id}>
-                {item.content}
+                <div className="qnacontent">
+                  <div>
+                    {getAuthInfo.user.nickName}: {item.content}
+                  </div>
+                  <div>
+                    <Button
+                      variant="secondary"
+                      onClick={() => deleteQna(item.idx)}
+                    >
+                      삭제
+                    </Button>
+                  </div>
+                </div>
                 <hr />
               </div>
             );

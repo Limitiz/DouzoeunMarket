@@ -105,10 +105,6 @@ function ProductDetail() {
             >
               찜하기
             </Button>
-            &nbsp;
-            <Link to="/pay">
-              <Button variant="primary">결제하기</Button>
-            </Link>
           </div>
         </div>
       </div>

@@ -29,17 +29,6 @@ const Product = (props) => {
     if (loader.current) observer.observe(loader.current);
   }, [handleObserver]);
 
-  useEffect(() => {
-    const option = {
-      root: null,
-      rootMargin: "20px",
-      threshold: 0,
-    };
-
-    const observer = new IntersectionObserver(handleObserver, option);
-    if (loader.current) observer.observe(loader.current);
-  }, [handleObserver]);
-
   return (
     <div>
       <Row>
@@ -50,7 +39,7 @@ const Product = (props) => {
             >
               <Card.Body>
                 <Card.Title>
-                  <ProductItem deliver={deliver} urlName = {url} />
+                  <ProductItem deliver={deliver} />
                 </Card.Title>
               </Card.Body>
             </Card>

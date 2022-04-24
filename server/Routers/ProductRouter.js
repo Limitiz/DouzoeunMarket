@@ -99,11 +99,12 @@ async function createOrDelete(pid, uid) {
 
 productRouter.post("/detail/qna/:id", async (req, res) => {
   console.log(req.body);
-  await QnA.create({
+  const data = await QnA.create({
     productId: req.body.idx,
     content: req.body.qnacontent,
     writer: 1,
   });
+  res.json(data);
 });
 
 productRouter.get("/detail/qna/:id", async (req, res) => {
@@ -112,6 +113,16 @@ productRouter.get("/detail/qna/:id", async (req, res) => {
     where: { productId: id },
   });
   res.json(data);
+});
+
+productRouter.delete("/detail/qna/:idx", async (req, res) => {
+  const { idx } = req.params;
+  console.log("HERE!!!!!!!!");
+  console.log(idx);
+  await QnA.destroy({
+    where: { idx: idx },
+  });
+  res.send(idx);
 });
 
 productRouter.get("/pay", async (req, res, next) => {
