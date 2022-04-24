@@ -11,7 +11,7 @@ export default function Profile() {
   const percent = rate * 20;
 
   //프로필 사진 변경 함수
-  const onChange = (e) => {
+  const onChange = async (e) => {
     const reader = new FileReader();
     reader.onload = () => {
       if (reader.readyState === 2) {
@@ -19,6 +19,9 @@ export default function Profile() {
       }
     };
     reader.readAsDataURL(e.target.files[0]);
+
+    await axios.post(`${process.env.REACT_APP_BASE_URL}/mypage/img`,
+        {img : profileImg})
   };
 
   return (
