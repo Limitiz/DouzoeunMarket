@@ -24,10 +24,8 @@ const KakaoPassport = () => {
           } else {
             const newUser = await User.create({
               email: profile._json.kakao_account.email,
-              displayName: profile.displayName,
+              nickName: profile.displayName,
               img: profile._json.properties.profile_image,
-              id: profile.id,
-              provider: "kakao",
             });
             console.log(newUser);
             done(null, newUser);

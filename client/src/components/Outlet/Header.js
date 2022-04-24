@@ -36,22 +36,21 @@ const Header = () => {
         <i className="fa-solid fa-magnifying-glass"></i>
       </div>
       <div className="menu-container">
-        <div>
-          <Link to={sellingUrl}>판매하기</Link>
-        </div>
+        <Link to={sellingUrl}>판매하기</Link>
+
         <span className="vertical-line2"></span>
         <Link to={myPageUrl}>내상점</Link>
         <span className="vertical-line2"></span>
         <Link to="/">좋은톡</Link>
         <span className="vertical-line2"></span>
-        <div
+        <p
           onClick={() => {
             setModalShow(!getAuthInfo.isTrue);
             getAuthInfo.isTrue ? logout() : setModalShow(true);
           }}
         >
           {loginTitle}
-        </div>
+        </p>
         <Login show={modalShow} onHide={() => setModalShow(false)} />
       </div>
     </header>

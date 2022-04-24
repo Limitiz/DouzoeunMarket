@@ -7,11 +7,12 @@ import {useSelector} from "react-redux";
 
 export default function Profile() {
   const [profileImg, setImg] = useState("../defaultProfile.jpg");
+  const [modalShow, setModalShow] = useState(false);
   const fileInput = useRef(null);
   const [nickName, setNick] = useState("닉네임을 설정해주세요");
   const [rate, setRate] = useState(0);
   const percent = rate * 20;
-  let tmpImg = '';
+  let tmpImg = "";
 
   const getAuthInfo = useSelector((state) => state);
   const {userId} = useParams();

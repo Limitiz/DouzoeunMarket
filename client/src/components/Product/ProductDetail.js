@@ -1,22 +1,30 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Tabs, Tab } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import Location from "./Location";
-
+import { useSelector } from "react-redux";
 import DetailCarousel from "./DetailCarousel";
 import "../../css/ProductDetail.scss";
 
 function ProductDetail() {
+  const getAuthInfo = useSelector((state) => state);
   //const [product, setProduct] = useState({ a: null });
   const [color, setColor] = useState("secondary");
   const [product, setProduct] = useState({});
   const [commonList, setCommonList] = useState({});
   const [cName, setCName] = useState("");
+
   let userId = "";
   let category = "";
   const { id } = useParams();
+  let email = "";
+  if (getAuthInfo.isTrue) {
+    email = getAuthInfo.user.email;
+  } else {
+  }
+  const payUrl = `${email}`;
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -31,6 +39,7 @@ function ProductDetail() {
         console.log(productInfo);
         setProduct(productInfo);
         setCommonList(commonInfo);
+
         userId = res.data[1].Favorite.userId;
         category = res.data[1].Category.name;
         userId !== null ? setColor("danger") : setColor("secondary");
@@ -55,7 +64,8 @@ function ProductDetail() {
       console.log(e);
     }
   };
-  console.log(commonList);
+  // console.log(commonList);
+
   return (
     <div className="productDetail">
       <div className="Container">
@@ -98,6 +108,10 @@ function ProductDetail() {
             >
               찜하기
             </Button>{" "}
+            &nbsp;&nbsp;
+            <Link to={payUrl}>
+              <Button>결제하기</Button>{" "}
+            </Link>
           </div>
         </div>
       </div>
