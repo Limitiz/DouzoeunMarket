@@ -1,16 +1,21 @@
 import React, {useState, useRef, useEffect} from "react";
-import { Link, Router } from "react-router-dom";
+import { Link, Router, useParams } from "react-router-dom";
 import "bootstrap";
 import "../../css/Profile.scss";
 import axios from "axios";
+import {useSelector} from "react-redux";
 
 export default function Profile() {
-  const [profileImg, setImg] = useState("defaultProfile.jpg");
+  const [profileImg, setImg] = useState("../defaultProfile.jpg");
   const fileInput = useRef(null);
   const [nickName, setNick] = useState("닉네임을 설정해주세요");
-  const [rate, setRate] = useState(3.3);
+  const [rate, setRate] = useState(0);
   const percent = rate * 20;
   let tmpImg = '';
+
+  const getAuthInfo = useSelector((state) => state);
+  const {userId} = useParams();
+  console.log("USER ID", userId);
 
   //프로필 사진 변경 함수
   const onChange = async (e) => {
@@ -22,15 +27,16 @@ export default function Profile() {
     };
     reader.readAsDataURL(e.target.files[0]);
 
-    const data = await axios.post(`${process.env.REACT_APP_BASE_URL}/mypage/img`,
+    const data = await axios.post(`${process.env.REACT_APP_BASE_URL}/mypage/img/${userId}`,
         {img : profileImg});
     console.log(data.data);
   };
 
   useEffect(async ()=>{
-    const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/mypage/currentImg`);
-    tmpImg = res.data.img; setImg(tmpImg);
-    console.log("this is the img : ",tmpImg);
+    const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/mypage/profile/${userId}`);
+    setNick(res.data.nickName);
+    setRate(res.data.rate);
+    setImg(res.data.img);
   },[]);
 
   return (
@@ -60,18 +66,18 @@ export default function Profile() {
               className="fill-star space-x-2"
               style={{ width: `${percent}%` }}
             >
-              <img src="fullStar.png" />
-              <img src="fullStar.png" />
-              <img src="fullStar.png" />
-              <img src="fullStar.png" />
-              <img src="fullStar.png" />
+              <img src="../fullStar.png"/>
+              <img src="../fullStar.png"/>
+              <img src="../fullStar.png"/>
+              <img src="../fullStar.png"/>
+              <img src="../fullStar.png"/>
             </div>
             <div className="empty-star space-x-2">
-              <img src="emptyStar.png" />
-              <img src="emptyStar.png" />
-              <img src="emptyStar.png" />
-              <img src="emptyStar.png" />
-              <img src="emptyStar.png" />
+              <img src="../emptyStar.png" />
+              <img src="../emptyStar.png" />
+              <img src="../emptyStar.png" />
+              <img src="../emptyStar.png" />
+              <img src="../emptyStar.png" />
             </div>
           </div>
           <span>{rate}점</span>
