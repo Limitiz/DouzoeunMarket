@@ -9,6 +9,7 @@ import MyPageRouter from "./Routers/MyPageRouter.js";
 import LoginRouter from "./Routers/LoginRouter.js";
 import LogoutRouter from "./Routers/LogoutRouter.js";
 import ProductFormRouter from "./Routers/ProductFormRouter.js";
+import AuthRouter from "./Routers/AuthRouter.js";
 import db from "./models/db.js";
 
 env.config();
@@ -43,6 +44,7 @@ passport.deserializeUser(function (id, done) {
 });
 
 //라우팅
+app.use("/isAuth", AuthRouter);
 app.use("/auth", LoginRouter);
 app.use("/logout", LogoutRouter);
 app.use("/product", ProductRouter);

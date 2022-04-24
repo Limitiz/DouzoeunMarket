@@ -30,6 +30,7 @@ const User = sequelize.define(
     },
     point: {
       type: DataTypes.INTEGER,
+      defaultValue: 0.0,
     },
     zipCode: {
       type: DataTypes.CHAR(5),

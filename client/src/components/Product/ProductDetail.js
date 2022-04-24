@@ -1,31 +1,39 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Tabs, Tab } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import Location from "./Location";
+import { useSelector } from "react-redux";
 import DetailCarousel from "./DetailCarousel";
 import QnA from "./QnA";
 import "../../css/ProductDetail.scss";
 
 function ProductDetail() {
+  const getAuthInfo = useSelector((state) => state);
   //const [product, setProduct] = useState({ a: null });
   const [color, setColor] = useState("secondary");
   const [product, setProduct] = useState({});
   const [commonList, setCommonList] = useState();
   const [cName, setCName] = useState("");
-  const { id } = useParams();
+
   let userId = "";
   let category = "";
+  const { id } = useParams();
+  let email = "";
+  if (getAuthInfo.isTrue) {
+    email = getAuthInfo.user.email;
+  } else {
+  }
+  const payUrl = `${email}`;
 
   useEffect(() => {
     const fetchProduct = async () => {
       try {
         const res = await axios.get(
           `${process.env.REACT_APP_BASE_URL}/product/detail/${id}`
-        ); //비동기 처리
-        //이거하는데 시간이 좀걸림...
+        ); 
         console.log(res.data);
         let commonInfo = res.data[0];
         let productInfo = res.data[1];
@@ -37,7 +45,6 @@ function ProductDetail() {
         category = res.data[1].Category.name;
         userId !== null ? setColor("danger") : setColor("secondary");
         category !== null ? setCName(category) : setCName("");
-        // renderingValue(res.data); //이친구도 비동기처리
       } catch (e) {
         console.log(e);
       }
@@ -57,7 +64,6 @@ function ProductDetail() {
     }
   };
 
-  console.log(id);
   return (
     <div className="productDetail">
       <div className="Container">
@@ -105,6 +111,11 @@ function ProductDetail() {
             >
               찜하기
             </Button>
+
+            &nbsp;&nbsp;
+            <Link to={payUrl}>
+              <Button>결제하기</Button>{" "}
+            </Link>
           </div>
         </div>
       </div>

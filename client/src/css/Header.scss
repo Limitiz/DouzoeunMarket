@@ -8,6 +8,11 @@ header {
   color: rgb(240, 228, 228);
   padding: 10px 10px;
   margin-bottom: 20px;
+  a {
+    text-decoration: none;
+    font-size: 11px;
+    color: rgb(240, 228, 228);
+  }
 }
 
 .logo-container {
@@ -35,11 +40,13 @@ header {
   font-size: 11px;
 }
 
-.menu-container > div {
-  padding: 0 10px;
-  cursor: pointer;
+.menu-container {
+  margin-top: 12px;
+  p {
+    padding: 0px;
+    cursor: pointer;
+  }
 }
-
 .theme {
   font-size: 18px;
   font-weight: bold;
@@ -59,6 +66,6 @@ header {
 
 .vertical-line2 {
   height: 15px;
-  margin: 1px 6px 0px 3px;
-  border-left: 1px solid black;
+  margin: 1px 7px 1px 10px;
+  border-left: 1px solid rgb(240, 228, 228);
 }

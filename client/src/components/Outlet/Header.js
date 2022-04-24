@@ -15,7 +15,7 @@ const Header = () => {
   useEffect(() => {
     if (getAuthInfo.isTrue) {
       setLoginTitle("로그아웃");
-      setMyPageUrl("/mypage");
+      setMyPageUrl(`/mypage/${getAuthInfo.user.idx}`);
       setSellingUrl("/new-product");
     } else {
       setLoginTitle("로그인/회원가입");
@@ -28,7 +28,7 @@ const Header = () => {
   return (
     <header>
       <div className="logo-container">
-        <img src="logo.png" alt="douzoeunLogo" className="logo"></img>
+        <img src="../logo.png" alt="douzoeunLogo" className="logo"></img>
         <div className="theme">Dou-Zoeun 마켓</div>
       </div>
       <div className="search-container">
@@ -36,22 +36,21 @@ const Header = () => {
         <i className="fa-solid fa-magnifying-glass"></i>
       </div>
       <div className="menu-container">
-        <div>
-          <Link to={sellingUrl}>판매하기</Link>
-        </div>
+        <Link to={sellingUrl}>판매하기</Link>
+
         <span className="vertical-line2"></span>
         <Link to={myPageUrl}>내상점</Link>
         <span className="vertical-line2"></span>
         <Link to="/">좋은톡</Link>
         <span className="vertical-line2"></span>
-        <div
+        <p
           onClick={() => {
             setModalShow(!getAuthInfo.isTrue);
             getAuthInfo.isTrue ? logout() : setModalShow(true);
           }}
         >
           {loginTitle}
-        </div>
+        </p>
         <Login show={modalShow} onHide={() => setModalShow(false)} />
       </div>
     </header>

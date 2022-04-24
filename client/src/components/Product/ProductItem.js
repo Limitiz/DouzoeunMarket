@@ -19,19 +19,19 @@ const Container = styled.div`
     font-size: 13px;
   }
   .hot {
-    width: 28px;
+    width: 20% !important;
   }
 `;
 
 // eslint-disable-next-line react/prop-types
 const ProductItem = ({ deliver, urlName }) => {
   // eslint-disable-next-line react/prop-types
-  const { idx, ProductImgs, title, price } = deliver;
-
   const [product, setProduct] = useState({});
+  const { ProductImgs } = deliver;
 
+  console.log("urlName : ", urlName);
   useEffect(() => {
-    urlName === "/mypage/favorite"
+    urlName === "mypage/favorite"
       ? setProduct({
           idx: deliver.Product.idx,
           title: deliver.Product.title,
@@ -48,17 +48,17 @@ const ProductItem = ({ deliver, urlName }) => {
     <Container>
       <span>
         <div className="thumbnail">
-          <Link to={`/${idx}`}>
+          <Link to={`/${product.idx}`}>
             <img src={ProductImgs[0].imgUrl} alt="thumbnail" />
           </Link>
         </div>
-        <span className="title">{title}</span>
+        <span className="title">{product.title}</span>
         <img
           className="hot"
           src="https://static.wixstatic.com/media/a44461_00e151045404454199cdedcad7c72541~mv2.gif"
         />
         <br />
-        <span className="price_origin">{price}원</span>
+        <span className="price_origin">{product.price}원</span>
       </span>
     </Container>
   );

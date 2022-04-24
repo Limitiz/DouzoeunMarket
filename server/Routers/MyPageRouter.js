@@ -3,15 +3,19 @@ import User from "../models/User.js"
 import Product from "../models/Product.js";
 import ProductImg from "../models/ProductImg.js";
 import Favorite from "../models/Favorite.js";
+import Comment from "../models/Comment.js";
+import QnA from "../models/QnA.js";
 
 const MyPageRouter = express.Router();
 
-MyPageRouter.get("/product", async (req, res) => {
+MyPageRouter.get("/product/:userId", async (req, res) => {
+    const {userId} = req.params;
   const page = (req.query.page - 1) * 4;
   const data = await Product.findAll({
       include:[{
           model:User,
-          required:true
+          required:true,
+          where : {idx : userId}
         }, {
           model: ProductImg,
           attributes: ["imgUrl"],
@@ -24,12 +28,14 @@ MyPageRouter.get("/product", async (req, res) => {
   res.json(data);
 });
 
-MyPageRouter.get("/favorite", async (req, res) => {
+MyPageRouter.get("/favorite/:userId", async (req, res) => {
+    const {userId} = req.params;
     const page = (req.query.page - 1) * 4;
     const data = await Favorite.findAll({
         include:[{
             model:User,
-            required:true
+            required:true,
+            where : {idx : userId}
         }, {
             model: Product,
             attributes: ["title", "price"],
@@ -46,11 +52,66 @@ MyPageRouter.get("/favorite", async (req, res) => {
     res.json(data);
 });
 
-MyPageRouter.post("/img", async (rea, res) => {
-    User.update(
+MyPageRouter.post("/img/:userId", async (req, res) => {
+    const {userId} = req.param;
+    await User.update(
         {img:req.body.img},
-        {where:{idx:1}}
-        )
-})
+        {where:{idx:userId}}
+        );
+    res.send(req.body.img);
+});
+
+MyPageRouter.get("/profile/:userId", async (req, res) => {
+    const {userId} = req.params;
+    console.log("USER ID>>>>>>>>>>>");
+    console.log(userId);
+    const data = await User.findOne({
+        attributes:["img", "nickName", "rate"],
+        where:{idx : userId}
+    });
+    res.send(data);
+});
+
+MyPageRouter.get("/num/:userId",
+    async (req, res, next) => {
+        const {userId} = req.params;
+        const pNum = await Product.findAndCountAll({
+            include: [{
+                model: User,
+                required: true,
+                where: {idx: userId}
+            }]
+        });
+
+        req.data = pNum.count;
+        next();
+    },
+    async (req, res, next) => {
+        const tmp = req.data;
+        const {userId} = req.params;
+        const fNum = await Favorite.findAndCountAll({
+            include: [{
+                model: User,
+                required: true,
+                where:{idx:userId}
+            }]
+        });
+
+        req.data = [tmp, fNum.count];
+        next();
+    },
+    async (req, res, next) => {
+        const tmp = req.data;
+        const cNum = await Comment.findAndCountAll({
+            include : [{
+                model:User,
+                required: true,
+                where : {idx : 1}
+            }]
+        });
+        res.json([tmp[0], tmp[1], cNum.count]);
+    }
+);
+
 
 export default MyPageRouter;

@@ -1,4 +1,4 @@
-import DataTypes from "sequelize";
+import { DataTypes } from "sequelize";
 import sequelize from "./sq.js";
 import User from "./User.js";
 import ProductImg from "./ProductImg.js";
@@ -6,7 +6,7 @@ import ChatRoom from "./ChatRoom.js";
 import Category from "./Category.js";
 import Favorite from "./Favorite.js";
 import Comment from "./Comment.js";
-import QnA from "./Qna.js";
+import QnA from "./QnA.js";
 
 const Product = sequelize.define(
   "Product",
