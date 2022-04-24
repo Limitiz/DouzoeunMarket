@@ -14,8 +14,7 @@ MyPageRouter.get("/product/:userId", async (req, res) => {
   const data = await Product.findAll({
       include:[{
           model:User,
-          required:true,
-          where : {idx : userId}
+          required:true
         }, {
           model: ProductImg,
           attributes: ["imgUrl"],
@@ -23,7 +22,8 @@ MyPageRouter.get("/product/:userId", async (req, res) => {
         }
       ],
       limit:4,
-      offset:page
+      offset:page,
+    where : {seller : userId}
   });
   res.json(data);
 });
@@ -122,9 +122,15 @@ MyPageRouter.get("/comments/:userId", async (req, res) => {
 
 MyPageRouter.delete("/withdraw/:userId", async (req, res) => {
     const {userId} = req.params;
-    await User.destroy({
+    const data = await User.destroy({
         where : {idx : userId}
     });
+    req.logout();
+    req.session.destroy(() => {
+        res.clearCookie("connect.sid");
+        res.clearCookie("authCookie");
+    });
+    //res.redirect(process.env.CLIENT_URL_PORT);
 });
 
 export default MyPageRouter;

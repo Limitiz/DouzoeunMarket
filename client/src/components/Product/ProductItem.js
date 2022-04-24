@@ -35,10 +35,13 @@ const ProductItem = ({ deliver, urlName }) => {
     const getAuthInfo = useSelector((state) => state);
     console.log("????", deliver);
     console.log("IMG!!!!!!!!!!", ProductImgs);
+    const[userUrl, setUserUrl] = useState();
+
 
   console.log("urlName : ", urlName);
   useEffect(() => {
-    urlName === `mypage/favorite/${getAuthInfo.user.idx}`
+      getAuthInfo.isTrue === false ? setUserUrl('') : setUserUrl(getAuthInfo.user.idx)
+    urlName === `mypage/favorite/${userUrl}`
       ? isFav()
       : notFav()
   }, []);
