@@ -10,7 +10,6 @@ function QnA({ id }) {
   const [text, setText] = useState("");
   const [qnacontent, setQnacontent] = useState("");
   const [contentlist, setContentlist] = useState([]);
-  const [check, setCheck] = useState("");
 
   const onReset = () => {
     setText("");
@@ -101,9 +100,9 @@ function QnA({ id }) {
         {contentlist &&
           contentlist.map((item, id) => {
             return (
-              <div>
+              <div key={id}>
                 <div className="qnacontent">
-                  <div key={id}>
+                  <div>
                     {getAuthInfo.user.nickName}: {item.content}
                   </div>
                   <div>
