@@ -24,7 +24,7 @@ const Comment = sequelize.define("Comment", {
     });
 
     Comment.associate = () => {
-        Comment.belongsTo(User, {foreignKey: "reciever", sourceKey:"idx"});
+        Comment.belongsTo(User, {foreignKey: "receiver", sourceKey:"idx"});
         Comment.belongsTo(User, {foreignKey: "writer", sourceKey:"idx"});
         Comment.belongsTo(Product, {foreignKey: "productId", sourceKey:"idx"});
     }

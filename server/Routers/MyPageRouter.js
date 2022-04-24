@@ -3,6 +3,7 @@ import User from "../models/User.js"
 import Product from "../models/Product.js";
 import ProductImg from "../models/ProductImg.js";
 import Favorite from "../models/Favorite.js";
+import Comment from "../models/Comment.js";
 
 const MyPageRouter = express.Router();
 
@@ -75,7 +76,7 @@ MyPageRouter.get("/num",
         req.data = pNum.count;
         next();
     },
-    async (req, res, next)=> {
+    async (req, res, next) => {
         const tmp = req.data
         const fNum = await Favorite.findAndCountAll({
             include: [{
@@ -84,10 +85,21 @@ MyPageRouter.get("/num",
                 where:{idx:1}
             }]
         });
-        console.log(fNum);
 
-        res.send([tmp, fNum.count]);
+        req.data = [tmp, fNum.count];
+        next();
+    },
+    async (req, res, next) => {
+        const tmp = req.data;
+        const cNum = await Comment.findAndCountAll({
+            include : [{
+                model:User,
+                required: true,
+                where : {idx : 1}
+            }]
+        });
+        res.json([tmp[0], tmp[1], cNum.count]);
     }
-)
+);
 
 export default MyPageRouter;

@@ -3,14 +3,14 @@ import { useSelector } from "react-redux";
 import { Tabs, Tab } from "react-bootstrap";
 import Profile from "./Profile";
 import Product from "../Product/Product";
+import Comment from "../Mypage/Comment";
 import axios from "axios";
 
 export default function MyPage() {
   const [productNum, setPNum] = useState(0);
   const [favoriteNum, setFNum] = useState(0);
   const [commentNum, setCNum] = useState(0);
-  let pNum = "";
-  let fNum = "";
+  let pNum = ""; let fNum = ""; let cNum = "";
 
   useEffect(() => {
     number();
@@ -18,11 +18,9 @@ export default function MyPage() {
 
   async function number() {
     const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/mypage/num`);
-    pNum = res.data[0];
-    setPNum(pNum - 1);
-    fNum = res.data[1];
-    setFNum(fNum - 1);
-    console.log(res.data);
+    pNum = res.data[0]; setPNum(pNum - 1);
+    fNum = res.data[1]; setFNum(fNum - 1);
+    cNum = res.data[2]; setCNum(cNum );
   }
   const getAuthInfo = useSelector((state) => state);
   const auth = async () => {
@@ -42,7 +40,7 @@ export default function MyPage() {
             <Product url="mypage/favorite" />
           </Tab>
           <Tab eventKey="MyReview" title={`거래 후기 (${commentNum})`}>
-            Comments
+            {/*<Comment/>*/}
           </Tab>
         </Tabs>
       </div>
