@@ -128,8 +128,6 @@ productRouter.get("/detail/qna/:id", async (req, res) => {
 
 productRouter.delete("/detail/qna/:idx", async (req, res) => {
   const { idx } = req.params;
-  console.log("HERE!!!!!!!!");
-  console.log(idx);
   await QnA.destroy({
     where: { idx: idx },
   });
