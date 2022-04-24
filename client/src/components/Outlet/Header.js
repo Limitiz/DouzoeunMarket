@@ -15,7 +15,7 @@ const Header = () => {
   useEffect(() => {
     if (getAuthInfo.isTrue) {
       setLoginTitle("로그아웃");
-      setMyPageUrl("/mypage");
+      setMyPageUrl(`/mypage/${getAuthInfo.user.idx}`);
       setSellingUrl("/new-product");
     } else {
       setLoginTitle("로그인/회원가입");
@@ -28,7 +28,7 @@ const Header = () => {
   return (
     <header>
       <div className="logo-container">
-        <img src="logo.png" alt="douzoeunLogo" className="logo"></img>
+        <img src="../logo.png" alt="douzoeunLogo" className="logo"></img>
         <div className="theme">Dou-Zoeun 마켓</div>
       </div>
       <div className="search-container">

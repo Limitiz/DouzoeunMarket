@@ -1,7 +1,7 @@
 import Header from "./components/Outlet/Header";
 import Footer from "./components/Outlet/Footer";
 import MainPage from "./components/MainPage/MainPage";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useParams } from "react-router-dom";
 import ProductDetail from "./components/Product/ProductDetail";
 import Transaction from "./components/Payment/Transaction";
 import { useSelector } from "react-redux";
@@ -24,7 +24,7 @@ function App() {
         <Route path="/" element={<MainPage />} />
         <Route path="/403Error" element={<Error403 />} />
         <Route path="/:id" element={<ProductDetail />} />
-        <Route path="/mypage" element={<MyPage />} />
+        <Route path="/mypage/:userId" element={<MyPage />} />
         <Route path="/new-product" element={<ProductForm />} />
       </Routes>
 
