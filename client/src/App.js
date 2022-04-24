@@ -18,7 +18,7 @@ function App() {
       <Header />
 
       <Routes>
-        <Route path="/pay" element={<Transaction />}></Route>
+        <Route path="/:id/:email" element={<Transaction />}></Route>
         <Route path="/" element={<MainPage />} />
         <Route path="/403Error" element={<Error403 />} />
         <Route path="/:id" element={<ProductDetail />} />

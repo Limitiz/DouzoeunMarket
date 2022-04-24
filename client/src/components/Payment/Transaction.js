@@ -1,20 +1,28 @@
 import React from "react";
 import { Button, Form } from "react-bootstrap";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import "../../css/Transaction.scss";
 import "../../css/Main.scss";
 
 export default function Transaction() {
+  const { id } = useParams();
+  const { email } = useParams();
   const [list, setList] = useState([]);
+  const [user, setUser] = useState([]);
+  const [prod, setProd] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_BASE_URL}/product/pay`
+          `${process.env.REACT_APP_BASE_URL}/product/pay/${id}/${email}`
         );
-        setList(response.data);
+        console.log(response.data);
+        setList(response.data[0]);
+        setUser(response.data[1]);
+        setProd(response.data[2]);
       } catch (e) {
         console.log(e);
       }
@@ -24,6 +32,14 @@ export default function Transaction() {
   const commonList = list.map((list) => <li key={list.idx}>{list.Column}</li>);
   return (
     <>
+      <div className="userImg">
+        <img src={user.img}></img>
+      </div>
+      <div className="user_prod">
+        <p>{user.nickName}</p>
+        <p>{prod.title}</p>
+        <p>{prod.content}</p>
+      </div>
       <hr />
       <Form className="main">
         <fieldset>

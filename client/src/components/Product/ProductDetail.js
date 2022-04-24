@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Tabs, Tab } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import Location from "./Location";
-
+import { useSelector } from "react-redux";
 import DetailCarousel from "./DetailCarousel";
 import "../../css/ProductDetail.scss";
 
 function ProductDetail() {
+  const getAuthInfo = useSelector((state) => state);
   //const [product, setProduct] = useState({ a: null });
   const [color, setColor] = useState("secondary");
   const [product, setProduct] = useState({});
@@ -17,6 +18,8 @@ function ProductDetail() {
   let userId = "";
   let category = "";
   const { id } = useParams();
+  const email = getAuthInfo.user.email;
+  const payUrl = `${email}`;
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -98,6 +101,10 @@ function ProductDetail() {
             >
               찜하기
             </Button>{" "}
+            &nbsp;&nbsp;
+            <Link to={payUrl}>
+              <Button>결제하기</Button>{" "}
+            </Link>
           </div>
         </div>
       </div>
