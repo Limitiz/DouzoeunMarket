@@ -57,7 +57,7 @@ function ProductDetail() {
     }
   };
 
-  console.log(commonList);
+  console.log(id);
   return (
     <div className="productDetail">
       <div className="Container">
@@ -115,8 +115,11 @@ function ProductDetail() {
               <div>{product.content}</div>
             </div>
             <span className="vertical-line3" />
-            <div className="productmap">
-              <Location deliver={product} />
+            <div>
+              <div className="preferplace">판매자가 선호하는 거래 장소. </div>
+              <div className="productmap">
+                <Location deliver={product} />
+              </div>
             </div>
           </div>
         </Tab>

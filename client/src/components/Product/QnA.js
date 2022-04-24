@@ -10,6 +10,7 @@ function QnA({ id }) {
   const [text, setText] = useState("");
   const [qnacontent, setQnacontent] = useState("");
   const [contentlist, setContentlist] = useState([]);
+  const [check, setCheck] = useState("");
 
   const onReset = () => {
     setText("");
@@ -23,8 +24,9 @@ function QnA({ id }) {
     try {
       const res = await axios.post(
         `${process.env.REACT_APP_BASE_URL}/product/detail/qna/${id}`,
-        { idx: id, qnacontent: qnacontent }
+        { idx: id, qnacontent: qnacontent, writer: getAuthInfo.user.idx }
       );
+      console.log(res.data);
       setQnacontent(res.data);
       setContentlist([...contentlist, res.data]);
     } catch (e) {
@@ -47,6 +49,7 @@ function QnA({ id }) {
       console.log(e);
     }
   };
+
   useEffect(() => {
     deleteQna();
   });
@@ -57,6 +60,7 @@ function QnA({ id }) {
         const res = await axios.get(
           `${process.env.REACT_APP_BASE_URL}/product/detail/qna/${id}`
         );
+        console.log(res.data);
         setContentlist(res.data);
       } catch (e) {
         console.log(e);
@@ -65,7 +69,7 @@ function QnA({ id }) {
     getQna();
   }, [id]);
 
-  console.log(getAuthInfo);
+  console.log(getAuthInfo.user.idx);
 
   return (
     <div>
@@ -97,21 +101,35 @@ function QnA({ id }) {
         {contentlist &&
           contentlist.map((item, id) => {
             return (
-              <div key={id}>
+              <div>
                 <div className="qnacontent">
-                  <div>
+                  <div key={id}>
                     {getAuthInfo.user.nickName}: {item.content}
                   </div>
                   <div>
-                    <Button
-                      variant="secondary"
-                      onClick={() => deleteQna(item.idx)}
-                    >
-                      삭제
-                    </Button>
+                    {item.writer ? (
+                      getAuthInfo.user.idx === item.writer ? (
+                        <Button
+                          variant="secondary"
+                          onClick={() => deleteQna(item.idx)}
+                        >
+                          삭제
+                        </Button>
+                      ) : (
+                        <div>
+                          <Button variant="danger" disabled>
+                            삭제불가
+                          </Button>
+                        </div>
+                      )
+                    ) : (
+                      <Button variant="danger" disabled>
+                        삭제불가
+                      </Button>
+                    )}
                   </div>
                 </div>
-                <hr />
+                <hr style={{ width: "100%" }} />
               </div>
             );
           })}

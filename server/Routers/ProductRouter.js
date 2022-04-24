@@ -6,6 +6,7 @@ import Category from "../models/Category.js";
 import Common from "../models/Common.js";
 import QnA from "../models/Qna.js";
 import { Op } from "sequelize";
+import sequelize from "../models/sq.js";
 
 const productRouter = express.Router();
 
@@ -98,18 +99,19 @@ async function createOrDelete(pid, uid) {
 }
 
 productRouter.post("/detail/qna/:id", async (req, res) => {
-  console.log(req.body);
   const data = await QnA.create({
     productId: req.body.idx,
     content: req.body.qnacontent,
-    writer: 1,
+    writer: req.body.writer,
   });
+  console.log(data);
   res.json(data);
 });
 
 productRouter.get("/detail/qna/:id", async (req, res) => {
   const { id } = req.params;
   const data = await QnA.findAll({
+    attributes: ["writer", "productId", "idx", "content"],
     where: { productId: id },
   });
   res.json(data);
