@@ -15,10 +15,15 @@ function ProductDetail() {
   const [product, setProduct] = useState({});
   const [commonList, setCommonList] = useState({});
   const [cName, setCName] = useState("");
+
   let userId = "";
   let category = "";
   const { id } = useParams();
-  const email = getAuthInfo.user.email;
+  let email = "";
+  if (getAuthInfo.isTrue) {
+    email = getAuthInfo.user.email;
+  } else {
+  }
   const payUrl = `${email}`;
 
   useEffect(() => {
@@ -34,6 +39,7 @@ function ProductDetail() {
         console.log(productInfo);
         setProduct(productInfo);
         setCommonList(commonInfo);
+
         userId = res.data[1].Favorite.userId;
         category = res.data[1].Category.name;
         userId !== null ? setColor("danger") : setColor("secondary");
@@ -58,7 +64,8 @@ function ProductDetail() {
       console.log(e);
     }
   };
-  console.log(commonList);
+  // console.log(commonList);
+
   return (
     <div className="productDetail">
       <div className="Container">

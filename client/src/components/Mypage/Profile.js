@@ -1,4 +1,4 @@
-import React, {useState, useRef, useEffect} from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Link, Router } from "react-router-dom";
 import "bootstrap";
 import "../../css/Profile.scss";
@@ -6,11 +6,12 @@ import axios from "axios";
 
 export default function Profile() {
   const [profileImg, setImg] = useState("defaultProfile.jpg");
+  const [modalShow, setModalShow] = useState(false);
   const fileInput = useRef(null);
   const [nickName, setNick] = useState("닉네임을 설정해주세요");
   const [rate, setRate] = useState(3.3);
   const percent = rate * 20;
-  let tmpImg = '';
+  let tmpImg = "";
 
   //프로필 사진 변경 함수
   const onChange = async (e) => {
@@ -22,16 +23,21 @@ export default function Profile() {
     };
     reader.readAsDataURL(e.target.files[0]);
 
-    const data = await axios.post(`${process.env.REACT_APP_BASE_URL}/mypage/img`,
-        {img : profileImg});
+    const data = await axios.post(
+      `${process.env.REACT_APP_BASE_URL}/mypage/img`,
+      { img: profileImg }
+    );
     console.log(data.data);
   };
 
-  useEffect(async ()=>{
-    const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/mypage/currentImg`);
-    tmpImg = res.data.img; setImg(tmpImg);
-    console.log("this is the img : ",tmpImg);
-  },[]);
+  useEffect(async () => {
+    const res = await axios.get(
+      `${process.env.REACT_APP_BASE_URL}/mypage/currentImg`
+    );
+    tmpImg = res.data.img;
+    setImg(tmpImg);
+    console.log("this is the img : ", tmpImg);
+  }, []);
 
   return (
     <div className="profile">
