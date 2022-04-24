@@ -32,7 +32,7 @@ function ProductDetail() {
       try {
         const res = await axios.get(
           `${process.env.REACT_APP_BASE_URL}/product/detail/${id}`
-        ); 
+        );
         console.log(res.data);
         let commonInfo = res.data[0];
         let productInfo = res.data[1];
@@ -42,6 +42,7 @@ function ProductDetail() {
 
         userId = res.data[1].Favorite.userId;
         category = res.data[1].Category.name;
+
         userId !== null ? setColor("danger") : setColor("secondary");
         category !== null ? setCName(category) : setCName("");
       } catch (e) {
@@ -110,7 +111,6 @@ function ProductDetail() {
             >
               찜하기
             </Button>
-
             &nbsp;&nbsp;
             <Link to={payUrl}>
               <Button>결제하기</Button>{" "}
