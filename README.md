@@ -31,9 +31,9 @@
 
 #### 4. 🔥 GitFlow 🔥
 
-- <span style="font-size:150%">[2팀 GitFlow 보러가기]()
+### [2팀 GitFlow 보러가기](https://github.com/Dev-lemongrab/Dou-Zoeun-Market/blob/main/GitFlow.md)
 
-  ***
+---
 
 ## 📜 프로젝트 설계도
 
