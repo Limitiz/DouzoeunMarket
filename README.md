@@ -1,6 +1,5 @@
 # 😎 Dou-Zoeun-Market
 
----
 
 ## 🖥 프로젝트 소개
 
@@ -9,10 +8,7 @@
 
 ### 👨‍💻 1. 기술스택 👩‍💻
 
-<img src="https://img.shields.io/badge/React-61dafb?style=flat-square&logo=React&logoColor=white"/>
-<img src="https://img.shields.io/badge/Redux-7944b6?style=flat-square&logo=Redux&logoColor=white"/>
-<img src="https://img.shields.io/badge/JavaScript-FFD400?style=flat-square&logo=JavaScript&logoColor=white"/>
-<img src="https://img.shields.io/badge/Node.JS-12317833?style=flat-square&logo=Node.js&logoColor=white"/>
+<img src="https://img.shields.io/badge/React-61dafb?style=flat-square&logo=React&logoColor=white"/> <img src="https://img.shields.io/badge/Redux-7944b6?style=flat-square&logo=Redux&logoColor=white"/> <img src="https://img.shields.io/badge/JavaScript-FFD400?style=flat-square&logo=JavaScript&logoColor=white"/> <img src="https://img.shields.io/badge/Node.JS-12317833?style=flat-square&logo=Node.js&logoColor=white"/>
 
 ### ⚡️ 2. 프로젝트 제작 협업 툴
 
@@ -168,7 +164,9 @@ reducer
 															👉 ProudctService.js
 ```
 
-## 프로젝트 기능 설명
+	---
+	
+## 💡 프로젝트 기능 설명
 
 ### 1. 메인페이지
 
