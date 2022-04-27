@@ -3,7 +3,7 @@
 
 ## 🖥 프로젝트 소개
 
-> 더존 채용확정형 2기 2팀 리액트로 만드는 중고거래 웹페이지
+> 더존 채용확정형 2기 2팀 리액트로 만드는 중고거래 웹페이지<br/>
 > 중고거래 플랫폼을 프론트는 리액트, 서버는 nodejs를 활용해 구현해보는 프로젝트
 
 ### 👨‍💻 1. 기술스택 👩‍💻
@@ -15,7 +15,7 @@
 #### 1. 🔥 AQuery Tool - ERD 제작 툴 🔥
 
 - <span style="font-size:150%">[ERD 보러가기 (비밀번호 : 76v0yb)](https://aquerytool.com/aquerymain/index/?rurl=88b8059d-c68c-4dc1-992d-da0e0ec50b40)
-
+</span>
 #### 2. 🔥 Draw.io - 스토리보드 제작 툴 🔥
 
 - <span style="font-size:150%">[스토리보드 보러가기](https://drive.google.com/file/d/167-C5-N8Qq-luxnQogYcf-DgwveQf1t-/view?usp=sharing)
