@@ -9,7 +9,7 @@
 
 ### 👨‍💻 1. 기술스택 👩‍💻
 
-<img src="https://img.shields.io/badge/React-61dafb?style=flat-square&logo=React&logoColor=white"/><img src="https://img.shields.io/badge/Redux-7944b6?style=flat-square&logo=Redux&logoColor=white"/><img src="https://img.shields.io/badge/JavaScript-FFD400?style=flat-square&logo=JavaScript&logoColor=white"/><img src="https://img.shields.io/badge/Node.JS-12317833?style=flat-square&logo=Node.js&logoColor=white"/>
+<img src="https://img.shields.io/badge/React-61dafb?style=flat-square&logo=React&logoColor=white"/> <img src="https://img.shields.io/badge/Redux-7944b6?style=flat-square&logo=Redux&logoColor=white"/> <img src="https://img.shields.io/badge/JavaScript-FFD400?style=flat-square&logo=JavaScript&logoColor=white"/> <img src="https://img.shields.io/badge/Node.JS-12317833?style=flat-square&logo=Node.js&logoColor=white"/>
 
 ### ⚡️ 2. 프로젝트 제작 협업 툴
 
@@ -19,7 +19,7 @@
 
 #### 2. 🔥 Draw.io - 스토리보드 제작 툴 🔥
 
-### [스토리보드 보러가기](https://drive.google.com/file/d/167-C5-N8Qq-luxnQogYcf-DgwveQf1t-/view?usp=sharing)
+### [스토리보드 보러가기](https://github.com/Dev-lemongrab/Dou-Zoeun-Market/blob/main/StoryBoard.md)
 
 #### 3. 🔥 기능 개발 코드 공유 및 협업 툴 🔥
 
@@ -32,9 +32,9 @@
 
 #### 4. 🔥 GitFlow 🔥
 
-### [2팀 GitFlow 보러가기]()
+### [2팀 GitFlow 보러가기](https://github.com/Dev-lemongrab/Dou-Zoeun-Market/blob/main/GitFlow.md)
 
-  ---
+---
 
 ## 📜 프로젝트 설계도
 
