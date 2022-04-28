@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import DetailCarousel from "./DetailCarousel";
 import QnA from "./QnA";
 import "../../css/ProductDetail.scss";
+import "../../css/Main.scss";
 
 function ProductDetail() {
   const getAuthInfo = useSelector((state) => state);
@@ -16,10 +17,11 @@ function ProductDetail() {
   const [product, setProduct] = useState({});
   const [commonList, setCommonList] = useState();
   const [cName, setCName] = useState("");
-  const [isMe, setIsMe] = useState("");
+  const [isMe, setIsMe] = useState();
 
   let userId = "";
   let category = "";
+  let prodId = "";
   const { id } = useParams();
   let email = "";
   if (getAuthInfo.isTrue) {
@@ -41,13 +43,19 @@ function ProductDetail() {
         setProduct(productInfo);
         setCommonList(commonInfo);
 
-        userId = res.data[1].Favorite.userId;
-        category = res.data[1].Category.name;
+        res.data[1].Favorite !== null
+          ? (userId = res.data[1].Favorite.userId)
+          : (userId = "");
+        res.data[1].Category.name != null
+          ? (category = res.data[1].Category.name)
+          : (category = "");
 
-        userId !== null ? setColor("danger") : setColor("secondary");
+        userId === null ? setColor("danger") : setColor("secondary");
         category !== null ? setCName(category) : setCName("");
-
-        res.data[1].seller === getAuthInfo.user.idx ? setIsMe("user") : setIsMe("not user");
+        console.log(res.data[1]);
+        res.data[1].seller === getAuthInfo.user.idx
+          ? setIsMe(true)
+          : setIsMe(false);
       } catch (e) {
         console.log(e);
       }
@@ -59,7 +67,7 @@ function ProductDetail() {
     try {
       const res = await axios.post(
         `${process.env.REACT_APP_BASE_URL}/product/detail/postid`,
-        { idx: id, userId : getAuthInfo.user.idx }
+        { idx: id, userId: getAuthInfo.user.idx }
       );
       setColor(res.data);
     } catch (e) {
@@ -68,7 +76,7 @@ function ProductDetail() {
   };
 
   return (
-    <div className="productDetail">
+    <div className="productDetail main">
       <div className="Container">
         <br />
         <hr />
@@ -107,23 +115,27 @@ function ProductDetail() {
               </ul>
             </div>
             <Button
+              className="jjim"
               onClick={() => {
                 postProduct();
               }}
-              variant={color}
             >
               찜하기
             </Button>
 
-            {isMe && isMe === "not user" ?
-                <Link to={payUrl}>
-                  <Button variant="danger" style={{marginLeft : '1rem'}}>결제하기</Button>
-               </Link>
-                : <Link to="/change">
-                  <Button variant="primary" style={{marginLeft : '1rem'}}>수정하기</Button>
-                </Link>
-            }
-
+            {isMe == false ? (
+              <Link to={payUrl}>
+                <Button className="pay" style={{ marginLeft: "1rem" }}>
+                  결제하기
+                </Button>
+              </Link>
+            ) : (
+              <Link to="/change">
+                <Button className="modify" style={{ marginLeft: "1rem" }}>
+                  수정하기
+                </Button>
+              </Link>
+            )}
           </div>
         </div>
       </div>
@@ -131,6 +143,8 @@ function ProductDetail() {
         <Tab eventKey="MyProduct" title={`상품 정보`}>
           <div className="productContent">
             <div>
+              <div>{product.seller}번 판매자의 상품설명</div>
+              <hr />
               <div>{product.content}</div>
             </div>
             <span className="vertical-line3" />

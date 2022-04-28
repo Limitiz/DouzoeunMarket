@@ -68,8 +68,6 @@ function QnA({ id }) {
     getQna();
   }, [id]);
 
-  console.log(getAuthInfo.user.idx);
-
   return (
     <div>
       <div className="qnaform">
@@ -103,7 +101,10 @@ function QnA({ id }) {
               <div key={id}>
                 <div className="qnacontent">
                   <div>
-                    {getAuthInfo.user.nickName}: {item.content}
+                    {item.writer === getAuthInfo.user.idx
+                      ? getAuthInfo.user.nickName
+                      : "익명의 질문자"}
+                    : {item.content}
                   </div>
                   <div>
                     {item.writer ? (

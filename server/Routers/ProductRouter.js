@@ -45,7 +45,7 @@ productRouter.get(
         "exchange",
         "shippingincluded",
         "address",
-          "seller"
+        "seller",
       ],
       include: [
         {
@@ -79,7 +79,6 @@ productRouter.get(
     res.send([data, detailValue]);
   }
 );
-
 productRouter.post("/detail/postid", async (req, res) => {
   const userId = req.body.userId;
   const id = req.body.idx;
@@ -87,7 +86,9 @@ productRouter.post("/detail/postid", async (req, res) => {
 });
 
 async function createOrDelete(pid, uid) {
-  const isExist = await Favorite.findOne({ where: { productId: pid } });
+  const isExist = await Favorite.findOne({
+    where: { userId: uid, productId: pid },
+  });
   if (!isExist) {
     const data = await Favorite.create({
       productId: pid,
@@ -96,11 +97,14 @@ async function createOrDelete(pid, uid) {
     console.log(">>>>>>>>>>>>>>>>>>>>>");
     console.log(data.dataValues.idx);
     console.log(pid);
-    await ProductImg.update({
-          favoriteId: data.dataValues.idx
-        }, {
-          where : {productId :pid}
-        });
+    await ProductImg.update(
+      {
+        favoriteId: data.dataValues.idx,
+      },
+      {
+        where: { productId: pid },
+      }
+    );
     return "danger";
   } else {
     Favorite.destroy({ where: { productId: pid } });
