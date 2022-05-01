@@ -1,3 +1,6 @@
+.QnaContainer {
+  margin-top: -3%;
+}
 .qnaform {
   .qnainput {
     padding: 35px 20px 30px 20px;
@@ -84,5 +87,20 @@
   .questionMark {
     font-size: 30px;
     margin-right: 10px;
+  }
+}
+
+.Counting {
+  margin-left: 50%;
+  margin-bottom: 3%;
+  width: 100%;
+  .selectBox {
+    border-style: none;
+    &:focus {
+      border-color: rgb(169, 169, 169);
+    }
+    &:active {
+      border-color: rgb(169, 169, 169);
+    }
   }
 }

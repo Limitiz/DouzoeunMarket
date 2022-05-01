@@ -71,9 +71,7 @@ productRouter.post(
       ],
       where: { idx: id },
     });
-    console.log(data);
     req.data = data;
-
     next();
   },
   async (req, res) => {
@@ -101,7 +99,6 @@ async function createOrDelete(pid, uid) {
       productId: pid,
       userId: uid,
     });
-    console.log(">>>>>>>>>>>>>>>>>>>>>");
     console.log(data.dataValues.idx);
     console.log(pid);
     await ProductImg.update(
@@ -125,7 +122,6 @@ productRouter.post("/detail/qna/:id", async (req, res) => {
     content: req.body.qnacontent,
     writer: req.body.writer,
   });
-  console.log(data);
   res.json(data);
 });
 
