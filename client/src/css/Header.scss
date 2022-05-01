@@ -14,6 +14,8 @@ header {
     align-items: center;
   }
   a {
+    width: 30%;
+    text-align: center;
     text-decoration: none;
     font-size: 11px;
     color: rgb(230, 230, 230);
@@ -59,8 +61,11 @@ header {
 }
 
 .menu-container {
+  text-align: center;
   margin-top: 12px;
+  width: 30%;
   p {
+    width: 50%;
     padding: 0px;
     cursor: pointer;
   }

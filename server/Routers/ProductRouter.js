@@ -30,10 +30,15 @@ productRouter.get("/", async (req, res) => {
   res.json(data);
 });
 
-productRouter.get(
-  "/detail/:id",
+productRouter.post(
+  "/detail",
   async (req, res, next) => {
-    const { id } = req.params;
+    const id = req.body.id;
+    const userId = req.body.userId;
+    //const userId = req.params.userId;
+
+    console.log(id);
+    console.log(userId);
     const data = await Product.findOne({
       attributes: [
         "title",
@@ -61,12 +66,14 @@ productRouter.get(
         {
           model: Favorite,
           required: false,
+          where: { userId: userId },
         },
       ],
       where: { idx: id },
     });
     console.log(data);
     req.data = data;
+
     next();
   },
   async (req, res) => {
@@ -105,10 +112,10 @@ async function createOrDelete(pid, uid) {
         where: { productId: pid },
       }
     );
-    return "danger";
+    return "like";
   } else {
-    Favorite.destroy({ where: { productId: pid } });
-    return "secondary";
+    Favorite.destroy({ where: { productId: pid, userId: uid } });
+    return "unlike";
   }
 }
 

@@ -39,10 +39,11 @@ passport.serializeUser(function (user, done) {
   done(null, user);
 });
 // 유저의 아이디만 저장하고 유저의 아이디를 통해서 deserialize할때는 DB에서 뺴온다.
-passport.deserializeUser(function (id, done) {
+passport.deserializeUser(function (user, done) {
   //디비에서 user.findOne()
-  console.log("passport session get id: ", id);
-  done(null, id);
+  console.log("passport session get id: ", user);
+
+  done(null, user);
 });
 
 //라우팅

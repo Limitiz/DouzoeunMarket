@@ -1,4 +1,88 @@
+.qnaform {
+  .qnainput {
+    padding: 35px 20px 30px 20px;
+    font-size: 12px;
+    border-radius: 10px;
+    border-color: rgb(169, 169, 169);
+    border-width: 1px;
+    text-align: center;
+    width: 70%;
+    height: 100px;
+    &::placeholder {
+      font-size: 12px;
+      text-align: center;
+    }
+    &:focus,
+    &:active {
+      outline: #ffffff !important;
+    }
+  }
+  .qnabutton {
+    border-color: rgb(169, 169, 169);
+    font-size: 11px;
+    border-color: rgb(169, 169, 169);
+    color: black;
+    padding: 0;
+    background-color: #ffffff;
+    margin-left: 20px;
+    width: 60px !important;
+    height: 30px !important;
+    bottom: 40%;
+    &:hover {
+      border-color: rgb(169, 169, 169);
+      background-color: #ebebeb;
+      color: black;
+    }
+    &:active,
+    &:focus {
+      box-shadow: none;
+    }
+  }
+}
 .qnacontent {
   display: flex;
   justify-content: space-around;
+
+  .qnaDelete {
+    margin-right: 10%;
+    Button {
+      border-color: rgb(169, 169, 169);
+      font-size: 11px;
+      border-color: rgb(169, 169, 169);
+      color: black;
+      padding: 0;
+      background-color: #ffffff;
+      margin-left: 20px;
+      width: 60px !important;
+      height: 30px !important;
+      bottom: 40%;
+      &:hover {
+        border-color: rgb(169, 169, 169);
+        background-color: #ebebeb;
+        color: black;
+      }
+      &:active,
+      &:focus {
+        box-shadow: none;
+      }
+    }
+  }
+  .qnaWrite {
+    margin-top: 1%;
+    margin-left: 7%;
+    width: 70%;
+  }
+}
+.noQna {
+  text-align: center;
+  margin-top: 100px;
+  margin-bottom: 100px;
+  .noComment {
+    width: 100%;
+    font-size: 12px;
+  }
+  .questionMark {
+    font-size: 30px;
+    margin-right: 10px;
+  }
 }

@@ -9,13 +9,13 @@ import { Cookies } from "react-cookie";
 import "./index.css";
 
 const cookies = new Cookies();
-let getAuthInfo = null;
+let getAuthInfo = "";
 const cookie = cookies.get("authCookie");
 
 if (cookies.get("authCookie") != null) {
   getAuthInfo = cookies.get("authCookie");
 } else {
-  getAuthInfo = { isTrue: false };
+  getAuthInfo = false;
 }
 //const auth = window.location.search;
 

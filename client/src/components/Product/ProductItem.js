@@ -47,9 +47,7 @@ const ProductItem = ({ deliver, urlName }) => {
 
   console.log("urlName : ", urlName);
   useEffect(() => {
-    getAuthInfo.isTrue === false
-      ? setUserUrl("")
-      : setUserUrl(getAuthInfo.user.idx);
+    getAuthInfo === false ? setUserUrl("") : setUserUrl(getAuthInfo.user.idx);
     urlName === `mypage/favorite/${userUrl}` ? isFav() : notFav();
   }, []);
 

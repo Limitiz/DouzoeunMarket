@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { AiFillLike, AiOutlineLike } from "react-icons/ai";
+
+import { SiKakao } from "react-icons/si";
 import { Link, useParams } from "react-router-dom";
 import { Tabs, Tab } from "react-bootstrap";
 import { Button } from "react-bootstrap";
@@ -12,50 +15,31 @@ import "../../css/Main.scss";
 
 function ProductDetail() {
   const getAuthInfo = useSelector((state) => state);
-  //const [product, setProduct] = useState({ a: null });
-  const [color, setColor] = useState("secondary");
   const [product, setProduct] = useState({});
   const [commonList, setCommonList] = useState();
   const [cName, setCName] = useState("");
-  const [isMe, setIsMe] = useState();
+  const [like, setLike] = useState(false);
 
-  let userId = "";
-  let category = "";
-  let prodId = "";
   const { id } = useParams();
-  let email = "";
-  if (getAuthInfo.isTrue) {
-    email = getAuthInfo.user.email;
-  } else {
-  }
-  const payUrl = `${email}`;
-
+  const userId = !!getAuthInfo ? getAuthInfo.user.idx : "";
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const res = await axios.get(
-          `${process.env.REACT_APP_BASE_URL}/product/detail/${id}`
+        const res = await axios.post(
+          `${process.env.REACT_APP_BASE_URL}/product/detail`,
+          { id: id, userId: userId }
         );
-        console.log(res.data);
+        //좋아요 확인
+        console.log(id);
+        console.log(userId);
         let commonInfo = res.data[0];
         let productInfo = res.data[1];
         console.log(productInfo);
         setProduct(productInfo);
         setCommonList(commonInfo);
-
-        res.data[1].Favorite !== null
-          ? (userId = res.data[1].Favorite.userId)
-          : (userId = "");
-        res.data[1].Category.name != null
-          ? (category = res.data[1].Category.name)
-          : (category = "");
-
-        userId === null ? setColor("danger") : setColor("secondary");
-        category !== null ? setCName(category) : setCName("");
-        console.log(res.data[1]);
-        res.data[1].seller === getAuthInfo.user.idx
-          ? setIsMe(true)
-          : setIsMe(false);
+        setCName(productInfo.Category.name);
+        setLike(!productInfo.Favorite);
+        console.log(!productInfo.Favorite);
       } catch (e) {
         console.log(e);
       }
@@ -64,14 +48,23 @@ function ProductDetail() {
   }, []);
 
   const postProduct = async () => {
-    try {
-      const res = await axios.post(
-        `${process.env.REACT_APP_BASE_URL}/product/detail/postid`,
-        { idx: id, userId: getAuthInfo.user.idx }
-      );
-      setColor(res.data);
-    } catch (e) {
-      console.log(e);
+    if (userId === "") {
+      alert("로그인 이후에 이용하실 수 있습니다!");
+    } else {
+      try {
+        const res = await axios.post(
+          `${process.env.REACT_APP_BASE_URL}/product/detail/postid`,
+          { idx: id, userId: userId }
+        );
+        if (res.data === "like") {
+          setLike(false);
+        } else {
+          setLike(true);
+        }
+        console.log(res.data);
+      } catch (e) {
+        console.log(e);
+      }
     }
   };
 
@@ -79,21 +72,32 @@ function ProductDetail() {
     <div className="productDetail main">
       <div className="Container">
         <br />
-        <hr />
+        {/* <hr /> */}
         <div className="categoryBox">
-          <i className="fa-solid fa-house"></i>
-          <p className="home">홈</p>
+          <div>
+            <Link to="/">
+              <i className="fa-solid fa-house"></i>
+            </Link>
+          </div>
           &nbsp;
-          <i className="fa-solid fa-arrow-right"></i>
-          &nbsp;
-          <p className="categoryItem">{cName}</p>
+          <p className="home">
+            <Link to="/">홈</Link>
+          </p>
+          &nbsp;&nbsp;
+          <div>
+            <i className="arrow fa-solid fa-arrow-right"></i>
+          </div>
+          &nbsp;&nbsp;
+          <p className="categoryItem">
+            <Link to="/">{cName}</Link>
+          </p>
         </div>
         <hr style={{ marginTop: "-5px", border: 0, height: "1px" }} />
         <div className="productContainer">
           <div className="carouselwidth">
             <DetailCarousel deliver={product} />
           </div>
-          <div>
+          <div className="productInfo">
             <p className="pTitle">{product.title}</p>
             <p className="pPrice">{product.price}원</p>
             <hr />
@@ -114,28 +118,28 @@ function ProductDetail() {
                 <li>{product.shippingincluded}</li>
               </ul>
             </div>
-            <Button
-              className="jjim"
-              onClick={() => {
-                postProduct();
-              }}
-            >
-              찜하기
-            </Button>
+            <div className="Buttons">
+              <Button
+                className=""
+                onClick={() => {
+                  postProduct();
+                }}
+              >
+                <div>
+                  {like ? (
+                    <AiOutlineLike className="jjimIcon"></AiOutlineLike>
+                  ) : (
+                    <AiFillLike className="jjimIcon"></AiFillLike>
+                  )}
+                  {like ? "Unlike" : "Like"}
+                </div>
+              </Button>
 
-            {isMe == false ? (
-              <Link to={payUrl}>
-                <Button className="pay" style={{ marginLeft: "1rem" }}>
-                  결제하기
-                </Button>
-              </Link>
-            ) : (
-              <Link to="/change">
-                <Button className="modify" style={{ marginLeft: "1rem" }}>
-                  수정하기
-                </Button>
-              </Link>
-            )}
+              <Button className="pay">
+                <SiKakao className="kakao" />
+                &nbsp;pay
+              </Button>
+            </div>
           </div>
         </div>
       </div>

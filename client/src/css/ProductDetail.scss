@@ -1,13 +1,3 @@
-button {
-}
-.jjim,
-.pay,
-.modify {
-  width: 60px;
-  height: 30px;
-  background-color: #d3d3d3;
-}
-
 .productDetail {
   width: 100%;
   margin: auto !important;
@@ -19,12 +9,26 @@ button {
 
 .categoryBox {
   display: flex;
-  margin-left: 25px;
-  font-size: 15px;
+  Link {
+    margin-left: 25px;
+    font-size: 12px;
+    text-decoration: none;
+    color: black;
+  }
+}
+// a:visited {
+//   // color: black;
+//   text-decoration: none;
+// }
+a:link {
+  color: rgb(0, 0, 0);
+  text-decoration: none;
 }
 
 .home {
+  color: black;
   margin-left: 10px;
+  text-decoration: none;
 }
 
 .productContainer {
@@ -36,15 +40,76 @@ button {
   width: 350px;
   height: 350px;
 }
+.productInfo {
+  text-align: left;
+  width: 40%;
+  .pTitle {
+    text-align: right;
+    margin-right: 50px;
+    font-size: 20px;
+    font-weight: 800;
+  }
+  .pPrice {
+    text-align: right;
+    margin-right: 50px;
+    font-size: 25px;
+    color: #6f6f6f;
+  }
+  .common {
+    margin-left: -20px;
+    display: flex;
+    justify-content: space-around;
 
-.pTitle {
-  font-size: 20px;
-  font-weight: 800;
-}
+    .commonkey {
+      list-style: none;
+      font-weight: bold;
+      font-size: 12px;
+      padding-left: 0;
+    }
+    .commonvalue {
+      list-style: none;
+      font-size: 12px;
+    }
+  }
+  .Buttons {
+    margin-top: 15px;
+    text-align: center;
+    button {
+      font-size: 11px;
+      border-color: rgb(169, 169, 169);
+      color: black;
+      padding: 0;
+      background-color: #ffffff;
+      margin-left: 20px;
+      width: 90px !important;
+      height: 30px !important;
+      &:hover {
+        background-color: #ebebeb;
+      }
+      &:active,
+      &:focus {
+        box-shadow: none;
+      }
+    }
+    .kakao {
+      margin-bottom: 3px;
+      font-size: 30px;
+    }
+    .jjimIcon {
+      margin-right: 5px;
+      margin-bottom: 5px;
+    }
 
-.pPrice {
-  font-size: 25px;
-  color: #6f6f6f;
+    .jjim,
+    .pay,
+    .modify {
+      font-size: 12px;
+      width: 60px;
+      height: 30px;
+      color: black;
+      background-color: #ffffff;
+    }
+  }
 }
 
 .productState {
@@ -65,6 +130,7 @@ button {
 .productmap {
   display: flex;
   justify-content: center;
+  margin-left: -30%;
 }
 
 .carouselwidth {
@@ -80,23 +146,6 @@ button {
   height: 430px;
   margin: -47px 6px 0 3px;
   border-left: 1px solid #d3d3d3;
-}
-
-.common {
-  display: flex;
-  justify-content: space-around;
-  margin-left: -10px;
-}
-
-.commonkey {
-  list-style: circle;
-  font-weight: bold;
-  font-size: 14px;
-}
-
-.commonvalue {
-  list-style: none;
-  font-size: 14px;
 }
 
 .qnaform {
