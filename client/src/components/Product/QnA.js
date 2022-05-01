@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { Button } from "react-bootstrap";
 import axios from "axios";
 import "../../css/QnA.scss";
+import Pagination from "./Pagination";
 
 function QnA({ id }) {
   const getAuthInfo = useSelector((state) => state);
@@ -12,6 +13,11 @@ function QnA({ id }) {
   const [qnacontent, setQnacontent] = useState("");
   const [contentlist, setContentlist] = useState([]);
   const userId = !!getAuthInfo ? getAuthInfo.user.idx : "";
+  //페이지네이션
+  const [limit, setLimit] = useState(10);
+  const [page, setPage] = useState(1);
+  const offset = (page - 1) * limit;
+
   const onReset = () => {
     setText("");
   };
@@ -78,7 +84,23 @@ function QnA({ id }) {
   }, [id]);
   if (getAuthInfo) {
     return (
-      <div>
+      <div className="QnaContainer">
+        <label className="Counting">
+          페이지 당 표시할 게시물 수:&nbsp;
+          <select
+            className="selectBox"
+            type="number"
+            value={limit}
+            onChange={({ target: { value } }) => setLimit(Number(value))}
+          >
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+          </select>
+        </label>
+
         <div className="qnaform">
           <textarea
             type="text"
@@ -103,7 +125,7 @@ function QnA({ id }) {
         <hr />
         <div>
           {contentlist &&
-            contentlist.map((item, id) => {
+            contentlist.slice(offset, offset + limit).map((item, id) => {
               return (
                 <div key={id}>
                   <div className="qnacontent">
@@ -143,6 +165,14 @@ function QnA({ id }) {
                 </div>
               );
             })}
+        </div>
+        <div>
+          <Pagination
+            total={contentlist.length}
+            limit={limit}
+            page={page}
+            setPage={setPage}
+          />
         </div>
       </div>
     );
