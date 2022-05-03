@@ -61,7 +61,7 @@ const ProductItem = ({ deliver, urlName }) => {
           { id: deliver.idx }
         );
 
-        res.data.length >= 3 ? setHotIcon(true) : setHotIcon(false);
+        res.data >= 3 ? setHotIcon(true) : setHotIcon(false);
       } catch (e) {
         console.log(e);
       }
@@ -74,6 +74,7 @@ const ProductItem = ({ deliver, urlName }) => {
     var differ = Math.ceil(
       (now.getTime() - createDate.getTime()) / (1000 * 60 * 60 * 24)
     );
+    //월별로 하는건 ?
     differ < 31 ? setNewIcon(true) : setNewIcon(false);
   }, []);
 

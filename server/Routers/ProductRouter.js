@@ -148,12 +148,11 @@ productRouter.delete("/detail/qna/:idx", async (req, res) => {
 });
 productRouter.post("/favorite", async (req, res) => {
   const id = req.body.id;
-  const like = await Favorite.findAll({
+  const like = await Favorite.findAndCountAll({
     attributes: ["productId"],
     where: { productId: id },
   });
-
-  res.json(like);
+  res.json(like.count);
 });
 productRouter.get(
   "/pay/:id/:email",

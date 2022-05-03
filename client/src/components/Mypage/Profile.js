@@ -1,9 +1,9 @@
-import React, {useState, useRef, useEffect} from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Link, Router, useParams } from "react-router-dom";
 import "bootstrap";
 import "../../css/Profile.scss";
 import axios from "axios";
-import {useSelector} from "react-redux";
+import { useSelector } from "react-redux";
 
 export default function Profile() {
   const [profileImg, setImg] = useState("../defaultProfile.jpg");
@@ -15,7 +15,7 @@ export default function Profile() {
   let tmpImg = "";
 
   const getAuthInfo = useSelector((state) => state);
-  const {userId} = useParams();
+  const { userId } = useParams();
   console.log("USER ID", userId);
 
   //프로필 사진 변경 함수
@@ -28,27 +28,32 @@ export default function Profile() {
     };
     reader.readAsDataURL(e.target.files[0]);
 
-    const data = await axios.post(`${process.env.REACT_APP_BASE_URL}/mypage/img/${userId}`,
-        {img : profileImg});
+    const data = await axios.post(
+      `${process.env.REACT_APP_BASE_URL}/mypage/img/${userId}`,
+      { img: profileImg }
+    );
   };
 
-  useEffect(async ()=>{
-    const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/mypage/profile/${userId}`);
+  useEffect(async () => {
+    const res = await axios.get(
+      `${process.env.REACT_APP_BASE_URL}/mypage/profile/${userId}`
+    );
     setNick(res.data.nickName);
     setRate(res.data.rate);
     setImg(res.data.img);
-  },[]);
+  }, []);
 
-
-  async function withdraw(){
+  async function withdraw() {
     if (window.confirm("탈퇴하시겠습니까?")) {
-      await axios.delete(`${process.env.REACT_APP_BASE_URL}/mypage/withdraw/${userId}`);
+      await axios.delete(
+        `${process.env.REACT_APP_BASE_URL}/mypage/withdraw/${userId}`
+      );
       alert("탈퇴되었습니다.");
-      window.location.href="http://localhost/3000";
+      window.location.href = "http://localhost/3000";
     } else {
       alert("취소합니다.");
     }
-  };
+  }
 
   return (
     <div className="profile">
@@ -77,11 +82,11 @@ export default function Profile() {
               className="fill-star space-x-2"
               style={{ width: `${percent}%` }}
             >
-              <img src="../fullStar.png"/>
-              <img src="../fullStar.png"/>
-              <img src="../fullStar.png"/>
-              <img src="../fullStar.png"/>
-              <img src="../fullStar.png"/>
+              <img src="../fullStar.png" />
+              <img src="../fullStar.png" />
+              <img src="../fullStar.png" />
+              <img src="../fullStar.png" />
+              <img src="../fullStar.png" />
             </div>
             <div className="empty-star space-x-2">
               <img src="../emptyStar.png" />
@@ -95,9 +100,9 @@ export default function Profile() {
         </div>
       </div>
 
-        <button type="button" className="btn btn-danger" onClick={withdraw}>
-          회원탈퇴
-        </button>
+      <button type="button" className="btn btn-danger" onClick={withdraw}>
+        회원탈퇴
+      </button>
     </div>
   );
 }
