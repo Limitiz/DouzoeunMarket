@@ -3,7 +3,7 @@ import "../../css/Location.scss";
 
 const { kakao } = window;
 const Location = ({ deliver }) => {
-  const { address } = deliver;
+  const address = deliver.address;
   //console.log(locationX);
 
   useEffect(() => {
@@ -14,7 +14,8 @@ const Location = ({ deliver }) => {
       };
     var map = new kakao.maps.Map(container, mapOption);
     var geocoder = new kakao.maps.services.Geocoder();
-    geocoder.addressSearch(deliver.address, function (result, status) {
+    console.log(address);
+    geocoder.addressSearch(address, function (result, status) {
       console.log("맵 주소 위도경도 변환 함수 실행");
       if (status === kakao.maps.services.Status.OK) {
         var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
@@ -23,7 +24,7 @@ const Location = ({ deliver }) => {
           map: map,
         });
         var infowindow = new kakao.maps.InfoWindow({
-          content: `<div style="width:100%;text-align:center;padding:6px 6px;">판매자가 선호하는 거래장소<br/>${deliver.address}</div>`,
+          content: `<div style="width:100%;height:50px;text-align:center;padding:6px 6px;">${deliver.address}</div>`,
         });
         infowindow.open(map, marker);
         marker.setMap(coords);
@@ -33,7 +34,7 @@ const Location = ({ deliver }) => {
 
   return (
     <div className="mapContainer">
-      <div id="map" style={{ width: "300px", height: "300px" }}></div>
+      <div id="map" style={{ width: "350px", height: "350px" }}></div>
     </div>
   );
 };

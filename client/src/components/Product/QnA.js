@@ -127,7 +127,7 @@ function QnA({ id }) {
           {contentlist &&
             contentlist.slice(offset, offset + limit).map((item, id) => {
               return (
-                <div key={id}>
+                <div className="qnaList" key={id}>
                   <div className="qnacontent">
                     <div className="qnaWrite">
                       <span>

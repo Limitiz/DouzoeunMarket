@@ -6,7 +6,10 @@
   font-family: "AppleSDGothicNeoL";
   src: url("../fonts/AppleSDGothicNeoL.ttf");
 }
-
+@font-face {
+  font-family: "BMHannaAir";
+  src: url("../fonts/BMHANNAAir_ttf.ttf");
+}
 .DouZoeun {
-  font-family: AppleSDGothicNeoL;
+  font-family: BMHannaAir;
 }
