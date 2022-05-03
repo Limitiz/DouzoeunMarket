@@ -8,6 +8,7 @@ header {
   color: rgb(230, 230, 230);
   padding: 10px 20px;
   margin-bottom: 20px;
+  font-family: BMHannaAir;
 
   .logo-container {
     display: flex;
@@ -47,6 +48,9 @@ header {
 
 .search-container {
   position: relative;
+  input {
+    font-family: BMHannaAir;
+  }
 }
 .fa-magnifying-glass {
   position: absolute;

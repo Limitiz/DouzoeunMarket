@@ -9,6 +9,13 @@
 
 .categoryBox {
   display: flex;
+  color: black;
+  .categoryItem {
+    color: black;
+  }
+  .homeIcon {
+    color: black;
+  }
   Link {
     margin-left: 25px;
     font-size: 12px;
@@ -43,6 +50,10 @@ a:link {
 .productInfo {
   text-align: left;
   width: 40%;
+  .fix {
+    font-size: 15px;
+    margin-bottom: 3px;
+  }
   .pTitle {
     text-align: right;
     margin-right: 50px;
@@ -130,7 +141,7 @@ a:link {
 .productmap {
   display: flex;
   justify-content: center;
-  margin-left: -30%;
+  margin: auto;
 }
 
 .carouselwidth {
@@ -139,6 +150,7 @@ a:link {
 
 .productContent {
   display: flex;
+  text-align: center;
   justify-content: space-between;
 }
 
@@ -167,5 +179,5 @@ a:link {
 }
 
 .preferplace {
-  margin: -10% 0 8%;
+  margin: -10% 0% 10%;
 }

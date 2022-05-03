@@ -4,7 +4,7 @@ import { Modal, Container, Button } from "react-bootstrap";
 import "../../css/Login.scss";
 
 const PointModal = (props) => {
-  const [inputPoint, setInputPoint] = useState(0);
+  const [inputPoint, setInputPoint] = useState("");
   //const [ModalHide, setModalHide] = useState(false);
   const setPoint = props.setPoint;
   const setModalShow = props.setModalShow;

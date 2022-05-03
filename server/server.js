@@ -42,7 +42,6 @@ passport.serializeUser(function (user, done) {
 passport.deserializeUser(function (user, done) {
   //디비에서 user.findOne()
   console.log("passport session get id: ", user);
-
   done(null, user);
 });
 

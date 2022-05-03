@@ -68,6 +68,11 @@ productRouter.post(
           required: false,
           where: { userId: userId },
         },
+        {
+          model: User,
+          required: false,
+          attributes: ["nickName"],
+        },
       ],
       where: { idx: id },
     });
@@ -141,7 +146,15 @@ productRouter.delete("/detail/qna/:idx", async (req, res) => {
   });
   res.send(idx);
 });
+productRouter.post("/favorite", async (req, res) => {
+  const id = req.body.id;
+  const like = await Favorite.findAll({
+    attributes: ["productId"],
+    where: { productId: id },
+  });
 
+  res.json(like);
+});
 productRouter.get(
   "/pay/:id/:email",
   async (req, res, next) => {
@@ -177,6 +190,11 @@ productRouter.get(
           model: ProductImg,
           attributes: ["imgUrl"],
           required: true,
+        },
+        {
+          model: User,
+          required: false,
+          attributes: ["nickName"],
         },
       ],
       where: { idx: req.id },

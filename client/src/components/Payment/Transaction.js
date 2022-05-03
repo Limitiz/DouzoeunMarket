@@ -19,6 +19,7 @@ export default function Transaction() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [address, setAddress] = useState("");
   const [point, setPoint] = useState();
+  const [seller, setSeller] = useState();
   const prodPrice = parseInt(prod.price) + 2500;
 
   useEffect(() => {
@@ -32,7 +33,7 @@ export default function Transaction() {
         setList(response.data[0]);
         setUser(response.data[1]);
         setProd(response.data[2]);
-        setAddress(prod.address);
+        setSeller(response.data[2].User.nickName);
       } catch (e) {
         console.log(e);
       }
@@ -43,6 +44,7 @@ export default function Transaction() {
     setModalIsOpen(true);
   };
   const commonList = list.map((list) => <li key={list.idx}>{list.Column}</li>);
+
   return (
     <>
       <div className="main mainPay">
@@ -53,15 +55,17 @@ export default function Transaction() {
           <h3>더조은 마켓을 이용해 거래합니다.</h3>
           <hr />
           <div className="user_prod payInfo2">
-            <p>
-              <h4>{user.nickName || "(닉네임없음)"}</h4>님의
-            </p>
-
-            <p>
-              <h4>{prod.title}</h4> 상품입니다.
+            <p calssName="width20">
+              <h4>{seller || "(닉네임없음)"}</h4>
+              <span>님의</span>
             </p>
             <p>
-              가격은 <h4>{prod.price}</h4>원 입니다.
+              <h4>{prod.title}</h4>
+              <span>상품입니다.</span>
+            </p>
+            <p>
+              <span>가격은</span> <h4>{prod.price}</h4>
+              <span>원 입니다.</span>
             </p>
           </div>
           <hr />
@@ -75,7 +79,7 @@ export default function Transaction() {
           <Form.Group className="mb-3">
             <Form.Label>배송지</Form.Label>
             <div className="addr">
-              <Form.Control value={address} disabled />
+              <Form.Control value={user.address} disabled />
               <Button className="changeA" onClick={onChangeModalIsOpen}>
                 변경
               </Button>

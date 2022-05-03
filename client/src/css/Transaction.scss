@@ -1,4 +1,5 @@
 .mainPay {
+  margin-top: 60px;
   display: flex;
   .userImg {
     width: 30%;
@@ -22,9 +23,21 @@
     width: 100%;
     display: flex;
     text-align: left;
+    margin-top: 40px;
     // margin-left: 0;
+    .width20 {
+      width: 20%;
+    }
     p {
-      padding-right: 7%;
+      span {
+        margin-left: 5%;
+        margin-top: 4%;
+      }
+      h4 {
+        margin-left: 5%;
+      }
+      width: 50%;
+      display: flex;
     }
   }
 }
@@ -35,7 +48,7 @@ Form {
   }
 
   div {
-    margin-top: 5%;
+    margin-top: 2%;
     font-size: 20px;
     font-weight: bold;
   }
@@ -56,7 +69,7 @@ Form {
     }
     padding-left: 0px;
     font-size: 10px;
-    padding-top: 14px;
+    padding-top: 0;
 
     border-radius: 10px;
     border: solid rgb(216, 216, 216);
