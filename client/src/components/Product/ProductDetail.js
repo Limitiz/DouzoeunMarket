@@ -27,6 +27,7 @@ function ProductDetail() {
   const email = !!getAuthInfo ? getAuthInfo.user.email : "";
 
   useEffect(() => {
+
     const fetchProduct = async () => {
       try {
         const res = await axios.post(

@@ -1,0 +1,26 @@
+.thumbnail {
+  img {
+    width: 8rem;
+    height: 8rem;
+    margin: 0;
+    margin-bottom: 1rem;
+  }
+}
+
+.title {
+  display: block;
+  width: 100px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  font-size: 0.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.price_origin {
+  color: gray;
+  font-size: 13px;
+}
+.hot {
+  width: 20% !important;
+}

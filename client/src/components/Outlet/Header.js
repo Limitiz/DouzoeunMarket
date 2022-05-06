@@ -43,7 +43,7 @@ const Header = () => {
       </div> */}
       <form className="search-container" action="">
         <input id="search-box" type="text" className="search-box" name="q" />
-        <label for="search-box">
+        <label htmlfor="search-box">
           <span className="fa-solid fa-magnifying-glass glyphicon glyphicon-search search-icon"></span>
         </label>
         <input type="submit" id="search-submit" />
