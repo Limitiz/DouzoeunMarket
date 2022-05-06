@@ -1,37 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-
-const Container = styled.div`
-  .thumbnail {
-    img {
-      width: 8rem;
-      height: 8rem;
-      margin: 0;
-      margin-bottom: 1rem;
-    }
-  }
-
-  .title {
-    display: block;
-    width: 100px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-    font-size: 0.8rem;
-    margin-bottom: 0.5rem;
-  }
-
-  .price_origin {
-    color: gray;
-    font-size: 13px;
-  }
-  .hot {
-    width: 20% !important;
-  }
-`;
+import "../../css/ProductItem.scss";
 
 // eslint-disable-next-line react/prop-types
 const ProductItem = ({ deliver, urlName }) => {
@@ -40,15 +11,11 @@ const ProductItem = ({ deliver, urlName }) => {
   const [ProductImgs, setProductImg] = useState(deliver.ProductImgs);
   const [newIcon, setNewIcon] = useState(false);
   const [hotIcon, setHotIcon] = useState(false);
-  // const ProductImgs = deliver.ProductImgs;
-  // const [ProductImgs, setProductImg] = useState(deliver.ProductImgs);
 
   const getAuthInfo = useSelector((state) => state);
-  console.log("????", deliver);
-  console.log("IMG!!!!!!!!!!", ProductImgs);
   const [userUrl, setUserUrl] = useState();
 
-  console.log("urlName : ", urlName);
+
   useEffect(() => {
     getAuthInfo === false ? setUserUrl("") : setUserUrl(getAuthInfo.user.idx);
     urlName === `mypage/favorite/${userUrl}` ? isFav() : notFav();
@@ -78,16 +45,18 @@ const ProductItem = ({ deliver, urlName }) => {
     differ < 31 ? setNewIcon(true) : setNewIcon(false);
   }, []);
 
-  async function isFav() {
+  function isFav() {
     setProduct({
       idx: deliver.Product.idx,
       title: deliver.Product.title,
       price: deliver.Product.price,
     });
     setProductImg(deliver.ProductImgs);
+    console.log("==============", deliver.Product.title);
   }
 
-  async function notFav() {
+  function notFav() {
+    console.log("IM NOT FAV");
     setProduct({
       idx: deliver.idx,
       title: deliver.title,
@@ -97,7 +66,7 @@ const ProductItem = ({ deliver, urlName }) => {
   }
 
   return (
-    <Container>
+    <>
       <span>
         <div className="thumbnail">
           <Link to={`/${product.idx}`}>
@@ -112,7 +81,7 @@ const ProductItem = ({ deliver, urlName }) => {
           <span className="price_origin">{product.price}원</span>
         </div>
       </span>
-    </Container>
+    </>
   );
 };
 

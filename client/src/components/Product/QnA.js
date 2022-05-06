@@ -69,6 +69,9 @@ function QnA({ id }) {
   }, []);
 
   useEffect(() => {
+    const CancelToken = axios.CancelToken;
+    let cancel;
+
     const getQna = async () => {
       try {
         const res = await axios.get(
@@ -82,6 +85,7 @@ function QnA({ id }) {
     };
     getQna();
   }, [id]);
+
   if (getAuthInfo) {
     return (
       <div className="QnaContainer">
