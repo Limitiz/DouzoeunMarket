@@ -19,7 +19,7 @@ header {
     text-align: center;
     text-decoration: none;
     font-size: 11px;
-    color: rgb(230, 230, 230);
+    color: rgb(230, 230, 230) !important;
     &:hover {
       color: rgb(255, 255, 255);
     }

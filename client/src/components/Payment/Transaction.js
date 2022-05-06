@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Form } from "react-bootstrap";
 import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import "../../css/Transaction.scss";
@@ -9,6 +10,8 @@ import PointModal from "./PointModal";
 import DaumPost from "./DaumPost";
 
 export default function Transaction() {
+  //2
+  const getAuthInfo = useSelector((state) => state);
   const { id } = useParams();
   const { email } = useParams();
   const [list, setList] = useState([]);
@@ -22,17 +25,37 @@ export default function Transaction() {
   const [seller, setSeller] = useState();
   const prodPrice = parseInt(prod.price) + 2500;
 
+  const [transForm, setTransForm] = useState({
+    cid: "TC0ONETIME", // 테스트 코드
+    partner_order_id: "731392",
+    partner_user_id: getAuthInfo.user.idx,
+    item_name: 0,
+    quantity: 1,
+    total_amount: 0,
+    vat_amount: 0,
+    tax_free_amount: 0,
+    approval_url: `${process.env.REACT_APP_CLIENT_URL}`,
+    fail_url: `${process.env.REACT_APP_CLIENT_URL}`,
+    cancel_url: `${process.env.REACT_APP_CLIENT_URL}`,
+  });
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
           `${process.env.REACT_APP_BASE_URL}/product/pay/${id}/${email}`
         );
+
         console.log(response.data);
         setImgUrl(response.data[2].ProductImgs[0].imgUrl);
         setList(response.data[0]);
         setUser(response.data[1]);
         setProd(response.data[2]);
+        setTransForm({
+          ...transForm,
+          item_name: response.data[2].title,
+          total_amount: response.data[2].price,
+        });
         setSeller(response.data[2].User.nickName);
       } catch (e) {
         console.log(e);
@@ -40,6 +63,14 @@ export default function Transaction() {
     };
     fetchData();
   }, []);
+  const kakaoPay = async () => {
+    const res = await axios.post(
+      `${process.env.REACT_APP_BASE_URL}/kPay`,
+      transForm
+    );
+    console.log(res.data);
+    window.location.href = res.data.next_redirect_pc_url;
+  };
   const onChangeModalIsOpen = (e) => {
     setModalIsOpen(true);
   };
@@ -136,7 +167,7 @@ export default function Transaction() {
           <Form.Group>
             <Form.Label>결제수단</Form.Label>
           </Form.Group>
-          <Button type="submit" className="button">
+          <Button className="button" onClick={kakaoPay}>
             카카오페이
           </Button>
           <Form.Group className="mb-3 agree">
@@ -149,7 +180,7 @@ export default function Transaction() {
             </div>
             <div>
               “번개장터_인증폰”, “BGZT Lab 1”, “BGZT Lab 2”, “BGZT 컬렉션”
-              상점의 판매상품을 제외한 모든 상품들에 대하여, 번개장터㈜는
+              상점의 판매상품을 제외한 모든 상품들에 대하여, 번개장터는
               통신판매중개자로서 중고거래마켓 번개장터의 거래 당사자가 아니며,
               입점판매자가 등록한 상품정보 및 거래에 대해 책임을 지지 않습니다.
             </div>

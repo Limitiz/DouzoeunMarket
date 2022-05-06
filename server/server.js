@@ -10,6 +10,7 @@ import LoginRouter from "./Routers/LoginRouter.js";
 import LogoutRouter from "./Routers/LogoutRouter.js";
 import ProductFormRouter from "./Routers/ProductFormRouter.js";
 import AuthRouter from "./Routers/AuthRouter.js";
+import KakaopayRouter from "./Routers/KakaopayRouter.js";
 import db from "./models/db.js";
 
 env.config();
@@ -46,6 +47,7 @@ passport.deserializeUser(function (user, done) {
 });
 
 //라우팅
+app.use("/kPay", KakaopayRouter);
 app.use("/isAuth", AuthRouter);
 app.use("/auth", LoginRouter);
 app.use("/logout", LogoutRouter);
