@@ -7,6 +7,7 @@ import Transaction from "./components/Payment/Transaction";
 import { useSelector } from "react-redux";
 import MyPage from "./components/Mypage/MyPage";
 import ProductForm from "./components/Product/ProductForm";
+import Success from "./components/Payment/Success";
 import "./css/App.css";
 import "./css/Main.scss";
 import Error403 from "./components/ErrorPage/Error403";
@@ -25,6 +26,7 @@ function App() {
         <Route path="/:id" element={<ProductDetail />} />
         <Route path="/mypage/:userId" element={<MyPage />} />
         <Route path="/new-product" element={<ProductForm />} />
+        <Route path="/success/:id" element={<Success />} />
       </Routes>
       <Footer />
     </div>

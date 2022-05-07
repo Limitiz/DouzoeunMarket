@@ -1,6 +1,8 @@
 import express from "express";
 import request from "request";
+import Product from "../models/Product.js";
 import requestPromise from "request-promise-native";
+import User from "../models/User.js";
 
 const KakaopayRouter = express.Router();
 const MY_ADMIN_KEY = "3c39e5a36b74462767fb1ce4fc2e8ba8";
@@ -36,6 +38,20 @@ KakaopayRouter.post("/", (req, res) => {
     .catch(function (err) {
       console.err(err);
     });
+});
+KakaopayRouter.post("/success", async (req, res) => {
+  const token = req.body.token;
+  const pid = req.body.id;
+  if (token) {
+    await Product.update(
+      {
+        status: "Y",
+      },
+      {
+        where: { idx: pid },
+      }
+    );
+  }
 });
 
 export default KakaopayRouter;

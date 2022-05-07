@@ -53,6 +53,10 @@ export default function MyPage() {
           <Tab eventKey="MyReview" title={`거래 후기 (${commentNum})`}>
             <Comment />
           </Tab>
+          {/* 일단 이렇게 하고 서버설정 다시 해줘야함 */}
+          <Tab eventKey="MyOrder" title={`나의 주문 목록 ()`}>
+            <Product url={`mypage/product/${userId}`} />
+          </Tab>
         </Tabs>
       </div>
     );

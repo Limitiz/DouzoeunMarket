@@ -15,7 +15,6 @@ const ProductItem = ({ deliver, urlName }) => {
   const getAuthInfo = useSelector((state) => state);
   const [userUrl, setUserUrl] = useState();
 
-
   useEffect(() => {
     getAuthInfo === false ? setUserUrl("") : setUserUrl(getAuthInfo.user.idx);
     urlName === `mypage/favorite/${userUrl}` ? isFav() : notFav();
@@ -50,6 +49,7 @@ const ProductItem = ({ deliver, urlName }) => {
       idx: deliver.Product.idx,
       title: deliver.Product.title,
       price: deliver.Product.price,
+      status: deliver.status,
     });
     setProductImg(deliver.ProductImgs);
     console.log("==============", deliver.Product.title);
@@ -61,6 +61,7 @@ const ProductItem = ({ deliver, urlName }) => {
       idx: deliver.idx,
       title: deliver.title,
       price: deliver.price,
+      status: deliver.status,
     });
     setProductImg(deliver.ProductImgs);
   }
@@ -73,9 +74,18 @@ const ProductItem = ({ deliver, urlName }) => {
             <img src={ProductImgs[0].imgUrl} alt="thumbnail" />
           </Link>
         </div>
-        {newIcon ? <img className="hot" src="./icon_new.gif" /> : ""}
+        {deliver.status === "Y" ? (
+          <img
+            className="hot"
+            src="https://thumbs.gfycat.com/AllVastIberianemeraldlizard-max-1mb.gif"
+          />
+        ) : (
+          ""
+        )}
         &nbsp;
-        {hotIcon ? <img className="hot" src="./icon_hot.gif" /> : ""}
+        {newIcon ? <img className="hot" src="/icon_new.gif" /> : ""}
+        &nbsp;
+        {hotIcon ? <img className="hot" src="/icon_hot.gif" /> : ""}
         <div className="titleWrap">
           <span className="title">{product.title}</span>
           <span className="price_origin">{product.price}원</span>

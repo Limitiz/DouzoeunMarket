@@ -2,18 +2,25 @@ import React, { useState } from "react";
 
 import { Modal, Container, Button } from "react-bootstrap";
 import "../../css/Login.scss";
+import Product from "../Product/Product";
 
 const PointModal = (props) => {
   const [inputPoint, setInputPoint] = useState("");
   //const [ModalHide, setModalHide] = useState(false);
   const setPoint = props.setPoint;
+  const setTotalPrice = props.setTotalPrice;
   const setModalShow = props.setModalShow;
 
   const complete = () => {
     if (props.point < inputPoint) {
       alert("가용포인트 만큼 입력해주셔야합니다.");
+    } else if (inputPoint > props.prodPrice) {
+      alert(`포인트가 결제금액보다 큽니다. (결제금액 : ${props.prodPrice})`);
+    } else if (inputPoint < 0) {
+      alert("0보다 큰 수를 입력해주세요.");
     } else {
       setPoint(inputPoint);
+      setTotalPrice(props.prodPrice - inputPoint);
       setModalShow(false);
     }
   };

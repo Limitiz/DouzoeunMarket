@@ -1,0 +1,9 @@
+.success {
+  text-align: center;
+  a {
+    color: black;
+    &:hover {
+      color: #6f6f6f;
+    }
+  }
+}

@@ -31,21 +31,20 @@ export default function Profile() {
     );
   };
 
- useEffect(() => {
+  useEffect(() => {
     const getUserInfo = async () => {
-        try{
-            const res = await axios.get(
-                `${process.env.REACT_APP_BASE_URL}/mypage/profile/${userId}`,
-            );
-            setNick(res.data.nickName);
-            setRate(res.data.rate);
-            setImg(res.data.img);
-        }catch(error){
-            console.log(error);
-        }
-    }
-     getUserInfo();
-
+      try {
+        const res = await axios.get(
+          `${process.env.REACT_APP_BASE_URL}/mypage/profile/${userId}`
+        );
+        setNick(res.data.nickName);
+        setRate(res.data.rate);
+        setImg(res.data.img);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getUserInfo();
   }, []);
 
   async function withdraw() {

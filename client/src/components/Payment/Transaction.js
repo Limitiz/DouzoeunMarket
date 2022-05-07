@@ -24,6 +24,9 @@ export default function Transaction() {
   const [point, setPoint] = useState();
   const [seller, setSeller] = useState();
   const prodPrice = parseInt(prod.price) + 2500;
+  const [totalPrice, setTotalPrice] = useState();
+  const [chk, setChk] = useState(false);
+  const [addrDetail, setAddrDetail] = useState();
 
   const [transForm, setTransForm] = useState({
     cid: "TC0ONETIME", // 테스트 코드
@@ -34,9 +37,9 @@ export default function Transaction() {
     total_amount: 0,
     vat_amount: 0,
     tax_free_amount: 0,
-    approval_url: `${process.env.REACT_APP_CLIENT_URL}`,
-    fail_url: `${process.env.REACT_APP_CLIENT_URL}`,
-    cancel_url: `${process.env.REACT_APP_CLIENT_URL}`,
+    approval_url: `${process.env.REACT_APP_CLIENT_URL}/success/${id}`,
+    fail_url: `${process.env.REACT_APP_CLIENT_URL}/success/${id}`,
+    cancel_url: `${process.env.REACT_APP_CLIENT_URL}/success/${id}`,
   });
 
   useEffect(() => {
@@ -50,6 +53,7 @@ export default function Transaction() {
         setImgUrl(response.data[2].ProductImgs[0].imgUrl);
         setList(response.data[0]);
         setUser(response.data[1]);
+        setAddress(response.data[1].address);
         setProd(response.data[2]);
         setTransForm({
           ...transForm,
@@ -63,13 +67,28 @@ export default function Transaction() {
     };
     fetchData();
   }, []);
+  useEffect(() => {
+    setTransForm({
+      ...transForm,
+      total_amount: totalPrice,
+    });
+  }, [totalPrice]);
+
   const kakaoPay = async () => {
-    const res = await axios.post(
-      `${process.env.REACT_APP_BASE_URL}/kPay`,
-      transForm
-    );
-    console.log(res.data);
-    window.location.href = res.data.next_redirect_pc_url;
+    if (chk && addrDetail && address !== "주소를 설정해놓지 않았습니다") {
+      const res = await axios.post(
+        `${process.env.REACT_APP_BASE_URL}/kPay`,
+        transForm
+      );
+      window.location.href = res.data.next_redirect_pc_url;
+    } else if (!chk) {
+      alert("약관동의에 체크해주세요.");
+    } else if (
+      address === "주소를 설정해놓지 않았습니다" ||
+      addrDetail === ""
+    ) {
+      alert("주소를 입력해주세요.");
+    }
   };
   const onChangeModalIsOpen = (e) => {
     setModalIsOpen(true);
@@ -110,7 +129,7 @@ export default function Transaction() {
           <Form.Group className="mb-3">
             <Form.Label>배송지</Form.Label>
             <div className="addr">
-              <Form.Control value={user.address} disabled />
+              <Form.Control value={address} disabled />
               <Button className="changeA" onClick={onChangeModalIsOpen}>
                 변경
               </Button>
@@ -126,7 +145,12 @@ export default function Transaction() {
             </div>
           </Form.Group>
           <Form.Group className="mb-3">
-            <Form.Control placeholder="상세주소입력." />
+            <Form.Control
+              onChange={(e) => {
+                setAddrDetail(e.target.value);
+              }}
+              placeholder="상세주소입력."
+            />
           </Form.Group>
           <Form.Group className="mb-3">
             <Form.Label>포인트</Form.Label>
@@ -141,7 +165,10 @@ export default function Transaction() {
               <PointModal
                 show={modalShow}
                 point={user.point}
+                prodPrice={prodPrice}
+                setTotalPrice={setTotalPrice}
                 setPoint={setPoint}
+                setTransForm={setTransForm}
                 setModalShow={setModalShow}
                 onHide={() => setModalShow(false)}
               />
@@ -159,7 +186,7 @@ export default function Transaction() {
                   <li>{prod.shippingIncluded}(2500원추가)</li>
                   <li>{prodPrice}</li>
                   <li>{point || 0}</li>
-                  <li>{prodPrice - point || prodPrice}</li>
+                  <li>{totalPrice || prodPrice}</li>
                 </ul>
               </div>
             </div>
@@ -172,8 +199,16 @@ export default function Transaction() {
           </Button>
           <Form.Group className="mb-3 agree">
             <Form.Check
+              value="chk"
               type="checkbox"
               label="개인정보 제 3자 제공동의와 결제대행 서비스 이용약관에 동의합니다."
+              onChange={() => {
+                if (!chk) {
+                  setChk(true);
+                } else {
+                  setChk(false);
+                }
+              }}
             />
             <div>
               <a href="#">자세히 보기</a>
