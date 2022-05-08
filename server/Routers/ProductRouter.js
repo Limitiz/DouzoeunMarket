@@ -51,6 +51,8 @@ productRouter.post(
         "shippingincluded",
         "address",
         "seller",
+        "buyer",
+        "status",
       ],
       include: [
         {

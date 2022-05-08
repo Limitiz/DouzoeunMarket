@@ -16,7 +16,6 @@ const ProductItem = ({ deliver, urlName }) => {
   const [userUrl, setUserUrl] = useState();
 
   useEffect(() => {
-    getAuthInfo === false ? setUserUrl("") : setUserUrl(getAuthInfo.user.idx);
     urlName === `mypage/favorite/${userUrl}` ? isFav() : notFav();
 
     //좋아요가 세개 이상인경우 hot icon 붙여주기
@@ -49,7 +48,6 @@ const ProductItem = ({ deliver, urlName }) => {
       idx: deliver.Product.idx,
       title: deliver.Product.title,
       price: deliver.Product.price,
-      status: deliver.status,
     });
     setProductImg(deliver.ProductImgs);
     console.log("==============", deliver.Product.title);
@@ -61,11 +59,9 @@ const ProductItem = ({ deliver, urlName }) => {
       idx: deliver.idx,
       title: deliver.title,
       price: deliver.price,
-      status: deliver.status,
     });
     setProductImg(deliver.ProductImgs);
   }
-
   return (
     <>
       <span>

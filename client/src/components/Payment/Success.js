@@ -4,18 +4,21 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router";
+import { useSelector } from "react-redux";
 
 export default function Success() {
   const params = new URLSearchParams(window.location.search);
   const { id } = useParams();
+  const getAuthInfo = useSelector((state) => state);
   let token = params.get("pg_token");
+  const uId = getAuthInfo.user.idx;
   const [result, setResult] = useState();
   useEffect(() => {
     const fetchData = async () => {
       try {
         const res = await axios.post(
           `${process.env.REACT_APP_BASE_URL}/kPay/success`,
-          { token: token, id: id }
+          { token: token, id: id, userId: uId }
         );
       } catch (e) {
         console.log(e);
