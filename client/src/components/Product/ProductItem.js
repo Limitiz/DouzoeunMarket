@@ -16,7 +16,12 @@ const ProductItem = ({ deliver, urlName }) => {
   const [userUrl, setUserUrl] = useState();
 
   useEffect(() => {
+<<<<<<< HEAD
+    getAuthInfo === false ? setUserUrl("") : setUserUrl(getAuthInfo.user.idx);
+    urlName && urlName === `mypage/favorite/${userUrl}` ? isFav() : notFav();
+=======
     urlName === `mypage/favorite/${userUrl}` ? isFav() : notFav();
+>>>>>>> 3051b0fa9f63caa6774ea3ef70522026c6987437
 
     //좋아요가 세개 이상인경우 hot icon 붙여주기
     const fetchProduct = async () => {
@@ -41,25 +46,27 @@ const ProductItem = ({ deliver, urlName }) => {
     );
     //월별로 하는건 ?
     differ < 31 ? setNewIcon(true) : setNewIcon(false);
-  }, []);
+  }, [userUrl]);
 
   function isFav() {
     setProduct({
       idx: deliver.Product.idx,
       title: deliver.Product.title,
       price: deliver.Product.price,
+      status : deliver.Product.status
     });
+    console.log("FAV", product);
     setProductImg(deliver.ProductImgs);
-    console.log("==============", deliver.Product.title);
   }
 
   function notFav() {
-    console.log("IM NOT FAV");
     setProduct({
       idx: deliver.idx,
       title: deliver.title,
       price: deliver.price,
+      status : deliver.status
     });
+    console.log("NOTFAV", product);
     setProductImg(deliver.ProductImgs);
   }
   return (

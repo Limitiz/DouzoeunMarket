@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 export default function Profile() {
   const [profileImg, setImg] = useState("../defaultProfile.jpg");
   const fileInput = useRef(null);
+  const fileUpdate = useRef(false);
   const [nickName, setNick] = useState("닉네임을 설정해주세요");
   const [rate, setRate] = useState(0);
   const percent = rate * 20;
@@ -16,20 +17,9 @@ export default function Profile() {
   const { userId } = useParams();
 
   //프로필 사진 변경 함수
-  const onChange = async (e) => {
-    const reader = new FileReader();
-    reader.onload = () => {
-      if (reader.readyState === 2) {
-        setImg(reader.result);
-      }
-    };
-    reader.readAsDataURL(e.target.files[0]);
-
-    const data = await axios.post(
-      `${process.env.REACT_APP_BASE_URL}/mypage/img/${userId}`,
-      { img: profileImg }
-    );
-  };
+/*  const onChange = async (e) => {
+    console.log()
+  };*/
 
   useEffect(() => {
     const getUserInfo = async () => {
@@ -65,17 +55,26 @@ export default function Profile() {
         className="profileImg"
         src={profileImg}
         onClick={() => {
-          fileInput.current.click();
-        }}
+          fileInput.current.click().then(fileUpdate.current.click());
+        }
+      }
       />
-      <input
-        type="file"
-        name="profileImageUpload"
-        style={{ display: "none" }}
-        accept="image/*"
-        onChange={onChange}
-        ref={fileInput}
-      />
+      <form action={`${process.env.REACT_APP_BASE_URL}/mypage/img/${userId}`}
+            method="post" encType="multipart/form-data">
+        <input
+          type="file"
+          name="image"
+          style={{ display: "none" }}
+          accept="image/*"
+          /*onChange={onChange}*/
+          ref={fileInput}
+        />
+        <input
+            type="submit"
+            ref={fileUpdate}
+            style={{display:"none"}}
+        />
+      </form>
 
       <div className="userInfo">
         <span className="nick">{nickName}</span>

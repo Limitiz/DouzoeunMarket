@@ -4,7 +4,7 @@ import Product from "../models/Product.js";
 import ProductImg from "../models/ProductImg.js";
 import Favorite from "../models/Favorite.js";
 import Comment from "../models/Comment.js";
-import QnA from "../models/QnA.js";
+import multer from "multer";
 
 const MyPageRouter = express.Router();
 
@@ -14,7 +14,8 @@ MyPageRouter.get("/product/:userId", async (req, res) => {
   const data = await Product.findAll({
       include:[{
           model:User,
-          required:true
+          required:false,
+          where : {idx : userId}
         }, {
           model: ProductImg,
           attributes: ["imgUrl"],
@@ -25,6 +26,7 @@ MyPageRouter.get("/product/:userId", async (req, res) => {
       offset:page,
     where : {seller : userId}
   });
+  console.log(">>>>DATA"+data);
   res.json(data);
 });
 
@@ -52,13 +54,27 @@ MyPageRouter.get("/favorite/:userId", async (req, res) => {
     res.json(data);
 });
 
-MyPageRouter.post("/img/:userId", async (req, res) => {
-    const {userId} = req.param;
+//MULTER
+/*var storage = multer.diskStorage({
+    destination : function(req, file, cb){
+        cb(null, "../images/");
+    },
+    filename : function (req, file, cb){
+        const ext = path.extname(file.originalname);
+        cb(null, path.basename(file.originalname, ext));
+    }
+})*/
+
+const upload = multer({dest : '../resources/'});
+
+MyPageRouter.post("/img/:userId", upload.single("image"), async (req, res) => {
+    const {userId} = req.params;
+    const image=req.file.path;
     await User.update(
-        {img:req.body.img},
+        {img:image},
         {where:{idx:userId}}
-        );
-    res.send(req.body.img);
+    );
+    console.log("UPLOAD IMAGE")
 });
 
 MyPageRouter.get("/profile/:userId", async (req, res) => {
@@ -76,9 +92,10 @@ MyPageRouter.get("/num/:userId",
         const pNum = await Product.findAndCountAll({
             include: [{
                 model: User,
-                required: true,
+                required: false,
                 where: {idx: userId}
-            }]
+            }],
+            where : {idx : userId}
         });
 
         req.data = pNum.count;
