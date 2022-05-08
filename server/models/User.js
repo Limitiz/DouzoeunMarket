@@ -54,7 +54,7 @@ const User = sequelize.define(
 
 User.associate = () => {
   User.hasMany(Product, { foreignKey: "seller", sourceKey: "idx" });
-  User.hasMany(Product, {foreignKey:"buyer", sourceKey:"idx"});
+  User.hasMany(Product, { foreignKey: "buyer", sourceKey: "idx" });
   User.hasMany(Comment, { foreignKey: "receiver", sourceKey: "idx" });
   User.hasMany(Comment, { foreignKey: "writer", sourceKey: "idx" });
   User.hasMany(Favorite, { foreignKey: "userId", sourceKey: "idx" });

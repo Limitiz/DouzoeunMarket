@@ -42,10 +42,12 @@ KakaopayRouter.post("/", (req, res) => {
 KakaopayRouter.post("/success", async (req, res) => {
   const token = req.body.token;
   const pid = req.body.id;
+  const uid = req.body.userId;
   if (token) {
     await Product.update(
       {
         status: "Y",
+        buyer: uid,
       },
       {
         where: { idx: pid },
