@@ -62,7 +62,7 @@ const ProductItem = ({ deliver, urlName }) => {
       price: deliver.price,
       status : deliver.status
     });
-    console.log("NOTFAV", product);
+    //console.log("NOTFAV", product);
     setProductImg(deliver.ProductImgs);
   }
   return (
