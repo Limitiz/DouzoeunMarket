@@ -53,6 +53,28 @@ MyPageRouter.get("/favorite/:userId", async (req, res) => {
     res.json(data);
 });
 
+MyPageRouter.get("/order/:userId", async (req, res) => {
+    const {userId} = req.params;
+    const page = (req.query.page - 1) * 4;
+
+    const data = await Product.findAll({
+        include:[{
+            model:User,
+            required:false,
+            where : {idx : userId}
+        }, {
+            model: ProductImg,
+            attributes: ["imgUrl"],
+            required: true
+        }
+        ],
+        limit:4,
+        offset:page,
+        where : {buyer : userId}
+    });
+    res.json(data);
+})
+
 MyPageRouter.post("/img/:userId", upload.single("profileImg"), async (req, res) => {
     const {userId} = req.params;
     const image = req.file.path;
@@ -106,9 +128,19 @@ MyPageRouter.get("/num/:userId",
         const tmp = req.data;
         const {userId} = req.params;
         const cNum = await Comment.findAndCountAll({
-            where : {receiver: 18}
+            where : {receiver: userId}
         });
-        res.json([tmp[0], tmp[1], cNum.count]);
+        req.data = [tmp[0], tmp[1], cNum.count];
+        next();
+    },
+    async (req, res, next) => {
+        const tmp = req.data;
+        const {userId} = req.params;
+        const oNum = await Product.findAndCountAll({
+            where : {buyer: userId}
+        });
+        console.log("++++++++++"+tmp[0]+", "+tmp[1]+","+tmp[2]+","+oNum.count);
+        res.json([tmp[0], tmp[1], tmp[2], oNum.count]);
     }
 );
 
