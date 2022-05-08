@@ -11,6 +11,7 @@ import "./css/App.css";
 import "./css/Main.scss";
 import Error403 from "./components/ErrorPage/Error403";
 import ProductSearch from "./components/Product/ProductSearch";
+import ChangeProductFrom from "./components/Product/ChangeProductForm";
 
 function App() {
   const getAuthInfo = useSelector((state) => state);
@@ -27,6 +28,7 @@ function App() {
         <Route path="/mypage/:userId" element={<MyPage />} />
         <Route path="/new-product" element={<ProductForm />} />
         <Route path="/ProductSearch" element={<ProductSearch />} />
+        <Route path="/changeProduct" element={<ChangeProductFrom />} />
       </Routes>
       <Footer />
     </div>

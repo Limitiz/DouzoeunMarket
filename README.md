@@ -44,86 +44,97 @@
 
 🏁 index.js
 
-  👉 App.js
+    👉 App.js
 
-      👉 Header.js (nav)
+        👉 Header.js (nav)
 
-          👉 Login.js
+            👉 Login.js
 
-      ---
+💡 메인페이지
 
-      👉 MainPage.js
+        👉 MainPage.js
 
-          👉 MainCarousel.js
+            👉 MainCarousel.js
 
-          👉 Product.js (전체 상품)
+            👉 Product.js (전체 상품)
 
-              👉 useFetch.js
+            👉 useFetch.js
 
-              👉 ProductItem.js
+                👉 ProductItem.js
 
-      ---
+                💡 상품 상세페이지
 
-      👉 ProductDetail.js
+                    👉 ProductDetail.js
 
-          👉 DetailCarousel.js
+                        👉 DetailCarousel.js
 
-          👉 Tabs
+                        👉 Tabs
 
-              👉 Location.js
+                        👉 Location.js
 
-              👉 QnA.js
+                        👉 QnA.js
 
-      ---
+                            👉 Pagination.js
 
-      👉 MyPage.js
+                        💡 결제페이지
 
-          👉 Profile.js
+                        👉 Transaction.js
 
-          👉 Tabs
+                            👉 PointModal.js
 
-              👉Product.js (판매중인 상품)
+                            👉 DaumPost.js
 
-                  👉 useFetch.js
+                            👉 Success.js
 
-                  👉ProductItem.js
+💡 마이페이지
 
-              👉Product.js (찜한 상품)
+        👉 MyPage.js
 
-                  👉 useFetch.js
+            👉 Profile.js
 
-                  👉ProductItem.js
+            👉 Tabs
 
-              👉 Comment.js (거래후기)
+                👉Product.js (판매중인 상품)
 
-                  👉 CommentItem.js
+                    👉 useFetch.js
 
-      ---
+                    👉ProductItem.js
 
-      👉 ProductForm.js
+                👉Product.js (찜한 상품)
 
-          👉 ImgList.js
+                    👉 useFetch.js
 
-          👉 DaumPost.js
+                    👉ProductItem.js
 
-      👉 ChangeProductForm.js
-          👉 ImgList.js
+                👉 Comment.js (거래후기)
 
-          👉 DaumPost.js
+                    👉 CommentItem.js
 
-      ---
+                👉 Order.js (내가주문한상품)
 
-      👉 Transaction.js
+                    👉 useFetch.js
 
-          👉 PointModal.js
+                    👉ProductItem.js
 
-          👉 DaumPost.js
+💡 상품등록 및 수정
 
-      ---
+        👉 ProductForm.js
+
+            👉 ImgList.js
+
+            👉 DaumPost.js
+
+        👉 ChangeProductForm.js
+
+            👉 ImgList.js
+
+            👉 DaumPost.js
+
+💡 에러페이지
 
       👉 Error403.js
 
-      ---
+💡 푸터
 
       👉 Footer.js
 
@@ -146,23 +157,25 @@ reducer
 ```javascript
 	server.js
 			👉 LoginRouter.js
-							👉 LoginController.js
-											👉LoginService.js
-			👉 LogoutRouter.js
-							👉 LogoutController.js
-											👉LogoutService.js
 
-			<<=====================AuthService.js=====================>>
+                    👉 passport
 
-							👉 MyPageRouter.js
-											👉MyPageController.js
-															👉MyPageService.js
-							👉 ProudctFormRouter.js
-											👉 ProudctFormController.js
-															👉 ProudctFormService.js
-							👉 ProductRouter.js
-											👉 ProductController.js
-															👉 ProudctService.js
+            👉 LogoutRouter.js
+
+			👉 MyPageRouter.js
+
+			👉 ProudctFormRouter.js
+
+            👉 ProductRouter.js
+
+            👉 KakaopayRouter.js
+
+            👉 Sequelize
+
+               👉 models
+                    (Category.js, User.js, Poduct.js, ...)
+
+
 ```
 
 ## 프로젝트 기능 설명
