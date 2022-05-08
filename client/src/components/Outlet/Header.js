@@ -2,11 +2,12 @@ import React from "react";
 import "../../css/Header.scss";
 import { Link } from "react-router-dom";
 import Login from "../Payment/Login";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import MyPage from "../Mypage/MyPage";
 import "../../css/SearchBar.scss";
 import { Form } from "react-bootstrap";
+import ProductSearch from "../Product/ProductSearch";
 
 const Header = () => {
   const getAuthInfo = useSelector((state) => state);
@@ -14,6 +15,15 @@ const Header = () => {
   const [loginTitle, setLoginTitle] = useState("로그인/회원가입");
   const [myPageUrl, setMyPageUrl] = useState("/");
   const [sellingUrl, setSellingUrl] = useState("/");
+  const [searchTitle, setSearchTitle] = useState("");
+  const searchIcon = useRef(null);
+
+  const onKeyPress = (e) => {
+    if (e.key === "Enter") {
+      searchIcon.current.click();
+    }
+  };
+
   useEffect(() => {
     if (getAuthInfo.isTrue) {
       setLoginTitle("로그아웃");
@@ -23,6 +33,7 @@ const Header = () => {
       setLoginTitle("로그인/회원가입");
     }
   }, []);
+
   const logout = () => {
     window.location.href = `${process.env.REACT_APP_BASE_URL}/logout`;
   };
@@ -37,17 +48,44 @@ const Header = () => {
           </Link>{" "}
         </div>
       </div>
-      {/* <div className="search-container">
-        <input className="searchBox" type="text" />
-        <i className="fa-solid fa-magnifying-glass"></i>
-      </div> */}
-      <form className="search-container" action="">
+
+      <div className="search-container">
+        <input
+          className="searchBox"
+          type="text"
+          placeholder=" 검색할 상품명을 입력하세요... "
+          onChange={(e) => {
+            setSearchTitle(e.target.value);
+          }}
+          onKeyPress={onKeyPress}
+        />
+
+        <Link
+          to="/ProductSearch"
+          state={{
+            title: searchTitle,
+          }}
+        >
+          <i
+            onClick={() => {
+              setSearchTitle("");
+            }}
+            className="fa-solid fa-magnifying-glass"
+            ref={searchIcon}
+          />
+        </Link>
+      </div>
+
+      <div>{searchTitle}</div>
+
+      {/* <form className="search-container" action="">
         <input id="search-box" type="text" className="search-box" name="q" />
         <label htmlfor="search-box">
           <span className="fa-solid fa-magnifying-glass glyphicon glyphicon-search search-icon"></span>
         </label>
         <input type="submit" id="search-submit" />
-      </form>
+      </form>*/}
+
       <div className="menu-container">
         <Link to={sellingUrl}>판매하기</Link>
 

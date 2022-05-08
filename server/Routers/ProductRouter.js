@@ -30,6 +30,20 @@ productRouter.get("/", async (req, res) => {
   res.json(data);
 });
 
+productRouter.get("/search/:title", async (req, res) => {
+  const { title } = req.params;
+  console.log(title);
+  const data = await Product.findAll({
+    include: [{ model: ProductImg, required: true }],
+    where: {
+      title: {
+        [Op.like]: "%" + title + "%",
+      },
+    },
+  });
+  res.json(data);
+});
+
 productRouter.post(
   "/detail",
   async (req, res, next) => {
