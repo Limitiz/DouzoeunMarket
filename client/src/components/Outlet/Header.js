@@ -57,6 +57,7 @@ const Header = () => {
           onChange={(e) => {
             setSearchTitle(e.target.value);
           }}
+          value={searchTitle}
           onKeyPress={onKeyPress}
         />
 
