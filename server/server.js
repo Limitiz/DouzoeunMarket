@@ -23,6 +23,7 @@ app.use(express.urlencoded({ limit: "100mb", extended: false }));
 //app.use(express.json());
 app.use(cors());
 app.use(cookieParser());
+app.use(express.static('resources'));
 
 app.use(
   session({
