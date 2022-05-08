@@ -1,21 +1,85 @@
 Form {
-    width: 60%;
-    margin: 0 auto;
-}
+  width: 60%;
+  margin: 0 auto;
+  margin-bottom: 10%;
+  .input {
+    &:focus,
+    &:active {
+      border-color: #6f6f6f;
+      outline: none;
+      box-shadow: 0 0 0 0;
+    }
+  }
 
-.category {
+  .addrGroup {
+    display: flex;
+    .addr {
+      width: 9%;
+      background-color: #6f6f6f;
+      border-color: #6f6f6f;
+      &:hover {
+        background-color: #ebebeb;
+        border-color: #ebebeb;
+        color: black;
+      }
+      &:focus {
+        background-color: #6f6f6f;
+        border-color: #6f6f6f;
+        outline: none;
+        box-shadow: 0 0 0 0;
+      }
+    }
+  }
+  .category {
     display: inline-block;
-    width: 30%;
-    height: 50px;
+    text-align: center;
+    width: 100%;
+    height: 20%;
     border: 1px solid silver;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    &:focus {
+      border-color: #aaa;
+      box-shadow: 0 0 0 0;
+      box-shadow: 0 0 0 0px -moz-mac-focusring;
+      color: #222;
+      outline: none;
+    }
+    option {
+    }
+  }
+  .submit {
+    margin-top: 5%;
+    width: 100%;
+    background-color: #6f6f6f;
+    border-color: #6f6f6f;
+    &:hover {
+      background-color: #ebebeb;
+      border-color: #ebebeb;
+      color: black;
+    }
+    &:focus {
+      background-color: #6f6f6f;
+      border-color: #6f6f6f;
+      outline: none;
+      box-shadow: none;
+    }
+  }
 }
 
-.text_area{
-    width: 30%;
-    height: 100px;
+.text_area {
+  width: 30%;
+  height: 100px;
 }
 
-.label{
-    font-size: 1.3em;
-    font-weight: bold;
+.label {
+  font-size: 1.3em;
+  font-weight: bold;
+}
+.shipLabel {
+  label {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
 }

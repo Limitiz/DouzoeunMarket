@@ -133,6 +133,7 @@ function ProductForm() {
           {previewImgs.length < 10 ? (
             <Form.Control
               type="file"
+              className="input"
               onChange={(e) => insertImg(e)}
               accept="image/*"
             />
@@ -147,6 +148,7 @@ function ProductForm() {
             type="text"
             placeholder="제목"
             name="title"
+            className="input"
             onChange={onChange}
           />
           <Form.Text className="text-muted">
@@ -172,13 +174,19 @@ function ProductForm() {
         <Form.Group className="mb-3" controlId="form4">
           <Form.Label className="label">거래지역</Form.Label>
           <br />
-          <Button variant="primary" type="#">
-            우리집
-          </Button>
-          &nbsp;
-          <Button variant="primary" onClick={onChangeModalIsOpen}>
-            직접입력
-          </Button>
+          <div className="addrGroup">
+            <Button className="addr" variant="primary" type="#">
+              우리집
+            </Button>
+            &nbsp;
+            <Button
+              className="addr"
+              variant="primary"
+              onClick={onChangeModalIsOpen}
+            >
+              직접입력
+            </Button>
+          </div>
           <br />
           <br />
           {modalIsOpen ? (
@@ -194,6 +202,7 @@ function ProductForm() {
             type="text"
             placeholder="주소가 여기에 표시됩니다"
             name="address"
+            className="input"
             value={address}
             readOnly
           />
@@ -204,6 +213,7 @@ function ProductForm() {
           {["radio"].map((type) => (
             <div key={`inline-${type}`} className="mb-3" onChange={onChange}>
               <Form.Check
+                className="radio"
                 inline
                 label="중고상품"
                 name="productStatus"
@@ -213,6 +223,7 @@ function ProductForm() {
                 id={`form5-1`}
               />
               <Form.Check
+                className="radio"
                 inline
                 label="새상품"
                 name="productStatus"
@@ -229,6 +240,7 @@ function ProductForm() {
           {["radio"].map((type) => (
             <div key={`inline-${type}`} className="mb-3" onChange={onChange}>
               <Form.Check
+                className="radio"
                 inline
                 label="교환불가"
                 name="exchange"
@@ -237,6 +249,7 @@ function ProductForm() {
                 id={`form6-1`}
               />
               <Form.Check
+                className="radio"
                 inline
                 label="교환가능"
                 name="exchange"
@@ -251,6 +264,7 @@ function ProductForm() {
         <Form.Group className="mb-3" controlId="form7">
           <Form.Label className="label">가격</Form.Label>
           <Form.Control
+            className="input"
             type="number"
             placeholder="숫자만 입력해주세요."
             name="price"
@@ -267,6 +281,7 @@ function ProductForm() {
                 type={type}
                 id={`form7`}
                 name="shippingIncluded"
+                className="shipLabel"
                 value={texts.shippingIncluded === "미포함" ? "미포함" : "포함"}
                 label={`배송비 포함`}
               />
@@ -276,21 +291,17 @@ function ProductForm() {
 
         <Form.Group className="mb-3" controlId="form8">
           <Form.Label className="label">설명</Form.Label>
-          <FloatingLabel
-            controlId="floatingTextarea2"
-            label="상품 설명을 입력해주세요.(10글자 이상)"
-          >
-            <Form.Control
-              as="textarea"
-              placeholder="상품 설명을 입력해주세요"
-              style={{ height: "100px" }}
-              name="content"
-              onChange={onChange}
-            />
-          </FloatingLabel>
+          <Form.Control
+            as="textarea"
+            className="input"
+            placeholder="상품 설명을 입력해주세요"
+            style={{ height: "100px" }}
+            name="content"
+            onChange={onChange}
+          />
         </Form.Group>
 
-        <Button variant="primary" onClick={final}>
+        <Button className="submit" onClick={final}>
           등록
         </Button>
         {/*<Button variant="primary" onClick={final} type="submit">
