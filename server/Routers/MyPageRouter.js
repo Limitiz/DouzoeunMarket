@@ -60,8 +60,8 @@ MyPageRouter.post("/img/:userId", upload.single("profileImg"), async (req, res) 
         {img:image},
         {where:{idx:userId}}
     );
-    res.json({image : res.req.file.path});
-    console.log("+++++++++++++UPLOAD IMAGE+++++++++++++"+res.req.file.path);
+    res.json({image : image});
+    console.log("+++++++++++++UPLOAD IMAGE+++++++++++++"+image);
 });
 
 MyPageRouter.get("/profile/:userId", async (req, res) => {
