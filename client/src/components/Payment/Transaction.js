@@ -80,6 +80,7 @@ export default function Transaction() {
         `${process.env.REACT_APP_BASE_URL}/kPay`,
         transForm
       );
+      console.log(transForm);
       window.location.href = res.data.next_redirect_pc_url;
     } else if (!chk) {
       alert("약관동의에 체크해주세요.");
