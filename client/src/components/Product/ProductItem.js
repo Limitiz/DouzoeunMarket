@@ -19,7 +19,6 @@ const ProductItem = ({ deliver, urlName }) => {
     getAuthInfo === false ? setUserUrl("") : setUserUrl(getAuthInfo.user.idx);
     urlName && urlName === `mypage/favorite/${userUrl}` ? isFav() : notFav();
 
-
     //좋아요가 세개 이상인경우 hot icon 붙여주기
     const fetchProduct = async () => {
       try {
