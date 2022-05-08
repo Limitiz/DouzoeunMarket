@@ -55,7 +55,7 @@ MyPageRouter.get("/favorite/:userId", async (req, res) => {
 
 MyPageRouter.post("/img/:userId", upload.single("profileImg"), async (req, res) => {
     const {userId} = req.params;
-    const image=req.file.path;
+    const image = req.file.path;
     await User.update(
         {img:image},
         {where:{idx:userId}}

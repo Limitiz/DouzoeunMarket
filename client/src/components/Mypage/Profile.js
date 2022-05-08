@@ -8,13 +8,14 @@ import { useSelector } from "react-redux";
 export default function Profile() {
   const [profileImg, setImg] = useState("../defaultProfile.jpg");
   const fileInput = useRef(null);
-  const fileUpdate = useRef(false);
   const [nickName, setNick] = useState("닉네임을 설정해주세요");
   const [rate, setRate] = useState(0);
   const percent = rate * 20;
 
   const getAuthInfo = useSelector((state) => state);
   const { userId } = useParams();
+
+  console.log(profileImg);
 
   //프로필 사진 변경 함수
   const onChange = async (event) => {
@@ -23,7 +24,7 @@ export default function Profile() {
     axios.post(`${process.env.REACT_APP_BASE_URL}/mypage/img/${userId}`,
         formData, {header : {'content-type' : 'multipart.form-data'}
     }).then((res) => {
-      setImg("../"+res.data.image);
+      setImg(res.data.image);
     })
   };
 
@@ -35,7 +36,7 @@ export default function Profile() {
         );
         setNick(res.data.nickName);
         setRate(res.data.rate);
-        setImg(res.data.img);
+        setImg(`${process.env.REACT_APP_BASE_URL}/${res.data.img}`);
       } catch (error) {
         console.log(error);
       }
