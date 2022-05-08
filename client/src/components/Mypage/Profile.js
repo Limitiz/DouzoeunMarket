@@ -8,7 +8,6 @@ import { useSelector } from "react-redux";
 export default function Profile() {
   const [profileImg, setImg] = useState("../defaultProfile.jpg");
   const fileInput = useRef(null);
-  const fileUpdate = useRef(false);
   const [nickName, setNick] = useState("닉네임을 설정해주세요");
   const [rate, setRate] = useState(0);
   const percent = rate * 20;
@@ -16,10 +15,18 @@ export default function Profile() {
   const getAuthInfo = useSelector((state) => state);
   const { userId } = useParams();
 
+  console.log(profileImg);
+
   //프로필 사진 변경 함수
-/*  const onChange = async (e) => {
-    console.log()
-  };*/
+  const onChange = async (event) => {
+    const formData = new FormData();
+    formData.append('profileImg', event.target.files[0]);
+    axios.post(`${process.env.REACT_APP_BASE_URL}/mypage/img/${userId}`,
+        formData, {header : {'content-type' : 'multipart.form-data'}
+    }).then((res) => {
+      setImg(res.data.image);
+    })
+  };
 
   useEffect(() => {
     const getUserInfo = async () => {
@@ -29,13 +36,13 @@ export default function Profile() {
         );
         setNick(res.data.nickName);
         setRate(res.data.rate);
-        setImg(res.data.img);
+        setImg(`${process.env.REACT_APP_BASE_URL}/${res.data.img}`);
       } catch (error) {
         console.log(error);
       }
     };
     getUserInfo();
-  }, []);
+  }, [profileImg]);
 
   async function withdraw() {
     if (window.confirm("탈퇴하시겠습니까?")) {
@@ -55,24 +62,18 @@ export default function Profile() {
         className="profileImg"
         src={profileImg}
         onClick={() => {
-          fileInput.current.click().then(fileUpdate.current.click());
+          fileInput.current.click();
         }
       }
       />
-      <form action={`${process.env.REACT_APP_BASE_URL}/mypage/img/${userId}`}
-            method="post" encType="multipart/form-data">
+      <form encType="multipart/form-data">
         <input
           type="file"
           name="image"
           style={{ display: "none" }}
           accept="image/*"
-          /*onChange={onChange}*/
+          onChange={onChange}
           ref={fileInput}
-        />
-        <input
-            type="submit"
-            ref={fileUpdate}
-            style={{display:"none"}}
         />
       </form>
 

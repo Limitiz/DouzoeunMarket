@@ -11,9 +11,11 @@ export default function MyPage() {
   const [productNum, setPNum] = useState(0);
   const [favoriteNum, setFNum] = useState(0);
   const [commentNum, setCNum] = useState(0);
+  const [orderNum, setONum] = useState(0);
   let pNum = "";
   let fNum = "";
   let cNum = "";
+  let oNum = "";
 
   const getAuthInfo = useSelector((state) => state);
   const { userId } = useParams();
@@ -32,6 +34,8 @@ export default function MyPage() {
     setFNum(fNum);
     cNum = res.data[2];
     setCNum(cNum);
+    oNum = res.data[3];
+    setONum(oNum);
   }
 
   const auth = async () => {
@@ -54,8 +58,8 @@ export default function MyPage() {
             <Comment />
           </Tab>
           {/* 일단 이렇게 하고 서버설정 다시 해줘야함 */}
-          <Tab eventKey="MyOrder" title={`나의 주문 목록 ()`}>
-            <Product url={`mypage/product/${userId}`} />
+          <Tab eventKey="MyOrder" title={`나의 주문 목록 (${orderNum})`}>
+            <Product url={`mypage/order/${userId}`} />
           </Tab>
         </Tabs>
       </div>

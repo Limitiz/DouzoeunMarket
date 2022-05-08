@@ -4,7 +4,7 @@ import Product from "../models/Product.js";
 import ProductImg from "../models/ProductImg.js";
 import Favorite from "../models/Favorite.js";
 import Comment from "../models/Comment.js";
-import multer from "multer";
+import upload from "../service/multer.js"
 
 const MyPageRouter = express.Router();
 
@@ -26,7 +26,6 @@ MyPageRouter.get("/product/:userId", async (req, res) => {
       offset:page,
     where : {seller : userId}
   });
-  console.log(">>>>DATA"+data);
   res.json(data);
 });
 
@@ -54,27 +53,37 @@ MyPageRouter.get("/favorite/:userId", async (req, res) => {
     res.json(data);
 });
 
-//MULTER
-/*var storage = multer.diskStorage({
-    destination : function(req, file, cb){
-        cb(null, "../images/");
-    },
-    filename : function (req, file, cb){
-        const ext = path.extname(file.originalname);
-        cb(null, path.basename(file.originalname, ext));
-    }
-})*/
-
-const upload = multer({dest : '../resources/'});
-
-MyPageRouter.post("/img/:userId", upload.single("image"), async (req, res) => {
+MyPageRouter.get("/order/:userId", async (req, res) => {
     const {userId} = req.params;
-    const image=req.file.path;
+    const page = (req.query.page - 1) * 4;
+
+    const data = await Product.findAll({
+        include:[{
+            model:User,
+            required:false,
+            where : {idx : userId}
+        }, {
+            model: ProductImg,
+            attributes: ["imgUrl"],
+            required: true
+        }
+        ],
+        limit:4,
+        offset:page,
+        where : {buyer : userId}
+    });
+    res.json(data);
+})
+
+MyPageRouter.post("/img/:userId", upload.single("profileImg"), async (req, res) => {
+    const {userId} = req.params;
+    const image = req.file.path;
     await User.update(
         {img:image},
         {where:{idx:userId}}
     );
-    console.log("UPLOAD IMAGE")
+    res.json({image : image});
+    console.log("+++++++++++++UPLOAD IMAGE+++++++++++++"+image);
 });
 
 MyPageRouter.get("/profile/:userId", async (req, res) => {
@@ -119,9 +128,19 @@ MyPageRouter.get("/num/:userId",
         const tmp = req.data;
         const {userId} = req.params;
         const cNum = await Comment.findAndCountAll({
-            where : {receiver: 18}
+            where : {receiver: userId}
         });
-        res.json([tmp[0], tmp[1], cNum.count]);
+        req.data = [tmp[0], tmp[1], cNum.count];
+        next();
+    },
+    async (req, res, next) => {
+        const tmp = req.data;
+        const {userId} = req.params;
+        const oNum = await Product.findAndCountAll({
+            where : {buyer: userId}
+        });
+        console.log("++++++++++"+tmp[0]+", "+tmp[1]+","+tmp[2]+","+oNum.count);
+        res.json([tmp[0], tmp[1], tmp[2], oNum.count]);
     }
 );
 
