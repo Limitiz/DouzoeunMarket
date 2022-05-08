@@ -47,6 +47,9 @@ const Product = sequelize.define(
     address: {
       type: DataTypes.STRING(64),
     },
+    buyer: {
+      type: DataTypes.INTEGER,
+    },
   },
 
   //Model 옵션 정의
@@ -61,6 +64,7 @@ const Product = sequelize.define(
 
 Product.associate = () => {
   Product.belongsTo(User, { foreignKey: "seller", sourceKey: "idx" });
+  Product.belongsTo(User, { foreignKey: "buyer", sourceKey: "idx" });
   Product.belongsTo(Category, { foreignKey: "categoryId", sourceKey: "idx" });
   Product.hasMany(ProductImg, { foreignKey: "productId", sourceKey: "idx" });
   Product.hasOne(Favorite, { foreignKey: "productId", sourceKey: "idx" });
