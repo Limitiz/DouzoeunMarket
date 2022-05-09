@@ -48,6 +48,7 @@ passport.deserializeUser(function (user, done) {
 });
 
 //라우팅
+app.use("/isAuth", AuthRouter);
 app.use("/kPay", KakaopayRouter);
 app.use("/isAuth", AuthRouter);
 app.use("/auth", LoginRouter);

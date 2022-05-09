@@ -47,12 +47,15 @@ KakaopayRouter.post("/success", async (req, res) => {
     await Product.update(
       {
         status: "Y",
-        buyer: uid,
       },
       {
         where: { idx: pid },
       }
     );
+    await Order.create({
+      productId: pid,
+      buyer: uid,
+    });
   }
 });
 

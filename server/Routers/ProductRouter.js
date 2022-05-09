@@ -66,18 +66,18 @@ productRouter.post(
         },
         {
           model: User,
-          required : false,
-          attributes: ["nickName", "idx"]
+          required: false,
+          attributes: ["nickName", "idx"],
         },
         {
           model: Favorite,
-          required : false,
+          required: false,
           where: { userId: userId },
         },
         {
-          model : Order,
-          required : false
-        }
+          model: Order,
+          required: false,
+        },
       ],
       where: { idx: id },
     });

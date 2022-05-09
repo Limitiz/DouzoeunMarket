@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect, useCallback } from "react";
 import { useSelector } from "react-redux";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import FloatingLabel from "react-bootstrap/FloatingLabel";
 import "../../css/ProductForm.scss";
 import ImgList from "../Payment/ImgList";
 import DaumPost from "../Payment/DaumPost";
@@ -10,7 +9,7 @@ import axios from "axios";
 
 function ProductForm() {
   const getAuthInfo = useSelector((state) => state);
-
+  const formData = new FormData();
   const count = useRef(0);
 
   //이미지외 입력 객체
@@ -31,7 +30,6 @@ function ProductForm() {
   const [previewImgs, setPreviewImgs] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [address, setAddress] = useState("");
-  const [status, setStatus] = useState("");
 
   useEffect(() => {
     setTexts({
@@ -62,6 +60,7 @@ function ProductForm() {
       if (Img) {
         setPreviewImgs([...previewImgs, Img]);
       }
+
       count.current += 1;
     };
 
@@ -87,18 +86,9 @@ function ProductForm() {
     setModalIsOpen(true);
   };
 
-  //
   function final(e) {
-    /*
-    const name = 'imgs';
-    const value = [...previewImgs];
-    setTexts({
-      ...texts,
-      [name]:value
-    });
-    */
-
-    //setStatus(postForm());
+    console.log(e.target.file + "==================");
+    //formData.append("prodImgs", e.target.files);
     postForm();
     fimgs();
     window.open(`http://localhost:3000/`, "_blank");
@@ -110,7 +100,9 @@ function ProductForm() {
     try {
       const res = await axios.post(
         `${process.env.REACT_APP_BASE_URL}/new`,
-        texts
+        texts,
+        formData,
+        { header: { "content-type": "multipart.form-data" } }
       );
     } catch (e) {
       console.log(e);
@@ -122,7 +114,12 @@ function ProductForm() {
 
   if (getAuthInfo.isTrue) {
     return (
-      <Form className="postForm" encType="multipart/form-data" method="post">
+      <Form
+        className="postForm"
+        encType="multipart/form-data"
+        method="post"
+        action={`${process.env.REACT_APP_BASE_URL}/new/imgs`}
+      >
         <Form.Group className="mb-3" controlId="form1">
           <Form.Label className="label">상품이미지</Form.Label>
           <br />
@@ -132,6 +129,7 @@ function ProductForm() {
           <ImgList previewImgs={previewImgs} onRemove={onRemove} />
           {previewImgs.length < 10 ? (
             <Form.Control
+              name="many"
               type="file"
               className="input"
               onChange={(e) => insertImg(e)}
@@ -301,7 +299,7 @@ function ProductForm() {
           />
         </Form.Group>
 
-        <Button className="submit" onClick={final}>
+        <Button className="submit" onClick={final} type="submit">
           등록
         </Button>
         {/*<Button variant="primary" onClick={final} type="submit">

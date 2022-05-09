@@ -14,7 +14,7 @@ function QnA({ id }) {
   const [contentlist, setContentlist] = useState([]);
   const userId = !!getAuthInfo ? getAuthInfo.user.idx : "";
   //페이지네이션
-  const [limit, setLimit] = useState(10);
+  const [limit, setLimit] = useState(5);
   const [page, setPage] = useState(1);
   const offset = (page - 1) * limit;
 
