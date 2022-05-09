@@ -115,6 +115,7 @@ function ProductForm() {
   if (getAuthInfo.isTrue) {
     return (
       <Form
+        className="postForm"
         encType="multipart/form-data"
         method="post"
         action={`${process.env.REACT_APP_BASE_URL}/new/imgs`}

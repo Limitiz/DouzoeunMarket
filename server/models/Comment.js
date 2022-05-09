@@ -16,7 +16,16 @@ const Comment = sequelize.define(
     },
       rate:{
         type : DataTypes.INTEGER
-      }
+    },
+    receiver:{
+      type:DataTypes.INTEGER
+    },
+    writer : {
+      type : DataTypes.INTEGER
+    },
+    productId : {
+      type : DataTypes.INTEGER
+    }
   },
 
   //Model 옵션 정의
