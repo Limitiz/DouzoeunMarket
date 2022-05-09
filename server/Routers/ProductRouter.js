@@ -9,6 +9,7 @@ import { Op } from "sequelize";
 import User from "../models/User.js";
 import Order from "../models/Order.js";
 import Comment from "../models/Comment.js";
+import sequelize from "../models/sq.js";
 
 const productRouter = express.Router();
 
@@ -209,15 +210,39 @@ productRouter.get(
   }
 );
 
-productRouter.post("/comment", async (req, res) => {
+productRouter.post("/comment", async (req, res,next) => {
+  const receiver = req.body.receiver;
+
   const data = await Comment.create({
     content : req.body.content,
     productId : req.body.id,
     rate : req.body.rate,
     writer : req.body.writer,
-    receiver : req.body.receiver
+    receiver : receiver
   });
-  console.log("+++++++++++"+data);
+  req.data = receiver;
+  next();
+},
+    async (req, res, next) => {
+      const tmp = req.data;
+
+      const data = await Comment.findOne({
+      attributes : [[sequelize.fn('ROUND', sequelize.fn('AVG', sequelize.col('rate')), 1), 'avg']],
+      where : {receiver : req.data}
+    });
+
+      console.log("++++++++++", data);
+      console.log(data.dataValues.avg);
+      req.data = [data.dataValues.avg, tmp];
+      next();
+},
+    async (req, res) => {
+      const tmp = req.data;
+
+      await User.update(
+          {rate : tmp[0]},
+      {where : {idx : tmp[1]}
+      });
 });
 
 export default productRouter;
