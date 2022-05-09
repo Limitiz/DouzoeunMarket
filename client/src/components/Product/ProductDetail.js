@@ -54,11 +54,24 @@ function ProductDetail() {
           window.location.href = `${process.env.REACT_APP_CLIENT_URL}/soldout`;
         }
         //////////////////////////////
-
-        console.log("userId"+userId+", seller"+productInfo.seller+", buyer"+productInfo.buyer);
-        if(userId === productInfo.seller) {setBtn("edit"); console.log("edit HERE");}
-        else if(productInfo.Order !== null) {setBtn("comment"); console.log("comment HERE");}
-        else {setBtn("pay"); console.log("pay HERE");}
+        console.log(
+          "userId" +
+            userId +
+            ", seller" +
+            productInfo.seller +
+            ", buyer" +
+            productInfo.buyer
+        );
+        if (userId === productInfo.seller) {
+          setBtn("edit");
+          console.log("edit HERE");
+        } else if (productInfo.Order !== null) {
+          setBtn("comment");
+          console.log("comment HERE");
+        } else {
+          setBtn("pay");
+          console.log("pay HERE");
+        }
       } catch (e) {
         console.log(e);
       }
@@ -66,7 +79,6 @@ function ProductDetail() {
 
     fetchProduct();
   }, []);
-
 
   const clickPay = () => {
     if (email === "") {
@@ -162,7 +174,7 @@ function ProductDetail() {
                 </div>
               </Button>
 
-              { btn === "pay" ? (
+              {btn === "pay" ? (
                 <Link to={`/${id}/${email}`}>
                   <Button
                     className="pay"
@@ -181,18 +193,20 @@ function ProductDetail() {
                     &nbsp;글&nbsp;수정하기
                   </Button>
                 </Link>
-              ) : (<>
-                    <Button className="pay" onClick={()=>setModalShow(true)}>
-                      <MdAutoFixHigh className="AiFillStar"/>
-                      &nbsp;거래후기&nbsp;작성
-                    </Button>
-                    {modalShow && <CommentModal
-                        show={modalShow}
-                        setModalShow={setModalShow}
-                        onHide={() => setModalShow(false)}
+              ) : (
+                <>
+                  <Button className="pay" onClick={() => setModalShow(true)}>
+                    <MdAutoFixHigh className="AiFillStar" />
+                    &nbsp;거래후기&nbsp;작성
+                  </Button>
+                  {modalShow && (
+                    <CommentModal
+                      show={modalShow}
+                      setModalShow={setModalShow}
+                      onHide={() => setModalShow(false)}
                     />
-                    }
-                  </>
+                  )}
+                </>
               )}
             </div>
           </div>
