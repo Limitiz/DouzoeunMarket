@@ -66,6 +66,26 @@ function ProductDetail() {
           setBtn("pay");
           console.log("pay HERE");
         }
+
+        //////////////////////////////
+        console.log(
+          "userId" +
+            userId +
+            ", seller" +
+            productInfo.seller +
+            ", buyer" +
+            productInfo.buyer
+        );
+        if (userId === productInfo.seller) {
+          setBtn("edit");
+          console.log("edit HERE");
+        } else if (productInfo.Order !== null) {
+          setBtn("comment");
+          console.log("comment HERE");
+        } else {
+          setBtn("pay");
+          console.log("pay HERE");
+        }
       } catch (e) {
         console.log(e);
       }
