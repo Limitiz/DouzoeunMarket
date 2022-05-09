@@ -6,9 +6,9 @@ import Category from "../models/Category.js";
 import Common from "../models/Common.js";
 import QnA from "../models/Qna.js";
 import { Op } from "sequelize";
-import sequelize from "../models/sq.js";
 import User from "../models/User.js";
 import Order from "../models/Order.js";
+import Comment from "../models/Comment.js";
 
 const productRouter = express.Router();
 
@@ -208,5 +208,16 @@ productRouter.get(
     res.send([list, user, prod]);
   }
 );
+
+productRouter.post("/comment", async (req, res) => {
+  const data = await Comment.create({
+    content : req.body.content,
+    productId : req.body.id,
+    rate : req.body.rate,
+    writer : req.body.writer,
+    receiver : req.body.receiver
+  });
+  console.log("+++++++++++"+data);
+});
 
 export default productRouter;

@@ -20,6 +20,7 @@ function ProductDetail() {
   const [commonList, setCommonList] = useState();
   const [cName, setCName] = useState("");
   const [seller, setSeller] = useState("");
+  const [sellerId, setSellerId] = useState("");
   const [like, setLike] = useState(false);
   const [btn, setBtn] = useState("");
   const [modalShow, setModalShow] = useState(false);
@@ -38,15 +39,15 @@ function ProductDetail() {
         //좋아요 확인
         let commonInfo = res.data[0];
         let productInfo = res.data[1];
-        console.log(productInfo);
 
         setProduct(productInfo);
         setCommonList(commonInfo);
         setCName(productInfo.Category.name);
         setSeller(productInfo.User.nickName);
         setLike(!productInfo.Favorite);
+        setSellerId(productInfo.seller);
 
-        console.log("userId"+userId+", seller"+productInfo.seller+", buyer"+productInfo.buyer);
+        //console.log("userId"+userId+", seller"+productInfo.seller+", buyer"+productInfo.buyer);
         if(userId === productInfo.seller) {setBtn("edit"); console.log("edit HERE");}
         else if(productInfo.Order !== null) {setBtn("comment"); console.log("comment HERE");}
         else {setBtn("pay"); console.log("pay HERE");}
@@ -179,10 +180,9 @@ function ProductDetail() {
                     </Button>
                     {modalShow && <CommentModal
                         show={modalShow}
-                        setModalShow={setModalShow}
                         onHide={() => setModalShow(false)}
-                    />
-                    }
+                        seller={sellerId}
+                    />}
                   </>
               )}
             </div>
