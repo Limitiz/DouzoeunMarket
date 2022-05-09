@@ -8,35 +8,21 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 
 export default function MyPage() {
-  const [productNum, setPNum] = useState(0);
-  const [favoriteNum, setFNum] = useState(0);
-  const [commentNum, setCNum] = useState(0);
-  const [orderNum, setONum] = useState(0);
-  let pNum = "";
-  let fNum = "";
-  let cNum = "";
-  let oNum = "";
+  const[num, setNum] = useState([0,0,0,0]);
 
   const getAuthInfo = useSelector((state) => state);
   const { userId } = useParams();
 
   useEffect(() => {
+    async function number() {
+      const res = await axios.get(
+          `${process.env.REACT_APP_BASE_URL}/mypage/num/${userId}`
+      );
+      setNum(res.data);
+    }
+
     number();
   }, []);
-
-  async function number() {
-    const res = await axios.get(
-      `${process.env.REACT_APP_BASE_URL}/mypage/num/${userId}`
-    );
-    pNum = res.data[0];
-    setPNum(pNum);
-    fNum = res.data[1];
-    setFNum(fNum);
-    cNum = res.data[2];
-    setCNum(cNum);
-    oNum = res.data[3];
-    setONum(oNum);
-  }
 
   const auth = async () => {
     window.location.href = `${process.env.REACT_APP_BASE_URL}/isAuth`;
@@ -48,16 +34,16 @@ export default function MyPage() {
         <Profile />
 
         <Tabs defaultActiveKey="MyProduct" className="mb-5">
-          <Tab eventKey="MyProduct" title={`나의 상품 목록 (${productNum})`}>
+          <Tab eventKey="MyProduct" title={`나의 상품 목록 (${num[0]})`}>
             <Product url={`mypage/product/${userId}`} />
           </Tab>
-          <Tab eventKey="MyFavorite" title={`찜 목록 (${favoriteNum})`}>
+          <Tab eventKey="MyFavorite" title={`찜 목록 (${num[1]})`}>
             <Product url={`mypage/favorite/${userId}`} />
           </Tab>
-          <Tab eventKey="MyReview" title={`거래 후기 (${commentNum})`}>
+          <Tab eventKey="MyReview" title={`거래 후기 (${num[2]})`}>
             <Comment />
           </Tab>
-          <Tab eventKey="MyOrder" title={`나의 주문 목록 (${orderNum})`}>
+          <Tab eventKey="MyOrder" title={`나의 주문 목록 (${num[3]})`}>
             <Product url={`mypage/order/${userId}`} />
           </Tab>
         </Tabs>

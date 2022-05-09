@@ -4,6 +4,7 @@ import Product from "../models/Product.js";
 import ProductImg from "../models/ProductImg.js";
 import Favorite from "../models/Favorite.js";
 import Comment from "../models/Comment.js";
+import Order from "../models/Order.js";
 import upload from "../service/multer.js"
 
 const MyPageRouter = express.Router();
@@ -66,11 +67,14 @@ MyPageRouter.get("/order/:userId", async (req, res) => {
             model: ProductImg,
             attributes: ["imgUrl"],
             required: true
+        },{
+            model : Order,
+            required : true,
+            where : {buyer : userId}
         }
         ],
         limit:4,
-        offset:page,
-        where : {buyer : userId}
+        offset:page
     });
     res.json(data);
 })
@@ -135,7 +139,7 @@ MyPageRouter.get("/num/:userId",
     async (req, res, next) => {
         const tmp = req.data;
         const {userId} = req.params;
-        const oNum = await Product.findAndCountAll({
+        const oNum = await Order.findAndCountAll({
             where : {buyer: userId}
         });
         res.json([tmp[0], tmp[1], tmp[2], oNum.count]);

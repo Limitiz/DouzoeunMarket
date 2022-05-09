@@ -51,7 +51,6 @@ const ProductItem = ({ deliver, urlName }) => {
       price: deliver.Product.price,
       status : deliver.Product.status
     });
-    console.log("FAV", product);
     setProductImg(deliver.ProductImgs);
   }
 
@@ -62,7 +61,6 @@ const ProductItem = ({ deliver, urlName }) => {
       price: deliver.price,
       status : deliver.status
     });
-    //console.log("NOTFAV", product);
     setProductImg(deliver.ProductImgs);
   }
   return (

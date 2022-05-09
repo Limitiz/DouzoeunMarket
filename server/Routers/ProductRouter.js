@@ -8,6 +8,7 @@ import QnA from "../models/Qna.js";
 import { Op } from "sequelize";
 import sequelize from "../models/sq.js";
 import User from "../models/User.js";
+import Order from "../models/Order.js";
 
 const productRouter = express.Router();
 
@@ -32,7 +33,6 @@ productRouter.get("/", async (req, res) => {
 
 productRouter.get("/search/:title", async (req, res) => {
   const { title } = req.params;
-  console.log(title);
   const data = await Product.findAll({
     include: [{ model: ProductImg, required: true }],
     where: {
@@ -51,23 +51,7 @@ productRouter.post(
     const userId = req.body.userId;
     //const userId = req.params.userId;
 
-    console.log(id);
-    console.log(userId);
     const data = await Product.findOne({
-      attributes: [
-        "title",
-        "price",
-        "locationX",
-        "locationY",
-        "content",
-        "productStatus",
-        "exchange",
-        "shippingincluded",
-        "address",
-        "seller",
-        "buyer",
-        "status",
-      ],
       include: [
         {
           model: ProductImg,
@@ -80,19 +64,24 @@ productRouter.post(
           required: true,
         },
         {
+          model: User,
+          required : false,
+          attributes: ["nickName", "idx"]
+        },
+        {
           model: Favorite,
-          required: false,
+          required : false,
           where: { userId: userId },
         },
         {
-          model: User,
-          required: false,
-          attributes: ["nickName"],
-        },
+          model : Order,
+          required : false
+        }
       ],
       where: { idx: id },
     });
     req.data = data;
+    console.log(data);
     next();
   },
   async (req, res) => {

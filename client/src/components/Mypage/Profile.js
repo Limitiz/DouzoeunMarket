@@ -12,12 +12,8 @@ export default function Profile() {
   const [rate, setRate] = useState(0);
   const percent = rate * 20;
 
-  const getAuthInfo = useSelector((state) => state);
   const { userId } = useParams();
 
-  console.log(profileImg);
-
-  //프로필 사진 변경 함수
   const onChange = async (event) => {
     const formData = new FormData();
     formData.append('profileImg', event.target.files[0]);
