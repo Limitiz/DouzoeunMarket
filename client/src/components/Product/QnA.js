@@ -127,46 +127,52 @@ function QnA({ id }) {
         <hr />
         <div>
           {contentlist &&
-            contentlist.slice(offset, offset + limit).map((item, id) => {
-              return (
-                <div className="qnaList" key={id}>
-                  <div className="qnacontent">
-                    <div className="qnaWrite">
-                      <span>
-                        {item.writer === userId
-                          ? getAuthInfo.user.nickName
-                          : "익명의 질문자"}{" "}
-                        님의 문의 :{" "}
-                      </span>
-                      <span className="spanContent"> {item.content}</span>
-                    </div>
-                    <div className="qnaDelete">
-                      {item.writer ? (
-                        userId === item.writer ? (
-                          <Button
-                            variant="secondary"
-                            onClick={() => deleteQna(item.idx)}
-                          >
-                            삭제
-                          </Button>
-                        ) : (
-                          <div>
-                            <Button variant="danger" disabled>
-                              삭제불가
+            contentlist
+              .slice(
+                contentlist.length - (offset + limit),
+                contentlist.length - offset
+              )
+              .reverse()
+              .map((item, id) => {
+                return (
+                  <div className="qnaList" key={id}>
+                    <div className="qnacontent">
+                      <div className="qnaWrite">
+                        <span>
+                          {item.writer === userId
+                            ? getAuthInfo.user.nickName
+                            : "익명의 질문자"}{" "}
+                          님의 문의 :{" "}
+                        </span>
+                        <span className="spanContent"> {item.content}</span>
+                      </div>
+                      <div className="qnaDelete">
+                        {item.writer ? (
+                          userId === item.writer ? (
+                            <Button
+                              variant="secondary"
+                              onClick={() => deleteQna(item.idx)}
+                            >
+                              삭제
                             </Button>
-                          </div>
-                        )
-                      ) : (
-                        <Button variant="danger" disabled>
-                          삭제불가
-                        </Button>
-                      )}
+                          ) : (
+                            <div>
+                              <Button variant="danger" disabled>
+                                삭제불가
+                              </Button>
+                            </div>
+                          )
+                        ) : (
+                          <Button variant="danger" disabled>
+                            삭제불가
+                          </Button>
+                        )}
+                      </div>
                     </div>
+                    <hr style={{ width: "100%" }} />
                   </div>
-                  <hr style={{ width: "100%" }} />
-                </div>
-              );
-            })}
+                );
+              })}
         </div>
         <div>
           <Pagination

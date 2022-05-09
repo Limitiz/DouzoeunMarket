@@ -23,6 +23,8 @@ function ProductDetail() {
   const [like, setLike] = useState(false);
   const [btn, setBtn] = useState("");
   const [modalShow, setModalShow] = useState(false);
+  const [payOrEdit, setPayOrEdit] = useState(false);
+  const [sold, setSold] = useState();
 
   const { id } = useParams();
   const userId = !!getAuthInfo ? getAuthInfo.user.idx : "";
@@ -43,8 +45,15 @@ function ProductDetail() {
         setProduct(productInfo);
         setCommonList(commonInfo);
         setCName(productInfo.Category.name);
-        setSeller(productInfo.User.nickName);
+        //setSeller(productInfo.User.nickName);
         setLike(!productInfo.Favorite);
+        console.log(productInfo.status);
+
+        // 이미 팔린 상품이면 솔드아웃 페이지로 이동시키기
+        if (productInfo.status === "Y") {
+          window.location.href = `${process.env.REACT_APP_CLIENT_URL}/soldout`;
+        }
+        //////////////////////////////
 
         console.log("userId"+userId+", seller"+productInfo.seller+", buyer"+productInfo.buyer);
         if(userId === productInfo.seller) {setBtn("edit"); console.log("edit HERE");}
@@ -212,13 +221,5 @@ function ProductDetail() {
       </Tabs>
     </div>
   );
-  // } else {
-  //   return (
-  //     <div className="soldout">
-  //       <img src="https://thumbs.gfycat.com/AllVastIberianemeraldlizard-max-1mb.gif" />
-  //       <h4>이미판매된 상품입니다.</h4>
-  //     </div>
-  //   );
-  // }
 }
 export default ProductDetail;

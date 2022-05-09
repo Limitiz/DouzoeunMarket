@@ -22,6 +22,7 @@ if (cookies.get("authCookie") != null) {
 function reducer(state = getAuthInfo, action) {
   return state;
 }
+
 let store = createStore(reducer);
 
 ReactDOM.render(
