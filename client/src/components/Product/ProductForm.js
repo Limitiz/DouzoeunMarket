@@ -122,7 +122,7 @@ function ProductForm() {
 
   if (getAuthInfo.isTrue) {
     return (
-      <Form encType="multipart/form-data" method="post">
+      <Form className="postForm" encType="multipart/form-data" method="post">
         <Form.Group className="mb-3" controlId="form1">
           <Form.Label className="label">상품이미지</Form.Label>
           <br />

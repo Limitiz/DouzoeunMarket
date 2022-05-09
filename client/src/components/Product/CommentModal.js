@@ -22,6 +22,19 @@ const CommentModal = (props) => {
             });
     }
 
+    const complete = () => {
+        if (rate > 5) {
+            alert("최대 별점은 5점 입니다.");
+        } else if (rate%1 !== 0) {
+            alert(`정수를 입력해주세요.`);
+        } else if (rate < 0) {
+            alert("0보다 큰 수를 입력해주세요.");
+        } else {
+            sendComment();
+            props.onHide();
+        }
+    };
+
     return (
         <>
             <Modal
@@ -36,21 +49,21 @@ const CommentModal = (props) => {
                     <Container>
                         <h3>후기를 남겨주세요!</h3>
                         <h4>별점</h4>
-                        <input
+                        <input className="rating"
                             placeholder="점수 입력 (5점 만점)"
                             onChange={(e) => {
                                 setRate(e.target.value);
                             }}
                         />
                         <hr />
-                        <input style={{width:"80%", height:"200px", overflow:"auto"}}
+                        <input className="comment"
                             placeholder="후기"
                             onChange={(e) => {
                                 setContent(e.target.value);
                             }}
                         />
                         <hr />
-                        <Button className="PointModalButton" onClick={()=>{sendComment().then(props.onHide)}}>
+                        <Button className="CommentModalButton" onClick={()=>{complete()}}>
                             작성하기
                         </Button>
                     </Container>

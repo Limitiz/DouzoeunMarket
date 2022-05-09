@@ -1,3 +1,16 @@
+h4{
+  display: flex;
+}
+
+.rating{
+  display: flex;
+}
+
+.comment{
+  width: 80%;
+  height: 200px;
+  overflow: paged-y-controls;
+}
 .modal {
   display: none;
   position: fixed;
