@@ -77,13 +77,12 @@ MyPageRouter.get("/order/:userId", async (req, res) => {
 
 MyPageRouter.post("/img/:userId", upload.single("profileImg"), async (req, res) => {
     const {userId} = req.params;
-    const image = req.file.path;
+    const image = req.file.filename;
     await User.update(
         {img:image},
         {where:{idx:userId}}
     );
     res.json({image : image});
-    console.log("+++++++++++++UPLOAD IMAGE+++++++++++++"+image);
 });
 
 MyPageRouter.get("/profile/:userId", async (req, res) => {
@@ -139,7 +138,6 @@ MyPageRouter.get("/num/:userId",
         const oNum = await Product.findAndCountAll({
             where : {buyer: userId}
         });
-        console.log("++++++++++"+tmp[0]+", "+tmp[1]+","+tmp[2]+","+oNum.count);
         res.json([tmp[0], tmp[1], tmp[2], oNum.count]);
     }
 );
