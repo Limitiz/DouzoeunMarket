@@ -23,7 +23,6 @@ function ProductDetail() {
   const [like, setLike] = useState(false);
   const [btn, setBtn] = useState("");
   const [modalShow, setModalShow] = useState(false);
-  const [payOrEdit, setPayOrEdit] = useState(false);
   const [sold, setSold] = useState();
 
   const { id } = useParams();
@@ -45,20 +44,28 @@ function ProductDetail() {
         setProduct(productInfo);
         setCommonList(commonInfo);
         setCName(productInfo.Category.name);
-        //setSeller(productInfo.User.nickName);
+        setSeller(productInfo.User.nickName);
         setLike(!productInfo.Favorite);
-        console.log(productInfo.status);
+        setSold(productInfo.status);
 
-        // 이미 팔린 상품이면 솔드아웃 페이지로 이동시키기
-        if (productInfo.status === "Y") {
-          window.location.href = `${process.env.REACT_APP_CLIENT_URL}/soldout`;
+        console.log(
+          "userId" +
+            userId +
+            ", seller" +
+            productInfo.seller +
+            ", buyer" +
+            productInfo.buyer
+        );
+        if (userId === productInfo.seller) {
+          setBtn("edit");
+          console.log("edit HERE");
+        } else if (productInfo.Order !== null) {
+          setBtn("comment");
+          console.log("comment HERE");
+        } else {
+          setBtn("pay");
+          console.log("pay HERE");
         }
-        //////////////////////////////
-
-        console.log("userId"+userId+", seller"+productInfo.seller+", buyer"+productInfo.buyer);
-        if(userId === productInfo.seller) {setBtn("edit"); console.log("edit HERE");}
-        else if(productInfo.Order !== null) {setBtn("comment"); console.log("comment HERE");}
-        else {setBtn("pay"); console.log("pay HERE");}
       } catch (e) {
         console.log(e);
       }
@@ -66,7 +73,6 @@ function ProductDetail() {
 
     fetchProduct();
   }, []);
-
 
   const clickPay = () => {
     if (email === "") {
@@ -124,78 +130,93 @@ function ProductDetail() {
           <div className="carouselwidth">
             <DetailCarousel deliver={product} />
           </div>
-          <div className="productInfo">
-            <p className="pTitle">{product.title}</p>
-            <p className="pPrice">{product.price}원</p>
-            <hr />
-            <div className="common">
-              <ul className="commonkey">
-                {commonList ? (
-                  commonList.map((item, id) => {
-                    return <li key={id}>{item.Column}</li>;
-                  })
-                ) : (
-                  <></>
-                )}
-              </ul>
-              <ul className="commonvalue">
-                <li>{product.productStatus}</li>
-                <li>{product.exchange}</li>
-                <li>{product.address}</li>
-                <li>{product.shippingincluded}</li>
-              </ul>
-            </div>
-            <div className="Buttons">
-              <Button
-                className=""
-                onClick={() => {
-                  postProduct();
-                }}
-              >
-                <div>
-                  {like ? (
-                    <AiOutlineLike className="jjimIcon"></AiOutlineLike>
+          {sold === "N" ? (
+            <div className="productInfo">
+              <p className="pTitle">{product.title}</p>
+              <p className="pPrice">{product.price}원</p>
+              <hr />
+              <div className="common">
+                <ul className="commonkey">
+                  {commonList ? (
+                    commonList.map((item, id) => {
+                      return <li key={id}>{item.Column}</li>;
+                    })
                   ) : (
-                    <AiFillLike className="jjimIcon"></AiFillLike>
+                    <></>
                   )}
-                  {like ? "Unlike" : "Like"}
-                </div>
-              </Button>
+                </ul>
+                <ul className="commonvalue">
+                  <li>{product.productStatus}</li>
+                  <li>{product.exchange}</li>
+                  <li>{product.address}</li>
+                  <li>{product.shippingincluded}</li>
+                </ul>
+              </div>
+              <div className="Buttons">
+                <Button
+                  className=""
+                  onClick={() => {
+                    postProduct();
+                  }}
+                >
+                  <div>
+                    {like ? (
+                      <AiOutlineLike className="jjimIcon"></AiOutlineLike>
+                    ) : (
+                      <AiFillLike className="jjimIcon"></AiFillLike>
+                    )}
+                    {like ? "Unlike" : "Like"}
+                  </div>
+                </Button>
 
-              { btn === "pay" ? (
-                <Link to={`/${id}/${email}`}>
-                  <Button
-                    className="pay"
-                    onClick={() => {
-                      clickPay();
-                    }}
-                  >
-                    <SiKakao className="kakao" />
-                    &nbsp;pay
-                  </Button>
-                </Link>
-              ) : btn === "edit" ? (
-                <Link to="/">
-                  <Button className="pay">
-                    <MdAutoFixHigh className="fix" />
-                    &nbsp;글&nbsp;수정하기
-                  </Button>
-                </Link>
-              ) : (<>
-                    <Button className="pay" onClick={()=>setModalShow(true)}>
-                      <MdAutoFixHigh className="AiFillStar"/>
+                {btn === "pay" ? (
+                  <Link to={`/${id}/${email}`}>
+                    <Button
+                      className="pay"
+                      onClick={() => {
+                        clickPay();
+                      }}
+                    >
+                      <SiKakao className="kakao" />
+                      &nbsp;pay
+                    </Button>
+                  </Link>
+                ) : btn === "edit" ? (
+                  <Link to="/">
+                    <Button className="pay">
+                      <MdAutoFixHigh className="fix" />
+                      &nbsp;글&nbsp;수정하기
+                    </Button>
+                  </Link>
+                ) : (
+                  <>
+                    <Button className="pay" onClick={() => setModalShow(true)}>
+                      <MdAutoFixHigh className="AiFillStar" />
                       &nbsp;거래후기&nbsp;작성
                     </Button>
-                    {modalShow && <CommentModal
+                    {modalShow && (
+                      <CommentModal
                         show={modalShow}
                         setModalShow={setModalShow}
                         onHide={() => setModalShow(false)}
-                    />
-                    }
+                      />
+                    )}
                   </>
-              )}
+                )}
+              </div>
             </div>
-          </div>
+          ) : (
+            <div
+              className="productInfo"
+              style={{ textAlign: "center", padding: "30px" }}
+            >
+              <img
+                src="https://thumbs.gfycat.com/AllVastIberianemeraldlizard-max-1mb.gif"
+                style={{ width: "50%" }}
+              />
+              <h4>이미 판매된 상품입니다.</h4>
+            </div>
+          )}
         </div>
       </div>
       <Tabs defaultActiveKey="MyProduct" className="mb-5">
