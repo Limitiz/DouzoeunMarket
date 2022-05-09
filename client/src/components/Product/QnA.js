@@ -32,7 +32,6 @@ function QnA({ id }) {
         `${process.env.REACT_APP_BASE_URL}/product/detail/qna/${id}`,
         { idx: id, qnacontent: qnacontent, writer: userId }
       );
-      console.log(res.data);
       setQnacontent(res.data);
       setContentlist([...contentlist, res.data]);
     } catch (e) {
@@ -77,7 +76,6 @@ function QnA({ id }) {
         const res = await axios.get(
           `${process.env.REACT_APP_BASE_URL}/product/detail/qna/${id}`
         );
-        console.log(res.data);
         setContentlist(res.data);
       } catch (e) {
         console.log(e);

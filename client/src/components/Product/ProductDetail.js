@@ -12,6 +12,7 @@ import DetailCarousel from "./DetailCarousel";
 import QnA from "./QnA";
 import "../../css/ProductDetail.scss";
 import "../../css/Main.scss";
+import CommentModal from "./CommentModal.js";
 
 function ProductDetail() {
   const getAuthInfo = useSelector((state) => state);
@@ -20,6 +21,8 @@ function ProductDetail() {
   const [cName, setCName] = useState("");
   const [seller, setSeller] = useState("");
   const [like, setLike] = useState(false);
+  const [btn, setBtn] = useState("");
+  const [modalShow, setModalShow] = useState(false);
   const [payOrEdit, setPayOrEdit] = useState(false);
   const [sold, setSold] = useState();
 
@@ -35,7 +38,6 @@ function ProductDetail() {
           { id: id, userId: userId }
         );
         //좋아요 확인
-
         let commonInfo = res.data[0];
         let productInfo = res.data[1];
         console.log(productInfo);
@@ -53,18 +55,25 @@ function ProductDetail() {
         }
         //////////////////////////////
 
-        setPayOrEdit(userId === productInfo.seller ? true : false);
+        console.log("userId"+userId+", seller"+productInfo.seller+", buyer"+productInfo.buyer);
+        if(userId === productInfo.seller) {setBtn("edit"); console.log("edit HERE");}
+        else if(productInfo.Order !== null) {setBtn("comment"); console.log("comment HERE");}
+        else {setBtn("pay"); console.log("pay HERE");}
       } catch (e) {
         console.log(e);
       }
     };
+
     fetchProduct();
   }, []);
+
+
   const clickPay = () => {
     if (email === "") {
       alert("로그인 이후에 결제하실 수 있습니다!");
     }
   };
+
   const postProduct = async () => {
     if (userId === "") {
       alert("로그인 이후에 이용하실 수 있습니다!");
@@ -153,7 +162,7 @@ function ProductDetail() {
                 </div>
               </Button>
 
-              {!payOrEdit ? (
+              { btn === "pay" ? (
                 <Link to={`/${id}/${email}`}>
                   <Button
                     className="pay"
@@ -165,13 +174,25 @@ function ProductDetail() {
                     &nbsp;pay
                   </Button>
                 </Link>
-              ) : (
+              ) : btn === "edit" ? (
                 <Link to="/">
                   <Button className="pay">
                     <MdAutoFixHigh className="fix" />
                     &nbsp;글&nbsp;수정하기
                   </Button>
                 </Link>
+              ) : (<>
+                    <Button className="pay" onClick={()=>setModalShow(true)}>
+                      <MdAutoFixHigh className="AiFillStar"/>
+                      &nbsp;거래후기&nbsp;작성
+                    </Button>
+                    {modalShow && <CommentModal
+                        show={modalShow}
+                        setModalShow={setModalShow}
+                        onHide={() => setModalShow(false)}
+                    />
+                    }
+                  </>
               )}
             </div>
           </div>

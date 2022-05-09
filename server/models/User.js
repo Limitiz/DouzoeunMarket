@@ -6,6 +6,7 @@ import Favorite from "./Favorite.js";
 import ChatRoom from "./ChatRoom.js";
 import ChatMessage from "./ChatMessage.js";
 import QnA from "./QnA.js";
+import Order from "./Order.js";
 
 const User = sequelize.define(
   "User",
@@ -54,7 +55,6 @@ const User = sequelize.define(
 
 User.associate = () => {
   User.hasMany(Product, { foreignKey: "seller", sourceKey: "idx" });
-  User.hasMany(Product, { foreignKey: "buyer", sourceKey: "idx" });
   User.hasMany(Comment, { foreignKey: "receiver", sourceKey: "idx" });
   User.hasMany(Comment, { foreignKey: "writer", sourceKey: "idx" });
   User.hasMany(Favorite, { foreignKey: "userId", sourceKey: "idx" });
@@ -63,6 +63,7 @@ User.associate = () => {
   User.hasMany(ChatMessage, { foreignKey: "sender", sourceKey: "idx" });
   User.hasMany(QnA, { foreignKey: "writer", sourceKey: "idx" });
   User.hasMany(QnA, { foreignKey: "reader", sourceKey: "idx" });
+  User.hasMany(Order, {foreignKey: "buyer", sourceKey:"idx"});
 };
 
 export default User;

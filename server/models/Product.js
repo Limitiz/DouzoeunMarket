@@ -7,6 +7,7 @@ import Category from "./Category.js";
 import Favorite from "./Favorite.js";
 import Comment from "./Comment.js";
 import QnA from "./QnA.js";
+import Order from "./Order.js";
 
 const Product = sequelize.define(
   "Product",
@@ -47,9 +48,6 @@ const Product = sequelize.define(
     address: {
       type: DataTypes.STRING(64),
     },
-    buyer: {
-      type: DataTypes.INTEGER,
-    },
   },
 
   //Model 옵션 정의
@@ -64,13 +62,13 @@ const Product = sequelize.define(
 
 Product.associate = () => {
   Product.belongsTo(User, { foreignKey: "seller", sourceKey: "idx" });
-  Product.belongsTo(User, { foreignKey: "buyer", sourceKey: "idx" });
   Product.belongsTo(Category, { foreignKey: "categoryId", sourceKey: "idx" });
   Product.hasMany(ProductImg, { foreignKey: "productId", sourceKey: "idx" });
   Product.hasOne(Favorite, { foreignKey: "productId", sourceKey: "idx" });
   Product.hasOne(ChatRoom, { foreignKey: "productId", sourceKey: "idx" });
   Product.hasOne(Comment, { foreignKey: "productId", sourceKey: "idx" });
   Product.hasMany(QnA, { foreignKey: "productId", sourceKey: "idx" });
+  Product.hasOne(Order, {foreignKey : "productId", sourceKey: "idx"});
 };
 
 export default Product;
