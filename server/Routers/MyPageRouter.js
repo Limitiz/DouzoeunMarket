@@ -40,7 +40,7 @@ MyPageRouter.get("/favorite/:userId", async (req, res) => {
             where : {idx : userId}
         }, {
             model: Product,
-            attributes: ["title", "price"],
+            attributes: ["idx", "title", "price"],
             required: true
         },{
             model:ProductImg,
