@@ -127,6 +127,16 @@ function ProductForm() {
             사진은 최대 10장까지 선택 가능합니다
           </Form.Text>
           <ImgList previewImgs={previewImgs} onRemove={onRemove} />
+          {previewImgs.map(() => (
+            <Form.Control
+              name="many"
+              type="file"
+              hidden="hidden"
+              className="input"
+              onChange={(e) => insertImg(e)}
+              accept="image/*"
+            />
+          ))}
           {previewImgs.length < 10 ? (
             <Form.Control
               name="many"

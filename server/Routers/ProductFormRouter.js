@@ -8,7 +8,7 @@ const productFormRouter = express.Router();
 //await는 async안에서 사용할수 있다
 //await를 사용해야 동기적으로 보낼수 있다
 
-productFormRouter.post("/", upload.single("prodImgs"), async (req, res) => {
+productFormRouter.post("/", upload.array("many"), async (req, res) => {
   console.log(req.body.formData);
   const title = req.body.title;
   const category = req.body.category;
@@ -34,9 +34,9 @@ productFormRouter.post("/", upload.single("prodImgs"), async (req, res) => {
 
   //imgs = [ Img, img ]
   //img = { id, imageData }
-  // for (let i = 0; i < imgs.length; i++) {
-  //   ProductImg.create({
-  //     imgUrl: imgs[i].ImgData,
+  // for (let i = 0; i < formData.length; i++) {
+  //   await ProductImg.create({
+  //     imgUrl: formData[0].filename,
   //   });
   // }
   /*
