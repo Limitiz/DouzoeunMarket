@@ -230,9 +230,6 @@ productRouter.post("/comment", async (req, res,next) => {
       attributes : [[sequelize.fn('ROUND', sequelize.fn('AVG', sequelize.col('rate')), 1), 'avg']],
       where : {receiver : req.data}
     });
-
-      console.log("++++++++++", data);
-      console.log(data.dataValues.avg);
       req.data = [data.dataValues.avg, tmp];
       next();
 },

@@ -64,7 +64,6 @@ const ProductItem = ({ deliver, urlName }) => {
     setProductImg(deliver.ProductImgs);
   }
 
-  console.log("item",deliver)
   return (
     <>
       <span>

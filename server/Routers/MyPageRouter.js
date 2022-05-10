@@ -107,9 +107,8 @@ MyPageRouter.get("/num/:userId",
                 required: false,
                 where: {idx: userId}
             }],
-            where : {idx : userId}
+            where : {seller : userId}
         });
-
         req.data = pNum.count;
         next();
     },
@@ -124,6 +123,7 @@ MyPageRouter.get("/num/:userId",
             }]
         });
 
+        console.log("++++++++FFFF"+JSON.stringify(fNum.rows));
         req.data = [tmp, fNum.count];
         next();
     },

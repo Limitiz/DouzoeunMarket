@@ -32,13 +32,16 @@ export default function Profile() {
         );
         setNick(res.data.nickName);
         setRate(res.data.rate);
-        setImg(`${process.env.REACT_APP_BASE_URL}/${res.data.img}`);
+        await res.data.img.split(":")[0] === "http" ? await setImg(res.data.img)
+            : await setImg(`${process.env.REACT_APP_BASE_URL}/${res.data.img}`)
       } catch (error) {
         console.log(error);
       }
     };
     getUserInfo();
   }, [profileImg]);
+
+
 
   async function withdraw() {
     if (window.confirm("탈퇴하시겠습니까?")) {
