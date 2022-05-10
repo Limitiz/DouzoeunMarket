@@ -49,7 +49,7 @@ function ProductDetail() {
         setSold(productInfo.status);
         setSellerId(productInfo.seller);
         console.log(productInfo.status);
-        
+
         console.log(
           "userId" +
             userId +
@@ -69,11 +69,23 @@ function ProductDetail() {
           console.log("pay HERE");
         }
 
-        //console.log("userId"+userId+", seller"+productInfo.seller+", buyer"+productInfo.buyer);
-        if(userId === productInfo.seller) {setBtn("edit");}
-        else if(productInfo.Order !== null) {setBtn("comment");}
-        else {setBtn("pay"); }
+        console.log(
+          "userId" +
+            userId +
+            ", seller" +
+            productInfo.seller +
+            ", buyer" +
+            productInfo.buyer
+        );
 
+        //console.log("userId"+userId+", seller"+productInfo.seller+", buyer"+productInfo.buyer);
+        if (userId === productInfo.seller) {
+          setBtn("edit");
+        } else if (productInfo.Order !== null) {
+          setBtn("comment");
+        } else {
+          setBtn("pay");
+        }
       } catch (e) {
         console.log(e);
       }
@@ -207,7 +219,8 @@ function ProductDetail() {
                         show={modalShow}
                         onHide={() => setModalShow(false)}
                         seller={sellerId}
-                    />)}
+                      />
+                    )}
                   </>
                 )}
               </div>
