@@ -43,6 +43,7 @@ function ProductDetail() {
 
         setProduct(productInfo);
         setCommonList(commonInfo);
+        console.log(productInfo);
         setCName(productInfo.Category.name);
         setSeller(productInfo.User.nickName);
         setLike(!productInfo.Favorite);

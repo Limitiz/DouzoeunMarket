@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Link, Router, useParams } from "react-router-dom";
+import { Linkr, useParams } from "react-router-dom";
 import "bootstrap";
 import "../../css/Profile.scss";
 import axios from "axios";
@@ -16,12 +16,16 @@ export default function Profile() {
 
   const onChange = async (event) => {
     const formData = new FormData();
-    formData.append('profileImg', event.target.files[0]);
-    axios.post(`${process.env.REACT_APP_BASE_URL}/mypage/img/${userId}`,
-        formData, {header : {'content-type' : 'multipart.form-data'}
-    }).then((res) => {
-      setImg(res.data.image);
-    })
+    formData.append("profileImg", event.target.files[0]);
+    axios
+      .post(
+        `${process.env.REACT_APP_BASE_URL}/mypage/img/${userId}`,
+        formData,
+        { header: { "content-type": "multipart.form-data" } }
+      )
+      .then((res) => {
+        setImg(res.data.image);
+      });
   };
 
   useEffect(() => {
@@ -59,8 +63,7 @@ export default function Profile() {
         src={profileImg}
         onClick={() => {
           fileInput.current.click();
-        }
-      }
+        }}
       />
       <form encType="multipart/form-data">
         <input
