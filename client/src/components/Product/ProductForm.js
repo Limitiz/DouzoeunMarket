@@ -9,7 +9,6 @@ import axios from "axios";
 
 function ProductForm() {
   const getAuthInfo = useSelector((state) => state);
-  const formData = new FormData();
   const count = useRef(0);
 
   //이미지외 입력 객체
@@ -30,6 +29,7 @@ function ProductForm() {
   const [previewImgs, setPreviewImgs] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [address, setAddress] = useState("");
+  const [hidden, setHidden] = useState();
 
   useEffect(() => {
     setTexts({
@@ -60,7 +60,7 @@ function ProductForm() {
       if (Img) {
         setPreviewImgs([...previewImgs, Img]);
       }
-
+      setHidden("hidden");
       count.current += 1;
     };
 
@@ -87,8 +87,6 @@ function ProductForm() {
   };
 
   function final(e) {
-    console.log(e.target.file + "==================");
-    //formData.append("prodImgs", e.target.files);
     postForm();
     fimgs();
     window.open(`http://localhost:3000/`, "_blank");
@@ -101,7 +99,6 @@ function ProductForm() {
       const res = await axios.post(
         `${process.env.REACT_APP_BASE_URL}/new`,
         texts,
-        formData,
         { header: { "content-type": "multipart.form-data" } }
       );
     } catch (e) {
@@ -132,6 +129,7 @@ function ProductForm() {
               name="many"
               type="file"
               className="input"
+              multiple={true}
               onChange={(e) => insertImg(e)}
               accept="image/*"
             />
@@ -148,6 +146,14 @@ function ProductForm() {
             name="title"
             className="input"
             onChange={onChange}
+          />
+          <Form.Control
+            type="text"
+            placeholder="제목"
+            name="seller"
+            value={getAuthInfo.user.idx}
+            className="input"
+            hidden="hidden"
           />
           <Form.Text className="text-muted">
             한글자 이상 40글자 이내로 작성해주세요

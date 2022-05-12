@@ -26,7 +26,7 @@ productRouter.get("/", async (req, res) => {
     ],
     limit: 4,
     offset: page,
-    order: [["updatedAt", "ASC"]],
+    order: [["updatedAt", "DESC"]],
   });
 
   res.json(data);
@@ -210,26 +210,34 @@ productRouter.get(
   }
 );
 
-productRouter.post("/comment", async (req, res,next) => {
-  const receiver = req.body.receiver;
+productRouter.post(
+  "/comment",
+  async (req, res, next) => {
+    const receiver = req.body.receiver;
 
-  const data = await Comment.create({
-    content : req.body.content,
-    productId : req.body.id,
-    rate : req.body.rate,
-    writer : req.body.writer,
-    receiver : receiver
-  });
-  req.data = receiver;
-  next();
-},
-    async (req, res, next) => {
-      const tmp = req.data;
-
-      const data = await Comment.findOne({
-      attributes : [[sequelize.fn('ROUND', sequelize.fn('AVG', sequelize.col('rate')), 1), 'avg']],
-      where : {receiver : req.data}
+    const data = await Comment.create({
+      content: req.body.content,
+      productId: req.body.id,
+      rate: req.body.rate,
+      writer: req.body.writer,
+      receiver: receiver,
     });
+    req.data = receiver;
+    next();
+  },
+  async (req, res, next) => {
+    const tmp = req.data;
+
+    const data = await Comment.findOne({
+      attributes: [
+        [
+          sequelize.fn("ROUND", sequelize.fn("AVG", sequelize.col("rate")), 1),
+          "avg",
+        ],
+      ],
+      where: { receiver: req.data },
+    });
+
       req.data = [data.dataValues.avg, tmp];
       next();
 },

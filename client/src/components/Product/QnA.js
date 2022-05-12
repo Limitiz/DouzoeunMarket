@@ -129,7 +129,7 @@ function QnA({ id }) {
           {contentlist &&
             contentlist
               .slice(
-                contentlist.length - (offset + limit),
+                contentlist.length - (offset + limit), //     5 + 5 =>    10 - 10 slice(시작, 종료) 5 10 0, 5 10 9 8 7 6   54321
                 contentlist.length - offset
               )
               .reverse()
