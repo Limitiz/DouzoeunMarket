@@ -238,16 +238,16 @@ productRouter.post(
       where: { receiver: req.data },
     });
 
-    console.log("++++++++++", data);
-    console.log(data.dataValues.avg);
-    req.data = [data.dataValues.avg, tmp];
-    next();
-  },
-  async (req, res) => {
-    const tmp = req.data;
+      req.data = [data.dataValues.avg, tmp];
+      next();
+},
+    async (req, res) => {
+      const tmp = req.data;
 
-    await User.update({ rate: tmp[0] }, { where: { idx: tmp[1] } });
-  }
-);
+      await User.update(
+          {rate : tmp[0]},
+      {where : {idx : tmp[1]}
+      });
+});
 
 export default productRouter;
