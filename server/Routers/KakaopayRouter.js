@@ -3,6 +3,7 @@ import request from "request";
 import Product from "../models/Product.js";
 import requestPromise from "request-promise-native";
 import User from "../models/User.js";
+import Order from "../models/Order.js";
 
 const KakaopayRouter = express.Router();
 const MY_ADMIN_KEY = "3c39e5a36b74462767fb1ce4fc2e8ba8";

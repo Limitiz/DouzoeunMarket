@@ -151,83 +151,95 @@ function ProductDetail() {
           <div className="carouselwidth">
             <DetailCarousel deliver={product} />
           </div>
-          {sold === "N" ? (
-            <div className="productInfo">
-              <p className="pTitle">{product.title}</p>
-              <p className="pPrice">{product.price}원</p>
-              <hr />
-              <div className="common">
-                <ul className="commonkey">
-                  {commonList ? (
-                    commonList.map((item, id) => {
-                      return <li key={id}>{item.Column}</li>;
-                    })
-                  ) : (
-                    <></>
-                  )}
-                </ul>
-                <ul className="commonvalue">
-                  <li>{product.productStatus}</li>
-                  <li>{product.exchange}</li>
-                  <li>{product.address}</li>
-                  <li>{product.shippingincluded}</li>
-                </ul>
-              </div>
-              <div className="Buttons">
-                <Button
-                  className=""
-                  onClick={() => {
-                    postProduct();
-                  }}
-                >
-                  <div>
-                    {like ? (
-                      <AiOutlineLike className="jjimIcon"></AiOutlineLike>
-                    ) : (
-                      <AiFillLike className="jjimIcon"></AiFillLike>
-                    )}
-                    {like ? "Unlike" : "Like"}
-                  </div>
-                </Button>
 
-                {btn === "pay" ? (
-                  <Link to={`/${id}/${email}`}>
-                    <Button
-                      className="pay"
-                      onClick={() => {
-                        clickPay();
-                      }}
-                    >
-                      <SiKakao className="kakao" />
-                      &nbsp;pay
-                    </Button>
-                  </Link>
-                ) : btn === "edit" ? (
-                  <Link to="/">
-                    <Button className="pay">
-                      <MdAutoFixHigh className="fix" />
-                      &nbsp;글&nbsp;수정하기
-                    </Button>
-                  </Link>
-                ) : (
-                  <>
-                    <Button className="pay" onClick={() => setModalShow(true)}>
-                      <MdAutoFixHigh className="AiFillStar" />
-                      &nbsp;거래후기&nbsp;작성
-                    </Button>
-                    {modalShow && (
-                      <CommentModal
-                        show={modalShow}
-                        onHide={() => setModalShow(false)}
-                        seller={sellerId}
-                      />
+          <div className="productInfo">
+            {sold === "N" ? (
+              <div>
+                <p className="pTitle">{product.title}</p>
+                <p className="pPrice">{product.price}원</p>
+                <hr />
+                <div className="common">
+                  <ul className="commonkey">
+                    {commonList ? (
+                      commonList.map((item, id) => {
+                        return <li key={id}>{item.Column}</li>;
+                      })
+                    ) : (
+                      <></>
                     )}
-                  </>
-                )}
+                  </ul>
+                  <ul className="commonvalue">
+                    <li>{product.productStatus}</li>
+                    <li>{product.exchange}</li>
+                    <li>{product.address}</li>
+                    <li>{product.shippingincluded}</li>
+                  </ul>
+                </div>
               </div>
+            ) : (
+              <div style={{ textAlign: "center", padding: "30px" }}>
+                <img
+                  src="https://thumbs.gfycat.com/AllVastIberianemeraldlizard-max-1mb.gif"
+                  style={{ width: "50%" }}
+                />
+                <h4>이미 판매된 상품입니다.</h4>
+              </div>
+            )}
+
+            <div className="Buttons">
+              <Button
+                className=""
+                onClick={() => {
+                  postProduct();
+                }}
+              >
+                <div>
+                  {like ? (
+                    <AiOutlineLike className="jjimIcon"></AiOutlineLike>
+                  ) : (
+                    <AiFillLike className="jjimIcon"></AiFillLike>
+                  )}
+                  {like ? "Unlike" : "Like"}
+                </div>
+              </Button>
+
+              {btn === "pay" ? (
+                <Link to={`/${id}/${email}`}>
+                  <Button
+                    className="pay"
+                    onClick={() => {
+                      clickPay();
+                    }}
+                  >
+                    <SiKakao className="kakao" />
+                    &nbsp;pay
+                  </Button>
+                </Link>
+              ) : btn === "edit" ? (
+                <Link to="/">
+                  <Button className="pay">
+                    <MdAutoFixHigh className="fix" />
+                    &nbsp;글&nbsp;수정하기
+                  </Button>
+                </Link>
+              ) : (
+                <>
+                  <Button className="pay" onClick={() => setModalShow(true)}>
+                    <MdAutoFixHigh className="AiFillStar" />
+                    &nbsp;거래후기&nbsp;작성
+                  </Button>
+                  {modalShow && (
+                    <CommentModal
+                      show={modalShow}
+                      onHide={() => setModalShow(false)}
+                      seller={sellerId}
+                    />
+                  )}
+                </>
+              )}
             </div>
-          ) : (
-            <div
+            {/* ) : (
+              <div
               className="productInfo"
               style={{ textAlign: "center", padding: "30px" }}
             >
@@ -237,7 +249,8 @@ function ProductDetail() {
               />
               <h4>이미 판매된 상품입니다.</h4>
             </div>
-          )}
+          )} */}
+          </div>
         </div>
       </div>
       <Tabs defaultActiveKey="MyProduct" className="mb-5">

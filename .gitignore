@@ -13,6 +13,9 @@
 .idea/**/dictionaries
 .idea/**/shelf
 
+
+
+config/
 .env
 yarn.lock
 # AWS User-specific

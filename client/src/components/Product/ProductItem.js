@@ -49,7 +49,7 @@ const ProductItem = ({ deliver, urlName }) => {
       idx: deliver.Product.idx,
       title: deliver.Product.title,
       price: deliver.Product.price,
-      status : deliver.Product.status
+      status: deliver.Product.status,
     });
     setProductImg(deliver.ProductImgs);
   }
@@ -59,7 +59,7 @@ const ProductItem = ({ deliver, urlName }) => {
       idx: deliver.idx,
       title: deliver.title,
       price: deliver.price,
-      status : deliver.status
+      status: deliver.status,
     });
     setProductImg(deliver.ProductImgs);
   }
@@ -69,7 +69,7 @@ const ProductItem = ({ deliver, urlName }) => {
       <span>
         <div className="thumbnail">
           <Link to={`/${product.idx}`}>
-            <img src={ProductImgs[0].imgUrl} alt="thumbnail" />
+            <img src={`/` + ProductImgs[0].imgUrl} alt="thumbnail" />
           </Link>
         </div>
         {deliver.status === "Y" ? (
