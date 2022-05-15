@@ -13,8 +13,11 @@ const Location = ({ deliver }) => {
         level: 3, // 지도의 확대 레벨
       };
     var map = new kakao.maps.Map(container, mapOption);
+
     var geocoder = new kakao.maps.services.Geocoder();
-    console.log(address);
+
+    console.log(deliver.address);
+
     geocoder.addressSearch(address, function (result, status) {
       console.log("맵 주소 위도경도 변환 함수 실행");
       if (status === kakao.maps.services.Status.OK) {
@@ -30,7 +33,7 @@ const Location = ({ deliver }) => {
         marker.setMap(coords);
       }
     });
-  }, []);
+  }, [address]);
 
   return (
     <div className="mapContainer">
