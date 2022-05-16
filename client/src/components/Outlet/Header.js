@@ -77,7 +77,7 @@ const Header = () => {
         </Link>
       </div>
 
-      <div>{searchTitle}</div>
+      {/* <div>{searchTitle}</div> */}
 
       {/* <form className="search-container" action="">
         <input id="search-box" type="text" className="search-box" name="q" />

@@ -100,7 +100,7 @@ export default function Transaction() {
     <>
       <div className="main mainPay">
         <div className="userImg">
-          <img src={imgUrl}></img>
+          <img src={`/` + imgUrl}></img>
         </div>
         <div className="user_prod payInfo">
           <h3>더조은 마켓을 이용해 거래합니다.</h3>
@@ -126,7 +126,7 @@ export default function Transaction() {
       </div>
       <hr />
       <Form>
-        <fieldset>
+        <fieldset className="main">
           <Form.Group className="mb-3">
             <Form.Label>배송지</Form.Label>
             <div className="addr">

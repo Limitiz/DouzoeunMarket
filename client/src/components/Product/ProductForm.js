@@ -89,7 +89,7 @@ function ProductForm() {
   function final(e) {
     postForm();
     fimgs();
-    window.open(`http://localhost:3000/`, "_blank");
+    //window.open(`http://localhost:3000/`, "_blank");
   }
   function fimgs() {
     console.log(texts);
